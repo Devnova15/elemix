@@ -4,7 +4,9 @@
   "description": "eccomirs-shop",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node index.js",
+    "build": "gulp build",
+    "dev": "gulp dev"
   },
   "keywords": [],
   "author": "",
