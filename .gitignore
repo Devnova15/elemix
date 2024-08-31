@@ -1,0 +1,44 @@
+# Node.js
+node_modules/
+package-lock.json
+yarn.lock
+npm-debug.log
+yarn-error.log
+
+# Директорий для сборки
+dist/
+build/
+
+# Логи
+*.log
+
+# Конфигурационные файлы
+.env
+*.env.local
+*.env.*.local
+
+# Кэш
+.cache/
+*.tmp
+
+# Файлы системы
+.DS_Store
+Thumbs.db
+
+# IDE файлы
+.vscode/
+.idea/
+*.suo
+*.ntvs_analysis.dat
+*.ncb
+
+# Секретные файлы
+*.pem
+*.key
+*.crt
+
+# Прочее
+*.bak
+*.swp
+*.swo
+*.swn
