@@ -1,7 +1,7 @@
-const BASE_URL = 'https://dummyjson.com';
+const API = 'https://dummyjson.com';
 const PRODUCTS_ENDPOINT = '/products';
 
-fetch(`${BASE_URL}${PRODUCTS_ENDPOINT}`)
+fetch(`${API}${PRODUCTS_ENDPOINT}`)
     .then(res => res.json())
     .then(console.log);
 
