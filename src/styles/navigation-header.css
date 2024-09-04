@@ -1,0 +1,130 @@
+/* Убираем отступы у body */
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Основные стили для header */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f8d9d9;
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+/* Стили для поиска */
+.header-search {
+    display: flex;
+    align-items: center;
+    border-radius: 20px;
+    background-color: #f1f1f1;
+    padding: 5px 15px;
+    margin-right: auto;
+    margin-left: 30px;
+}
+
+.header-search__input {
+    border: none;
+    background-color: transparent;
+    outline: none;
+    padding: 5px;
+    font-size: 14px;
+    color: #555;
+}
+
+.header-search__button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.header-search__icon {
+    fill: black;
+    width: 16px;
+    height: 16px;
+}
+
+/* Стили для меню */
+.header-menu {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+.header-menu__list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.header-menu__item {
+    margin: 0 15px;
+}
+
+.header-menu__link {
+    text-decoration: none;
+    font-size: 14px;
+    color: #333;
+    font-weight: 400;
+}
+
+/* Стили для логотипа */
+.header-logo {
+    margin: 0 50px;
+}
+
+.header-logo__link {
+    width: 70px;
+    height: auto;
+}
+
+/* Стили для иконок */
+.header-icons {
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* Сдвигаем иконки левее к центру */
+    margin-right: 30px; /* Отступ справа для небольшого смещения */
+}
+
+.header-icon {
+    margin: 0 10px;
+    color: #333;
+    font-size: 18px;
+    position: relative;
+}
+
+.header-icon__wishlist .fa-heart,
+.header-icon__user .fa-user,
+.header-icon__cart .fa-shopping-cart,
+.header-icon__menu .fa-bars {
+    font-size: 18px;
+}
+
+.header-icon__cart {
+    margin-right: 10px;
+    position: relative;
+}
+
+/* Стили для счетчика товаров в корзине */
+.header-icon__cart-count {
+    content: '0';
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: #d84545;
+    color: #fff;
+    font-size: 10px;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}

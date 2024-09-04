@@ -6,57 +6,58 @@
     <link rel="stylesheet" href="../styles/reset.css">
     <link rel="stylesheet" href="../styles/navigation-header.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 </head>
 <body>
 
-<nav class="header">
+<header class="header">
     <div class="header-search">
 
-    <input type="text" class="header-search__input" placeholder="Search...">
+        <input type="text" class="header-search__input" placeholder="Search...">
 
         <button class="header-search__button">
-
-            <svg class="header-search__icon">
-
-            </svg>
-
-        </button>
-
+            <i class="fa fa-search"></i>
+</button>
     </div>
 
-    <ul class="header-menu">
+    <nav class="header-menu">
+    <ul class="header-menu__list">
         <li class="header-menu__item"><a href="#" class="header-menu__link">Home</a></li>
         <li class="header-menu__item"><a href="#" class="header-menu__link">Shop</a></li>
         <li class="header-menu__item"><a href="#" class="header-menu__link">Pages</a></li>
+        <div class="header-logo">
+            <img  class="header-logo__link" src="https://elemix.pixel-show.com/wp-content/uploads/2021/01/logo.png" alt="Logo image" itemprop="logo" srcset="https://elemix.pixel-show.com/wp-content/uploads/2021/01/logo.png 1x, https://elemix.pixel-show.com/wp-content/uploads/2021/01/logo.png 2x" alt="#">
+        </div>
         <li class="header-menu__item"><a href="#" class="header-menu__link">Blog</a></li>
         <li class="header-menu__item"><a href="#" class="header-menu__link">About</a></li>
         <li class="header-menu__item"><a href="#" class="header-menu__link">Contact</a></li>
     </ul>
+    </nav>
 
-    <div class="header-logo">
-        <img  class="header-logo__link" src="https://elemix.pixel-show.com/wp-content/uploads/2021/01/logo.png" alt="Logo image" itemprop="logo" srcset="https://elemix.pixel-show.com/wp-content/uploads/2021/01/logo.png 1x, https://elemix.pixel-show.com/wp-content/uploads/2021/01/logo.png 2x" alt="#">
-    </div>
+
 
     <div class="header-icons">
         <a href="#" class="header-icon header-icon__wishlist">
-<!--  сюда иконку сердечка потом добавить-->
+            <i class="fa fa-heart"></i>
         </a>
 
         <a href="#" class="header-icon header-icon__user">
-<!--  сюда иконку пользователя-->
+            <i class="fa fa-user"></i>
         </a>
 
         <a href="#" class="header-icon header-icon__cart">
-<!--  сюда иконку корзины-->
+            <i class="fa fa-shopping-cart"></i>
+            <span class="header-icon__cart-count">0</span>
+
         </a>
 
         <a href="#" class="header-icon header-icon__menu">
-<!-- сюда иконку менюшки-->
+            <i class="fa fa-bars"></i>
         </a>
     </div>
 
 
 
-</nav>
+</header>
 </body>
 </html>
