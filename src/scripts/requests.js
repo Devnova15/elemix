@@ -20,7 +20,7 @@ const searchProducts = async (item) => {
 
 //getAllUsers тоже пагинация
 
-const loginUsers = async () => {
+const loginUser = async () => {
     return await sendRequest(`${API}${ENDPOINTS.AUTH}${NESTED_AUTH_ENDPOINT.LOGIN}`, {
         method : 'POST',
         headers : {

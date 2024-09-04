@@ -1,10 +1,8 @@
-/* Убираем отступы у body */
 body {
     margin: 0;
     padding: 0;
 }
 
-/* Основные стили для header */
 .header {
     display: flex;
     align-items: center;
@@ -18,7 +16,6 @@ body {
     z-index: 1000;
 }
 
-/* Стили для поиска */
 .header-search {
     display: flex;
     align-items: center;
@@ -50,7 +47,6 @@ body {
     height: 16px;
 }
 
-/* Стили для меню */
 .header-menu {
     display: flex;
     flex-grow: 1;
@@ -85,12 +81,11 @@ body {
     height: auto;
 }
 
-/* Стили для иконок */
 .header-icons {
     display: flex;
     align-items: center;
-    margin-left: auto; /* Сдвигаем иконки левее к центру */
-    margin-right: 30px; /* Отступ справа для небольшого смещения */
+    margin-left: auto;
+    margin-right: 30px;
 }
 
 .header-icon {
@@ -112,7 +107,6 @@ body {
     position: relative;
 }
 
-/* Стили для счетчика товаров в корзине */
 .header-icon__cart-count {
     content: '0';
     position: absolute;
@@ -128,3 +122,49 @@ body {
     justify-content: center;
     border-radius: 50%;
 }
+
+.header-menu__dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    z-index: 1000;
+    width: 800px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.header-menu__item:hover .header-menu__dropdown,
+.header-menu__dropdown:hover {
+    display: block;
+}
+
+.dropdown-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+}
+
+.dropdown-content {
+    text-align: center;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.dropdown-title {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0 0 5px 0;
+}
+
+.dropdown-image {
+    width: 100px;
+    height: auto;
+    border-radius: 5px;
+    object-fit: cover;
+    margin: 0 auto;
+}
+
+
