@@ -95,11 +95,11 @@ body {
     position: relative;
 }
 
-.header-icon__wishlist .fa-heart,
-.header-icon__user .fa-user,
-.header-icon__cart .fa-shopping-cart,
-.header-icon__menu .fa-bars {
-    font-size: 18px;
+.header-icon img {
+    width: 18px;
+    height: 18px;
+    display: block;
+    fill: currentColor;
 }
 
 .header-icon__cart {
