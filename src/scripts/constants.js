@@ -1,7 +1,7 @@
 
 export const API = 'https://fakestoreapi.com';
 
-export const ENDPOINTS = Object.freeze({
+export const ENDPOINT = Object.freeze({
     PRODUCTS: '/products',
     CARTS: '/carts',
     USERS: '/users',
@@ -12,10 +12,6 @@ export const NESTED_AUTH_ENDPOINT = Object.freeze({
     LOGIN: '/login'
 });
 
-export const loginDetails = Object.freeze({
-    username: 'emilys',
-    password: 'emilyspass',
-    expiresInMins: 30,
-});
+
 
 
