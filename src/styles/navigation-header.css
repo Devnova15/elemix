@@ -33,19 +33,26 @@ body {
     padding: 5px;
     font-size: 14px;
     color: #555;
+    flex: 1;
 }
 
+/* Стили для кнопки поиска */
 .header-search__button {
     background-color: transparent;
     border: none;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
 }
 
 .header-search__icon {
-    fill: black;
-    width: 16px;
-    height: 16px;
+    transition: color 0.3s ease;
+    width: 18px;
+    height: 18px;
+    opacity: 0.7;
 }
+
 
 .header-menu {
     display: flex;
@@ -71,7 +78,6 @@ body {
     font-weight: 400;
 }
 
-/* Стили для логотипа */
 .header-logo {
     margin: 0 50px;
 }
@@ -81,37 +87,53 @@ body {
     height: auto;
 }
 
-.header-icons {
+
+/*СТИЛИ ДЛЯ ИКОНОК SVG*/
+
+.header-icons__container {
     display: flex;
     align-items: center;
     margin-left: auto;
     margin-right: 30px;
 }
 
-.header-icon {
+.header-icon__heart {
     margin: 0 10px;
     color: #333;
     font-size: 18px;
     position: relative;
+    width: 18px;
+    height: 18px;
+    display: block;
+    fill: currentColor;
 }
-
-.header-icon img {
+.header-icon__menu {
+    margin: 0 10px;
+    color: #333;
+    font-size: 18px;
+    position: relative;
     width: 18px;
     height: 18px;
     display: block;
     fill: currentColor;
 }
 
+
 .header-icon__cart {
-    margin-right: 10px;
     position: relative;
+    margin: 0 10px;
+    color: #333;
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    display: block;
+    fill: currentColor;
 }
 
 .header-icon__cart-count {
-    content: '0';
     position: absolute;
-    top: -5px;
-    right: -10px;
+    top: 10px; /* Попробуйте изменить это значение */
+    right: 85px; /* Попробуйте изменить это значение */
     background-color: #d84545;
     color: #fff;
     font-size: 10px;
@@ -122,6 +144,9 @@ body {
     justify-content: center;
     border-radius: 50%;
 }
+/*СТИЛИ ДЛЯ ИКОНОК SVG*/
+
+
 
 /*STYLES FOR HOME LINK*/
 
@@ -225,7 +250,7 @@ body {
     display: none;
     position: absolute;
     top: 100%;
-    left: 50%;
+    left: 45%;
     transform: translateX(-50%);
     background-color: #fff;
     border: 1px solid #ddd;
@@ -316,7 +341,13 @@ body {
 
 
 /*STYLES FOR USER ICON*/
-.header-icon {
+.header-icon__user {
+    margin: 0 10px;
+    color: #333;
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
     position: relative;
     display: inline-block;
 }
@@ -324,8 +355,8 @@ body {
 .fa-user__dropdown {
     display: none;
     position: absolute;
-    top: 190%;
-    left: 50%;
+    top: 100%;
+    left: 90%;
     transform: translateX(-50%);
     background-color: #fff;
     border: 1px solid #ddd;
@@ -336,8 +367,7 @@ body {
     white-space: nowrap;
 }
 
-.header-icon:hover .fa-user__dropdown,
-.fa-user__dropdown:hover {
+.header-icon__link:hover .fa-user__dropdown {
     display: block;
 }
 
@@ -357,9 +387,7 @@ body {
 .fa-user__description:hover {
     color: #333;
 }
-
 /*STYLES FOR USER ICON*/
-
 
 
 
