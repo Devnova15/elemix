@@ -7,7 +7,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #f8d9d9;
+    background-color: floralwhite;
     padding: 10px 20px;
     position: fixed;
     top: 0;
@@ -20,7 +20,7 @@ body {
     display: flex;
     align-items: center;
     border-radius: 20px;
-    background-color: #f1f1f1;
+    background-color: white;
     padding: 5px 15px;
     margin-right: auto;
     margin-left: 30px;
@@ -32,7 +32,7 @@ body {
     outline: none;
     padding: 5px;
     font-size: 14px;
-    color: #555;
+    color: dimgray;
     flex: 1;
 }
 
@@ -74,7 +74,7 @@ body {
 .header-menu__link {
     text-decoration: none;
     font-size: 14px;
-    color: #333;
+    color: dimgrey;
     font-weight: 400;
 }
 
@@ -99,7 +99,7 @@ body {
 
 .header-icon__heart {
     margin: 0 10px;
-    color: #333;
+    color: dimgrey;
     font-size: 18px;
     position: relative;
     width: 18px;
@@ -109,7 +109,7 @@ body {
 }
 .header-icon__menu {
     margin: 0 10px;
-    color: #333;
+    color: dimgray;
     font-size: 18px;
     position: relative;
     width: 18px;
@@ -122,7 +122,7 @@ body {
 .header-icon__cart {
     position: relative;
     margin: 0 10px;
-    color: #333;
+    color: dimgray;
     font-size: 18px;
     width: 18px;
     height: 18px;
@@ -134,8 +134,8 @@ body {
     position: absolute;
     top: 10px; /* Попробуйте изменить это значение */
     right: 85px; /* Попробуйте изменить это значение */
-    background-color: #d84545;
-    color: #fff;
+    background-color: indianred;
+    color: white;
     font-size: 10px;
     width: 16px;
     height: 16px;
@@ -155,8 +155,8 @@ body {
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: #fff;
-    border: 1px solid #ddd;
+    background-color: white;
+    border: 1px solid lightgray;
     padding: 10px;
     z-index: 1000;
     width: 800px;
@@ -202,8 +202,8 @@ body {
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: #fff;
-    border: 1px solid #ddd;
+    background-color: white;
+    border: 1px solid lightgray;
     padding: 20px;
     z-index: 1000;
     width: auto;
@@ -228,7 +228,7 @@ body {
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 10px;
-    color: #333;
+    color: dimgrey;
 }
 
 .shop-menu__list {
@@ -240,7 +240,7 @@ body {
 .shop-menu__description {
     font-size: 14px;
     line-height: 1.8;
-    color: #666;
+    color: dimgray;
 }
 /*STYLES FOR SHOP LINK*/
 
@@ -252,8 +252,8 @@ body {
     top: 100%;
     left: 45%;
     transform: translateX(-50%);
-    background-color: #fff;
-    border: 1px solid #ddd;
+    background-color: white;
+    border: 1px solid lightgray;
     padding: 20px;
     z-index: 1000;
     min-width: 200px;
@@ -283,12 +283,12 @@ body {
 .pages-menu__description {
     font-size: 14px;
     line-height: 1.8;
-    color: #666;
+    color: dimgrey;
     cursor: pointer;
 }
 
 .pages-menu__description:hover {
-    color: #333;
+    color: dimgray;
 }
 /*STYLES FOR PAGES LINK*/
 
@@ -300,8 +300,8 @@ body {
     top: 100%;
     left: 62%;
     transform: translateX(-50%);
-    background-color: #fff;
-    border: 1px solid #ddd;
+    background-color:white;
+    border: 1px solid lightgray;
     padding: 10px;
     z-index: 1000;
     min-width: 200px;
@@ -330,12 +330,12 @@ body {
 .blog-menu__description {
     font-size: 14px;
     line-height: 1.8;
-    color: #666;
+    color: grey;
     cursor: pointer;
 }
 
 .blog-menu__description:hover {
-    color: #333;
+    color: dimgray;
 }
 /*STYLES FOR BLOG LINK*/
 
@@ -343,7 +343,7 @@ body {
 /*STYLES FOR USER ICON*/
 .header-icon__user {
     margin: 0 10px;
-    color: #333;
+    color: grey;
     font-size: 18px;
     width: 18px;
     height: 18px;
@@ -358,8 +358,8 @@ body {
     top: 100%;
     left: 90%;
     transform: translateX(-50%);
-    background-color: #fff;
-    border: 1px solid #ddd;
+    background-color: white;
+    border: 1px solid lightgray;
     padding: 10px;
     z-index: 1000;
     min-width: 200px;
@@ -380,12 +380,12 @@ body {
 .fa-user__description {
     font-size: 14px;
     line-height: 1.8;
-    color: #666;
+    color: gray;
     cursor: pointer;
 }
 
 .fa-user__description:hover {
-    color: #333;
+    color: dimgray;
 }
 /*STYLES FOR USER ICON*/
 

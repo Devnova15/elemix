@@ -1,5 +1,5 @@
 
-import { API, ENDPOINT, NESTED_AUTH_ENDPOINT, loginDetails} from './constants.js';
+import { API, ENDPOINT, NESTED_AUTH_ENDPOINT} from './constants.js';
 
 const sendRequest = async (url, method = "GET", options = {}) => {
     try {
@@ -14,7 +14,22 @@ const sendRequest = async (url, method = "GET", options = {}) => {
     }
 };
 
-const searchProducts = async (item) => {
+// Limit and skip products
+
+// fetch('https://dummyjson.com/products?limit= сюда Лимит 10&skip= Сюда пропуск 10&select=title,price')
+//     .then(res => res.json())
+//     .then(console.log);
+
+
+const getAllProducts = async (page) => {
+   const limit = 30;
+   const skip = (page - 1) * limit
+    return sendRequest(`${API}${ENDPOINT.PRODUCTS}/?limit=${limit}&skip${skip}`)
+}
+
+
+//по идее сюда тоже логику с пагинацией нужно
+const searchProducts = async (item, ) => {
     return await sendRequest(`${API}${ENDPOINT.PRODUCTS}/search?q=${item}`)
 }
 
