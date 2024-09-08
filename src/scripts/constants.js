@@ -1,4 +1,4 @@
-export const API = "https://fakestoreapi.com";
+export const API = 'https://dummyjson.com';
 
 export const ENDPOINT = Object.freeze({
   PRODUCTS: {

@@ -21,13 +21,16 @@ const sendRequest = async (url, method = "GET", options = {}) => {
 //     .then(console.log);
 
 
-const getAllProducts = async (page) => {
-   const limit = 30;
-   const skip = (page - 1) * limit
-    return sendRequest(`${API}${ENDPOINT.PRODUCTS}/?limit=${limit}&skip${skip}`)
+// export const getAllProducts = async (page) => {
+//    const limit = 10;
+//    const skip = (page - 1) * limit
+//     return sendRequest(`${API}${ENDPOINT.PRODUCTS.ROOT}/?limit=${limit}&skip=${skip}`)
+// }
+
+export const getAllProducts = async () => {
+
+    return sendRequest(`${API}${ENDPOINT.PRODUCTS.ROOT}?limit=0`)
 }
-
-
 //по идее сюда тоже логику с пагинацией нужно
 const searchProducts = async (item, ) => {
     return await sendRequest(`${API}${ENDPOINT.PRODUCTS}/search?q=${item}`)
@@ -51,10 +54,6 @@ const loginUser = async (username, password) => {
     });
 };
 
-const getAllCarts = async () => {
-    return await sendRequest(`${API}${ENDPOINT.CARTS}`)
-}
-
-const getSingleCart = async (productId) => {
-    return await sendRequest(`${API}${ENDPOINT}/${productId}`)
-}
+getAllProducts().then(products => {
+    console.log("Products on page 1:", products);
+});
