@@ -1,5 +1,5 @@
 
-import { API, ENDPOINT, NESTED_AUTH_ENDPOINT} from './constants.js';
+import { API, ENDPOINT} from './constants.js';
 
 const sendRequest = async (url, method = "GET", options = {}) => {
     try {
@@ -14,18 +14,7 @@ const sendRequest = async (url, method = "GET", options = {}) => {
     }
 };
 
-// Limit and skip products
 
-// fetch('https://dummyjson.com/products?limit= сюда Лимит 10&skip= Сюда пропуск 10&select=title,price')
-//     .then(res => res.json())
-//     .then(console.log);
-
-
-// export const getAllProducts = async (page) => {
-//    const limit = 10;
-//    const skip = (page - 1) * limit
-//     return sendRequest(`${API}${ENDPOINT.PRODUCTS.ROOT}/?limit=${limit}&skip=${skip}`)
-// }
 
 export const getAllProducts = async () => {
 
@@ -33,7 +22,7 @@ export const getAllProducts = async () => {
 }
 //по идее сюда тоже логику с пагинацией нужно
 const searchProducts = async (item, ) => {
-    return await sendRequest(`${API}${ENDPOINT.PRODUCTS}/search?q=${item}`)
+    return await sendRequest(`${API}${ENDPOINT.PRODUCTS.SEARCH}${item}`)
 }
 
 //getAllUsers тоже пагинация
@@ -45,7 +34,7 @@ const loginUser = async (username, password) => {
         expiresInMins: 30,
     };
 
-    return await sendRequest(`${API}${ENDPOINT.AUTH}${NESTED_AUTH_ENDPOINT.LOGIN}`, {
+    return await sendRequest(`${API}${ENDPOINT.USERS.LOGIN}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
