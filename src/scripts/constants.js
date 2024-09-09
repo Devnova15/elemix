@@ -37,3 +37,4 @@ export const modalWindowPosition = {
   right: "right",
   center: "center",
 };
+
