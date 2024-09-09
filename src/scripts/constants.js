@@ -11,8 +11,8 @@ export const ENDPOINT = Object.freeze({
   },
   CARTS: {
     WARP: "/carts",
-    BYUSER: "/carts/user/",
-    ADDNEW: "/carts/add",
+    BY_USER: "/carts/user/",
+    ADD_NEW: "/carts/add",
     UPDATE: "/carts/",
     DELETE: "/carts/",
   },
