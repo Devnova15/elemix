@@ -1,4 +1,4 @@
-import {getAllProducts} from '../../../scripts/requests.js';
+import {getAllProducts} from './requests.js';
 
 let currentPage = 0;
 const limit = 12;
