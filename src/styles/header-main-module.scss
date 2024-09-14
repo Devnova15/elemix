@@ -1,0 +1,97 @@
+.product {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: 1px solid #e5e5e5;
+
+}
+
+.product-content {
+  max-width: 40%;
+}
+
+.product-title {
+  font-size: 3em;
+  margin: 0;
+  font-weight: bold;
+}
+
+.product-description {
+  font-size: 1em;
+  color: #666;
+  margin-top: 10px;
+}
+
+.product-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #b32d00;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  margin-top: 20px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.product-button:hover {
+  background-color: #8c2300;
+  transform: scale(1.05);
+}
+
+.main-product__image {
+  max-width: 50%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.product-photo {
+  width: 100%;
+  height: auto;
+  transition: opacity 0.6s ease;
+}
+
+.product-selector {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.product-wrapper {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid transparent;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.product-wrapper:hover img {
+  transform: scale(1.1);
+}
+
+.product-wrapper.active {
+  border-color: #b32d00;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+/* Класс для плавного исчезновения */
+.fade-out {
+  opacity: 0;
+}
+
+/* Класс для плавного появления */
+.fade-in {
+  opacity: 2;
+}

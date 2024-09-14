@@ -1,0 +1,128 @@
+/* Основные стили модального окна */
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 1000px; //ИЛИ СЮДА 100%
+  background-color: white;
+  box-shadow: -4px 0 15px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+.menu-search__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #e5e5e5;
+  padding-bottom: 15px;
+  width: 100%;
+}
+
+.menu-search__input {
+  width: 200px;
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  font-size: 14px;
+  height: 30px;
+}
+
+.menu-search__button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: -25px;
+  padding: 0;
+}
+
+.menu-search__img {
+  width: 14px;
+  height: 14px;
+}
+
+
+
+/* Стили для контента меню */
+.menu-content__container {
+  flex: 1;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  height: 550px;
+}
+
+.menu-content {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 13px;
+  color: #333;
+}
+
+/* Стили для каждого элемента списка*/
+.menu-content li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+
+.menu-content li span {
+  font-weight: normal;
+  color: #999;
+  font-size: 12px;
+}
+
+/* Стили для футера меню */
+.menu-footer__container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  border-top: 1px solid #e5e5e5;
+}
+
+.menu-footer-login__wrapper,
+.menu-footer-cart__wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 0;
+  width: 100%;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.menu-footer-login__img,
+.menu-footer-cart__img {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.menu-footer-login__text,
+.menu-footer-cart__text {
+  font-size: 14px;
+  color: #333;
+}
+
+.menu-footer-cart__text span {
+  position: absolute;
+  top: 710px; /* Попробуйте изменить это значение */
+  right: 185px; /* Попробуйте изменить это значение */
+  background-color: indianred;
+  color: white;
+  font-size: 10px;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}

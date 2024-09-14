@@ -1,4 +1,4 @@
-import {modalWindowPosition} from "./constants.js";
+import { modalWindowPosition } from "./constants.js";
 
 // Функция для удаления окна по нажатию клавиши
 export const removeWindowByKeyPress = (event, target) => {
@@ -39,7 +39,7 @@ export const createModal = (position = modalWindowPosition.right) => {
 };
 
 export const createModalWindowMenu = (error, position = modalWindowPosition.right) => {
-    const {modalDiv, modalContent} = createModal(position);
+    const { modalDiv, modalContent } = createModal(position);
 
     // это обертка поисковика
     let menuSearchContainer = document.createElement('div');
@@ -65,15 +65,18 @@ export const createModalWindowMenu = (error, position = modalWindowPosition.righ
     let menuContentContainer = document.createElement('div');
     menuContentContainer.className = "menu-content__container";
 
-    let menuContent = document.createElement('ul');
+    let menuContent = document.createElement('div');
     menuContent.className = "menu-content";
 
-    let menuContentLiHome = document.createElement('li');
-    menuContentLiHome.className = "menu-content-li__home";
-    menuContentLiHome.textContent = "HOME";
-    let menuContentLiSpanHome = document.createElement('span');
-    menuContentLiSpanHome.className = "span-home";
-    menuContentLiSpanHome.textContent = ">";
+    let menuContentUlHome = document.createElement('ul');
+    menuContentUlHome.className = "menu-content-ul__home";
+    menuContentUlHome.textContent = "HOME";
+    let menuContentUlHomeLi = document.createElement('li')
+    menuContentUlHomeLi.className = "menu-content-ul-home__li"
+    let menuContentUlSpanHome = document.createElement('span');
+    menuContentUlSpanHome.className = "span-home";
+    menuContentUlSpanHome.textContent = ">";
+
 
     let menuContentLiShop = document.createElement('li');
     menuContentLiShop.className = "menu-content-li__shop";
@@ -103,28 +106,18 @@ export const createModalWindowMenu = (error, position = modalWindowPosition.righ
     menuContentLiSpanContact.className = "span-contact";
     menuContentLiSpanContact.textContent = ">";
 
-
+    // Добавляем элементы списка в меню
     menuContent.appendChild(menuContentLiHome);
     menuContent.appendChild(menuContentLiShop);
     menuContent.appendChild(menuContentLiPages);
     menuContent.appendChild(menuContentLiBlog);
     menuContent.appendChild(menuContentLiContact);
 
-    menuContentLiHome.appendChild(menuContentLiSpanHome);
-    menuContentLiShop.appendChild(menuContentLiSpanShop);
-    menuContentLiPages.appendChild(menuContentLiSpanPages);
-    menuContentLiBlog.appendChild(menuContentLiSpanBlog);
-    menuContentLiContact.appendChild(menuContentLiSpanContact);
-
     menuContentContainer.appendChild(menuContent);
 
     // обертка футера менюшки
     let menuFooterContainer = document.createElement('div');
     menuFooterContainer.className = "menu-footer__container";
-
-
-    let menuFooterLoginWrapper = document.createElement('div');
-    menuFooterLoginWrapper.className = "menu-footer-login__wrapper";
 
     let menuFooterLoginImg = document.createElement('img');
     menuFooterLoginImg.className = "menu-footer-login__img";
@@ -133,9 +126,6 @@ export const createModalWindowMenu = (error, position = modalWindowPosition.righ
     let menuFooterLoginText = document.createElement('p');
     menuFooterLoginText.className = "menu-footer-login__text";
     menuFooterLoginText.textContent = "Login";
-
-    let menuFooterCartWrapper = document.createElement('div');
-    menuFooterCartWrapper.className = "menu-footer-cart__wrapper";
 
     let menuFooterCartImg = document.createElement('img');
     menuFooterCartImg.className = "menu-footer-cart__img";
@@ -150,12 +140,10 @@ export const createModalWindowMenu = (error, position = modalWindowPosition.righ
 
     menuFooterCartText.appendChild(menuFooterCartSpan);
 
-    menuFooterContainer.appendChild(menuFooterLoginWrapper);
-    menuFooterLoginWrapper.appendChild(menuFooterLoginImg);
-    menuFooterLoginWrapper.appendChild(menuFooterLoginText);
-    menuFooterContainer.appendChild(menuFooterCartWrapper);
-    menuFooterCartWrapper.appendChild(menuFooterCartImg);
-    menuFooterCartWrapper.appendChild(menuFooterCartText);
+    menuFooterContainer.appendChild(menuFooterLoginImg);
+    menuFooterContainer.appendChild(menuFooterLoginText);
+    menuFooterContainer.appendChild(menuFooterCartImg);
+    menuFooterContainer.appendChild(menuFooterCartText);
 
     // Добавляем все элементы в модальное окно
     modalContent.appendChild(menuSearchContainer);
