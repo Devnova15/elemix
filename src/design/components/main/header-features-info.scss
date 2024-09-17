@@ -1,3 +1,5 @@
+@import "/src/design/setting/variables";
+
 /* Контейнер для всей секции */
 .features-container {
   display: flex;
@@ -5,7 +7,7 @@
   align-items: center;
   padding: 20px 0;
   margin: 0 auto;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid $border-color-lightgray;
 }
 
 /* Каждый элемент секции */
@@ -29,13 +31,13 @@
   font-size: 16px;
   font-weight: bold;
   margin: 0;
-  color: #000;
+  color: $text-color-black;
   letter-spacing: 0.5px;
 }
 
 /* Описание каждого элемента */
 .features-description {
   font-size: 14px;
-  color: #666;
+  color: $text-color-dimgrey;
   margin: 5px 0 0;
 }

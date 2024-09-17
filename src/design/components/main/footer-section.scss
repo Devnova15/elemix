@@ -1,8 +1,10 @@
+@import "/src/design/setting/variables";
+
 /* Основной фон футера */
 .footer {
   padding: 40px 0;
   font-family: 'Arial', sans-serif;
-  color: #333;
+  color: $text-color-dimgray;
 }
 
 /* Контейнер футера */
@@ -25,7 +27,7 @@
 .footer-section__title {
   font-size: 16px;
   font-weight: 600;
-  color: #555;
+  color: $text-color-dimgrey;
   margin-bottom: 15px;
   padding-bottom: 5px;
 }
@@ -38,20 +40,20 @@
 
 .footer-list__item {
   font-size: 14px;
-  color: #777;
+  color: $text-color-grey;
   margin-bottom: 20px;
   transition: color 0.3s ease;
 }
 
 .footer-list__item:hover {
-  color: #000;
+  color: $text-color-black;
   cursor: pointer;
 }
 
 /* Нижняя часть футера */
 .footer-bottom {
-  background: white;
-  border-top: 1px solid #ddd;
+  background: $background-color-white;
+  border-top: 1px solid $border-color-lightgray;
   padding: 20px 0;
 }
 
@@ -71,7 +73,7 @@
 
 .footer-bottom__copyright {
   font-size: 12px;
-  color: #999;
+  color: $text-color-grey;
   text-align: center;
   flex: 1; /* Позволяет тексту занимать оставшееся пространство */
 }

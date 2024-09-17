@@ -1,3 +1,5 @@
+@import "/src/design/setting/variables";
+
 /* Основные стили модального окна */
 .modal {
   position: fixed;
@@ -5,7 +7,7 @@
   right: 0;
   width: 300px;
   height: 1000px; //ИЛИ СЮДА 100%
-  background-color: white;
+  background-color: $background-color-white;
   box-shadow: -4px 0 15px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   display: flex;
@@ -18,7 +20,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid $text-color-floralwhite;
   padding-bottom: 15px;
   width: 100%;
 }
@@ -26,7 +28,7 @@
 .menu-search__input {
   width: 200px;
   padding: 6px 10px;
-  border: 1px solid #ccc;
+  border: 1px solid $border-color-lightgray;
   border-radius: 15px;
   font-size: 14px;
   height: 30px;
@@ -60,7 +62,7 @@
   padding: 0;
   margin: 0;
   font-size: 13px;
-  color: #333;
+  color: $text-color-dimgray;
 }
 
 /* Стили для каждого элемента списка*/
@@ -70,13 +72,13 @@
   align-items: center;
   padding: 15px 0;
   margin-bottom: 10px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid $color-gainsboro;
 }
 
 
 .menu-content li span {
   font-weight: normal;
-  color: #999;
+  color: $text-color-gray;
   font-size: 12px;
 }
 
@@ -86,7 +88,7 @@
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid $border-color-lightgray;
 }
 
 .menu-footer-login__wrapper,
@@ -96,7 +98,7 @@
   align-items: center;
   padding: 10px 0;
   width: 100%;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid $border-color-lightgray;
 }
 
 .menu-footer-login__img,
@@ -109,15 +111,15 @@
 .menu-footer-login__text,
 .menu-footer-cart__text {
   font-size: 14px;
-  color: #333;
+  color:$text-color-dimgray;
 }
 
 .menu-footer-cart__text span {
   position: absolute;
   top: 710px; /* Попробуйте изменить это значение */
   right: 185px; /* Попробуйте изменить это значение */
-  background-color: indianred;
-  color: white;
+  background-color: $background-color-indianred;
+  color: $text-color-white;
   font-size: 10px;
   width: 16px;
   height: 16px;

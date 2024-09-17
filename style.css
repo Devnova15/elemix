@@ -1,6 +1,6 @@
-@import "src/styles/navigation-header.scss";
-@import "src/styles/reset.scss";
-@import "src/styles/header-main-module.scss";
-@import "src/styles/navigation-header-module-window.scss";
-@import "src/styles/header-features-info.scss";
-@import "src/styles/footer-section.scss";
+@import "src/design/components/main/reset.scss";
+@import "src/design/components/main/navigation-header.scss";
+@import "src/design/components/main/navigation-header-module-window.scss";
+@import "src/design/components/main/header-main-module.scss";
+@import "src/design/components/main/header-features-info.scss";
+@import "src/design/components/main/footer-section.scss";
