@@ -38,6 +38,7 @@ export const createModal = (position = modalWindowPosition.right) => {
     };
 };
 
+// МОДАЛКА МЕНЮ
 export const createModalWindowMenu = (error, position = modalWindowPosition.right) => {
     const {modalDiv, modalContent} = createModal(position);
 
@@ -176,6 +177,73 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (hamburgerIcon) {
         hamburgerIcon.addEventListener("click", () => {
+        });
+    }
+});
+
+// МОДАЛКА КОРЗИНЫ
+export const createModalWindowCart = (error, position = modalWindowPosition.right) => {
+    const {modalDiv, modalContent} = createModal(position);
+
+    let cartSideBarHeader = document.createElement('div');
+    cartSideBarHeader.className = "cart-side-bar__header"
+
+    let cartSideBarTitle = document.createElement('p');
+    cartSideBarTitle.className = "cart-side-bar__title"
+    cartSideBarTitle.textContent = "SHOPPING CART"
+
+    let cartSideBarSpan = document.createElement('span');
+    cartSideBarSpan.className = "cart-side-bar__span"
+    cartSideBarSpan.textContent = "0"
+
+    let cartSideBarButton = document.createElement('button');
+    cartSideBarButton.className = "cart-side-bar__button"
+
+    let cartSideBarButtonCloseImg = document.createElement('img');
+    cartSideBarButtonCloseImg.className = "cart-side-bar-button-close__img"
+    cartSideBarButtonCloseImg.src = "/src/img/header-images/close-svgrepo-com.png"
+
+    cartSideBarButtonCloseImg.addEventListener('click', () => {
+        modalDiv.remove();
+    })
+
+    let cartSideBarContent = document.createElement('div');
+    cartSideBarContent.className = "cart-side-bar__content"
+
+    let cartSideBarContentEmptyMassage = document.createElement('p');
+    cartSideBarContentEmptyMassage.className = "cart-side-bar-content-empty__massage"
+    cartSideBarContentEmptyMassage.textContent = "No products in the cart"
+
+
+
+    // Собираем элементы шапки
+    cartSideBarButton.appendChild(cartSideBarButtonCloseImg);
+    cartSideBarHeader.appendChild(cartSideBarTitle);
+    cartSideBarHeader.appendChild(cartSideBarSpan);
+    cartSideBarHeader.appendChild(cartSideBarButton);
+
+    // Собираем основной контент
+    cartSideBarContent.appendChild(cartSideBarContentEmptyMassage);
+
+    // Теперь вставляем элементы в модальное окно
+    modalContent.appendChild(cartSideBarHeader);  // Вставляем шапку в контент модального окна
+    modalContent.appendChild(cartSideBarContent); // Вставляем основной контент в модальное окно
+
+
+    if (error) {
+        let title = document.createElement("h2");
+        title.textContent = "Error";
+        modalContent.appendChild(title);
+    }
+
+    document.body.append(modalDiv);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const cartIcon = document.querySelector(".header-icon__cart");
+
+    if (cartIcon) {
+        cartIcon.addEventListener("click", () => {
         });
     }
 });

@@ -1,0 +1,112 @@
+
+/* Основные стили модального окна */
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 1000px; //ИЛИ СЮДА 100%
+  background-color: white;
+  box-shadow: -4px 0 15px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+
+
+.cart-side-bar__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+.cart-side-bar__title {
+  font-size: 13px;
+  color: #333;
+}
+
+.cart-side-bar__span {
+  position: absolute;
+  top: 20px; /* Попробуйте изменить это значение */
+  right: 55%; /* Попробуйте изменить это значение */
+  background-color: indianred;
+  color: white;
+  font-size: 10px;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.cart-side-bar__button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.cart-side-bar-button-close__img {
+  width: 20px;
+  height: 20px;
+}
+
+.cart-side-bar__content {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #666;
+}
+
+.cart-side-bar-content-empty__massage {
+  color: #333;
+  font-size: 14px; /* Небольшой шрифт */
+  font-weight: normal; /* Обычный вес шрифта */
+  font-family: Arial, sans-serif; /* Простой, чистый шрифт */
+  line-height: 1.5; /* Для лучшей читаемости */
+}
+
+
+/* Стили для анимации модального окна */
+.modal.show {
+  display: flex;
+  animation: slideInRight 0.3s ease-out;
+}
+
+//@keyframes slideInRight {
+//  0% {
+//    transform: translateX(100%);
+//  }
+//  100% {
+//    transform: translateX(0);
+//  }
+//}
+
+/* Стили для кнопки открытия корзины */
+.header-icon__cart {
+  cursor: pointer;
+  position: relative;
+}
+
+.header-icon__cart::after {
+  content: attr(data-count);
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 5px;
+  font-size: 0.75rem;
+  display: none;
+}
+
+.header-icon__cart[data-count]:after {
+  display: block;
+}

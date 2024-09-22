@@ -1,5 +1,5 @@
 import { initializeProductImageSwitcher } from './src/scripts/header-main-module.js';
-import { createModalWindowMenu } from './src/scripts/navigation-header.js';
+import { createModalWindowMenu, createModalWindowCart } from './src/scripts/navigation-header.js';
 import {modalWindowPosition} from "./src/scripts/constants.js";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -12,4 +12,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+    const cartIcon = document.querySelector(".header-icon__cart");
+
+    if (cartIcon) {
+        cartIcon.addEventListener("click", () => {
+            createModalWindowCart(false, modalWindowPosition.right)
+        });
+    }
+});
 initializeProductImageSwitcher();
