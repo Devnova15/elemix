@@ -1,3 +1,5 @@
+@import "/src/design/setting/variables";
+
 body {
     margin: 0;
     padding: 0;
@@ -7,20 +9,22 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: floralwhite;
+    background-color: $background-color-white;
     padding: 10px 20px;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 1000;
+    border-bottom: 1px solid $border-color-lightgray;
+
 }
 
 .header-search {
     display: flex;
     align-items: center;
     border-radius: 20px;
-    background-color: white;
+    background-color: $background-color-white;
     padding: 5px 15px;
     margin-right: auto;
     margin-left: 30px;
@@ -69,12 +73,13 @@ body {
 
 .header-menu__item {
     margin: 0 15px;
+    //position: relative; ЧТОБЫ РАБОТАЛО НАВЕДНИЕ НА МОДАЛКИ
 }
 
 .header-menu__link {
     text-decoration: none;
     font-size: 14px;
-    color: dimgrey;
+    color: $text-color-dimgrey;
     font-weight: 400;
 }
 
@@ -99,7 +104,7 @@ body {
 
 .header-icon__heart {
     margin: 0 10px;
-    color: dimgrey;
+    color: $text-color-dimgrey;
     font-size: 18px;
     position: relative;
     width: 18px;
@@ -109,7 +114,7 @@ body {
 }
 .header-icon__menu {
     margin: 0 10px;
-    color: dimgray;
+    color: $text-color-dimgray;
     font-size: 18px;
     position: relative;
     width: 18px;
@@ -122,7 +127,7 @@ body {
 .header-icon__cart {
     position: relative;
     margin: 0 10px;
-    color: dimgray;
+    color: $text-color-dimgray;
     font-size: 18px;
     width: 18px;
     height: 18px;
@@ -134,8 +139,8 @@ body {
     position: absolute;
     top: 10px; /* Попробуйте изменить это значение */
     right: 85px; /* Попробуйте изменить это значение */
-    background-color: indianred;
-    color: white;
+    background-color: $background-color-indianred;
+    color: $text-color-white;
     font-size: 10px;
     width: 16px;
     height: 16px;
@@ -155,8 +160,8 @@ body {
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: white;
-    border: 1px solid lightgray;
+    background-color: $background-color-white;
+    border: 1px solid $border-color-lightgray;
     padding: 10px;
     z-index: 1000;
     width: 800px;
@@ -202,8 +207,8 @@ body {
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: white;
-    border: 1px solid lightgray;
+    background-color: $background-color-white;
+    border: 1px solid $border-color-lightgray;
     padding: 20px;
     z-index: 1000;
     width: auto;
@@ -228,7 +233,7 @@ body {
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 10px;
-    color: dimgrey;
+    color: $text-color-dimgrey;
 }
 
 .shop-menu__list {
@@ -240,7 +245,7 @@ body {
 .shop-menu__description {
     font-size: 14px;
     line-height: 1.8;
-    color: dimgray;
+    color: $text-color-dimgray;
 }
 /*STYLES FOR SHOP LINK*/
 
@@ -252,8 +257,8 @@ body {
     top: 100%;
     left: 45%;
     transform: translateX(-50%);
-    background-color: white;
-    border: 1px solid lightgray;
+    background-color: $background-color-white;
+    border: 1px solid $border-color-lightgray;
     padding: 20px;
     z-index: 1000;
     min-width: 200px;
@@ -283,12 +288,12 @@ body {
 .pages-menu__description {
     font-size: 14px;
     line-height: 1.8;
-    color: dimgrey;
+    color: $text-color-dimgrey;
     cursor: pointer;
 }
 
 .pages-menu__description:hover {
-    color: dimgray;
+    color: $text-color-dimgray;
 }
 /*STYLES FOR PAGES LINK*/
 
@@ -300,8 +305,8 @@ body {
     top: 100%;
     left: 62%;
     transform: translateX(-50%);
-    background-color:white;
-    border: 1px solid lightgray;
+    background-color:$background-color-white;
+    border: 1px solid $border-color-lightgray;
     padding: 10px;
     z-index: 1000;
     min-width: 200px;
@@ -330,12 +335,12 @@ body {
 .blog-menu__description {
     font-size: 14px;
     line-height: 1.8;
-    color: grey;
+    color: $text-color-grey;
     cursor: pointer;
 }
 
 .blog-menu__description:hover {
-    color: dimgray;
+    color: $text-color-dimgray;
 }
 /*STYLES FOR BLOG LINK*/
 
@@ -358,8 +363,8 @@ body {
     top: 100%;
     left: 90%;
     transform: translateX(-50%);
-    background-color: white;
-    border: 1px solid lightgray;
+    background-color: $background-color-white;
+    border: 1px solid $border-color-lightgray;
     padding: 10px;
     z-index: 1000;
     min-width: 200px;
@@ -380,12 +385,12 @@ body {
 .fa-user__description {
     font-size: 14px;
     line-height: 1.8;
-    color: gray;
+    color: $text-color-gray;
     cursor: pointer;
 }
 
 .fa-user__description:hover {
-    color: dimgray;
+    color: $text-color-dimgray;
 }
 /*STYLES FOR USER ICON*/
 
