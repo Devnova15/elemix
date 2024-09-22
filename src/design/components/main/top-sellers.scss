@@ -1,5 +1,5 @@
 .top-sellers {
-  margin-bottom: 10px;
+  margin-top: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -41,8 +41,15 @@
 }
 
 .product-list__title {
-  margin: 10px 0 0;
+  margin: 10px;
 }
+
+@media (min-width: 480px) and (max-width: 768px) {
+  .product-list {
+    grid-template-columns: repeat(2, 1fr); /* 2 колонки для мобильных устройств */
+  }
+}
+
 
 .button--load-more {
   display: block;
@@ -57,6 +64,12 @@
   letter-spacing: 1px;
   width: 150px;
   cursor: pointer;
+}
+
+@media (min-width: 480px) and (max-width: 768px) {
+  .button--load-more {
+    width: 100%;
+  }
 }
 
 .button--load-more:hover {

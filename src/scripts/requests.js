@@ -15,7 +15,6 @@ const sendRequest = async (url, method = "GET", options = {}) => {
 };
 
 
-
 export const getAllProducts = async () => {
 
     return sendRequest(`${API}${ENDPOINT.PRODUCTS.ROOT}?limit=0`)
