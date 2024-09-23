@@ -1,6 +1,4 @@
-
-import { API, ENDPOINT} from './constants.js';
-
+import {API, API_LOCAL, ENDPOINT} from './constants.js';
 const sendRequest = async (url, method = "GET", options = {}) => {
     try {
         const response = await fetch(url, {
@@ -15,13 +13,12 @@ const sendRequest = async (url, method = "GET", options = {}) => {
 };
 
 
-
 export const getAllProducts = async () => {
 
     return sendRequest(`${API}${ENDPOINT.PRODUCTS.ROOT}?limit=0`)
 }
 //по идее сюда тоже логику с пагинацией нужно
-const searchProducts = async (item, ) => {
+const searchProducts = async (item,) => {
     return await sendRequest(`${API}${ENDPOINT.PRODUCTS.SEARCH}${item}`)
 }
 
@@ -34,8 +31,7 @@ const loginUser = async (username, password) => {
         expiresInMins: 30,
     };
 
-    return await sendRequest(`${API}${ENDPOINT.USERS.LOGIN}`, {
-        method: 'POST',
+    return await sendRequest(`${API}${ENDPOINT.USERS.LOGIN}`, 'POST',{
         headers: {
             'Content-Type': 'application/json',
         },
@@ -46,3 +42,13 @@ const loginUser = async (username, password) => {
 getAllProducts().then(products => {
     console.log("Products on page 1:", products);
 });
+
+export const addProductToMongoDb = async (product) => {
+return await sendRequest(`${API_LOCAL}products`, 'POST',{
+
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(product)
+})
+}

@@ -1,6 +1,7 @@
-import { initializeProductImageSwitcher } from './src/scripts/header-main-module.js';
-import { createModalWindowMenu, createModalWindowCart } from './src/scripts/navigation-header.js';
+import {initializeProductImageSwitcher} from './src/scripts/header-main-module.js';
+import {createModalWindowMenu, createModalWindowCart} from './src/scripts/navigation-header.js';
 import {modalWindowPosition} from "./src/scripts/constants.js";
+import {addProductToMongoDb} from "./src/scripts/requests.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     const hamburgerIcon = document.querySelector(".header-icon__menu");
@@ -21,4 +22,31 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+document.querySelector('#button').addEventListener('click', async () => {
+    const newProduct = {
+        name: "new product for testing purposes",
+        currentPrice: 199.99,
+        previousPrice: 250,
+        categories: "men",
+        imageUrls: [
+            "img/products/men/001.png",
+            "img/products/men/002.png",
+            "img/products/men/003.png",
+            "img/products/men/004.png"
+        ],
+        quantity: 100,
+        color: "red",
+        productUrl: "/men",
+        brand: "braaaand",
+        myCustomParam: "some string or json for custom param"
+    };
+    try {
+        const responce = await addProductToMongoDb(newProduct)
+        console.log(responce)
+    } catch (error) {
+        console.log(error)
+    }
+});
+
 initializeProductImageSwitcher();
