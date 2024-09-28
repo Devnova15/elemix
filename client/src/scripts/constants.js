@@ -6,10 +6,14 @@ export const store = {
 }
 
 export const ENDPOINT = Object.freeze({
+  PRODUCTS: {
+    ROOT: `${API}/products`
+  },
 
   CUSTOMERS: {
     LOGIN: `${API}/customers/login`,
     REGISTER: `${API}/customers`,
+    PASSWORD: `${API}/customers/password`
   }
 
 

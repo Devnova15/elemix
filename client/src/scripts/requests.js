@@ -49,9 +49,43 @@ export const loginInit = async () => {
         loginOrEmail: "customer@gmail.com",
         password: "1111111"
     };
+
     const {token} = await loginAndGetToken(userData)
     store.token = token
+    store.user = userData
     console.log(store)
+}
+
+
+
+
+export const getProduct = async (newProduct) => {
+    return sendRequest(ENDPOINT.PRODUCTS.ROOT, 'POST', {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': store.token
+        },
+        body: JSON.stringify(newProduct)
+    });
+};
+
+
+export const addProduct =  async () => {
+    const newProduct = {
+        name: "new product for testing purposes",
+        currentPrice: 199.99,
+        categories: "men",
+        imageUrls: [
+            "img/products/men/001.png",
+            "img/products/men/002.png",
+            "img/products/men/003.png",
+            "img/products/men/004.png"
+        ],
+        quantity: 100,
+    };
+
+    const data = await getProduct(newProduct)
+    console.log(data)
 }
 
 

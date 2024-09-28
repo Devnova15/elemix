@@ -247,3 +247,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+export const createModalForSingUpForm = (error, position = modalWindowPosition.center) => {
+    const {modalDiv, modalContent} = createModal(position);
+
+
+}
