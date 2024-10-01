@@ -1,0 +1,72 @@
+@import "/src/design/setting/variables";
+
+
+.modal-center {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  background-color: white;
+  padding: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  border-radius: 10px;
+}
+
+
+
+.form-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.form-button {
+  background-color:  $background-color-firebrick;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.form-button:hover {
+  background-color: $background-color-darkred;
+}
+
+.form-switch {
+  text-align: center;
+  color: $text-color-grey;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+.form-error {
+  color: $text-color-dimgray;
+  text-align: center;
+  margin-top: 10px;
+}
