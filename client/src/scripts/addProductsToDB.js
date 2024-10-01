@@ -154,3 +154,4 @@ export const addProductsMensCategory = async () => {
     await Promise.all(productsPromise);
     console.log('Men category products added');
 };
+///
