@@ -2,7 +2,7 @@ import {modalWindowPosition} from "./constants.js";
 
 // Функция для удаления окна по нажатию клавиши
 export const removeWindowByKeyPress = (event, target) => {
-    if (event.keyCode === 27) { // Используем число 27, а не строку
+    if (event.keyCode === 27) {
         target.remove();
         document.removeEventListener('keydown', removeWindowByKeyPress);
     }
@@ -10,24 +10,32 @@ export const removeWindowByKeyPress = (event, target) => {
 };
 
 // Функция для создания модального окна
-export const createModal = (position = modalWindowPosition.right) => {
+export const createModal = (position) => {
     let modalDiv = document.createElement("div");
     let modalContent = document.createElement("div");
 
-    modalDiv.className = "modal";
     modalDiv.id = "myModal";
 
-    switch (true) {
-        case position === modalWindowPosition.right:
+    // Присваиваем класс модальному окну в зависимости от переданной позиции
+    if (position === modalWindowPosition.right) {
+        modalDiv.className = "modal-right";  // Модальное окно справа
+    } else if (position === modalWindowPosition.center) {
+        modalDiv.className = "modal-center"; // Модальное окно по центру
+    }
+
+    // Присваиваем класс контенту модального окна в зависимости от позиции
+    switch (position) {
+        case modalWindowPosition.right:
             modalContent.className = 'modal-content-right';
             break;
-        case position === modalWindowPosition.center:
-            modalContent.className = "modal-content";
+        case modalWindowPosition.center:
+            modalContent.className = "modal-content-center";
             break;
     }
 
     modalDiv.appendChild(modalContent);
 
+    // Закрытие модального окна по нажатию клавиши
     document.addEventListener('keydown', (event) => {
         removeWindowByKeyPress(event, modalDiv);
     });
@@ -37,6 +45,7 @@ export const createModal = (position = modalWindowPosition.right) => {
         modalContent
     };
 };
+
 
 // МОДАЛКА МЕНЮ
 export const createModalWindowMenu = (error, position = modalWindowPosition.right) => {
@@ -62,7 +71,7 @@ export const createModalWindowMenu = (error, position = modalWindowPosition.righ
     menuSearchContainer.appendChild(menuSearchInput);
     menuSearchContainer.appendChild(menuSearchButton);
 
-    // обертка для ашек
+    // обертка для меню
     let menuContentContainer = document.createElement('div');
     menuContentContainer.className = "menu-content__container";
 
@@ -104,7 +113,6 @@ export const createModalWindowMenu = (error, position = modalWindowPosition.righ
     menuContentLiSpanContact.className = "span-contact";
     menuContentLiSpanContact.textContent = ">";
 
-
     menuContent.appendChild(menuContentLiHome);
     menuContent.appendChild(menuContentLiShop);
     menuContent.appendChild(menuContentLiPages);
@@ -119,10 +127,9 @@ export const createModalWindowMenu = (error, position = modalWindowPosition.righ
 
     menuContentContainer.appendChild(menuContent);
 
-    // обертка футера менюшки
+    // обертка футера меню
     let menuFooterContainer = document.createElement('div');
     menuFooterContainer.className = "menu-footer__container";
-
 
     let menuFooterLoginWrapper = document.createElement('div');
     menuFooterLoginWrapper.className = "menu-footer-login__wrapper";
@@ -151,14 +158,14 @@ export const createModalWindowMenu = (error, position = modalWindowPosition.righ
 
     menuFooterCartText.appendChild(menuFooterCartSpan);
 
-    menuFooterContainer.appendChild(menuFooterLoginWrapper);
     menuFooterLoginWrapper.appendChild(menuFooterLoginImg);
     menuFooterLoginWrapper.appendChild(menuFooterLoginText);
-    menuFooterContainer.appendChild(menuFooterCartWrapper);
     menuFooterCartWrapper.appendChild(menuFooterCartImg);
     menuFooterCartWrapper.appendChild(menuFooterCartText);
 
-    // Добавляем все элементы в модальное окно
+    menuFooterContainer.appendChild(menuFooterLoginWrapper);
+    menuFooterContainer.appendChild(menuFooterCartWrapper);
+
     modalContent.appendChild(menuSearchContainer);
     modalContent.appendChild(menuContentContainer);
     modalContent.appendChild(menuFooterContainer);
@@ -171,6 +178,7 @@ export const createModalWindowMenu = (error, position = modalWindowPosition.righ
 
     document.body.append(modalDiv);
 };
+
 
 document.addEventListener("DOMContentLoaded", () => {
     const hamburgerIcon = document.querySelector(".header-icon__menu");
@@ -216,16 +224,13 @@ export const createModalWindowCart = (error, position = modalWindowPosition.righ
 
 
 
-    // Собираем элементы шапки
     cartSideBarButton.appendChild(cartSideBarButtonCloseImg);
     cartSideBarHeader.appendChild(cartSideBarTitle);
     cartSideBarHeader.appendChild(cartSideBarSpan);
     cartSideBarHeader.appendChild(cartSideBarButton);
 
-    // Собираем основной контент
     cartSideBarContent.appendChild(cartSideBarContentEmptyMassage);
 
-    // Теперь вставляем элементы в модальное окно
     modalContent.appendChild(cartSideBarHeader);  // Вставляем шапку в контент модального окна
     modalContent.appendChild(cartSideBarContent); // Вставляем основной контент в модальное окно
 
@@ -239,12 +244,127 @@ export const createModalWindowCart = (error, position = modalWindowPosition.righ
     document.body.append(modalDiv);
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    const cartIcon = document.querySelector(".header-icon__cart");
+// document.addEventListener("DOMContentLoaded", () => {
+//     const cartIcon = document.querySelector(".header-icon__cart");
+//
+//     if (cartIcon) {
+//         cartIcon.addEventListener("click", () => {
+//         });
+//     }
+// });
 
-    if (cartIcon) {
-        cartIcon.addEventListener("click", () => {
-        });
+export const createModalForSingUpForm = (error, position = modalWindowPosition.center) => {
+    const { modalDiv, modalContent } = createModal(position);
+
+    // Создание заголовка формы
+    let formHeader = document.createElement('div');
+    formHeader.className = "form-header";
+
+    let formTitle = document.createElement('h2');
+    formTitle.className = "form-title";
+    formTitle.textContent = "Sign In / Register";
+
+    formHeader.appendChild(formTitle);
+
+    // Создание контейнера для формы
+    let formContainer = document.createElement('div');
+    formContainer.className = "form-container";
+
+    // Создание формы входа (Sign In)
+    let signInForm = document.createElement('form');
+    signInForm.className = "sign-in-form";
+
+    let signInEmail = document.createElement('input');
+    signInEmail.type = "email";
+    signInEmail.className = "form-input";
+    signInEmail.placeholder = "Email";
+
+    let signInPassword = document.createElement('input');
+    signInPassword.type = "password";
+    signInPassword.className = "form-input";
+    signInPassword.placeholder = "Password";
+
+    let signInButton = document.createElement('button');
+    signInButton.type = "submit";
+    signInButton.className = "form-button";
+    signInButton.textContent = "Sign In";
+
+    signInForm.appendChild(signInEmail);
+    signInForm.appendChild(signInPassword);
+    signInForm.appendChild(signInButton);
+
+    // Создание ссылки на регистрацию (Switch to Register)
+    let switchToRegister = document.createElement('p');
+    switchToRegister.className = "form-switch";
+    switchToRegister.textContent = "Don't have an account? Register";
+
+    // Создание формы регистрации (Register)
+    let registerForm = document.createElement('form');
+    registerForm.className = "register-form hidden"; // Скрываем по умолчанию
+
+    let registerEmail = document.createElement('input');
+    registerEmail.type = "email";
+    registerEmail.className = "form-input";
+    registerEmail.placeholder = "Email";
+
+    let registerPassword = document.createElement('input');
+    registerPassword.type = "password";
+    registerPassword.className = "form-input";
+    registerPassword.placeholder = "Password";
+
+    let registerConfirmPassword = document.createElement('input');
+    registerConfirmPassword.type = "password";
+    registerConfirmPassword.className = "form-input";
+    registerConfirmPassword.placeholder = "Confirm Password";
+
+    let registerButton = document.createElement('button');
+    registerButton.type = "submit";
+    registerButton.className = "form-button";
+    registerButton.textContent = "Register";
+
+    registerForm.appendChild(registerEmail);
+    registerForm.appendChild(registerPassword);
+    registerForm.appendChild(registerConfirmPassword);
+    registerForm.appendChild(registerButton);
+
+    // Создание ссылки на вход (Switch to Sign In)
+    let switchToSignIn = document.createElement('p');
+    switchToSignIn.className = "form-switch hidden"; // Скрываем по умолчанию
+    switchToSignIn.textContent = "Already have an account? Sign In";
+
+    // Логика переключения между Sign In и Register
+    switchToRegister.addEventListener('click', () => {
+        signInForm.classList.add('hidden');
+        switchToRegister.classList.add('hidden');
+        registerForm.classList.remove('hidden');
+        switchToSignIn.classList.remove('hidden');
+    });
+
+    switchToSignIn.addEventListener('click', () => {
+        registerForm.classList.add('hidden');
+        switchToSignIn.classList.add('hidden');
+        signInForm.classList.remove('hidden');
+        switchToRegister.classList.remove('hidden');
+    });
+
+    // Добавление элементов в контейнер формы
+    formContainer.appendChild(signInForm);
+    formContainer.appendChild(switchToRegister);
+    formContainer.appendChild(registerForm);
+    formContainer.appendChild(switchToSignIn);
+
+    // Добавление всего в модальное окно
+    modalContent.appendChild(formHeader);
+    modalContent.appendChild(formContainer);
+
+    if (error) {
+        let errorMessage = document.createElement("p");
+        errorMessage.className = "form-error";
+        errorMessage.textContent = "An error occurred. Please try again.";
+        modalContent.appendChild(errorMessage);
     }
-});
+
+    document.body.append(modalDiv);
+};
+
 //
