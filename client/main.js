@@ -3,7 +3,7 @@ import {initializeProductImageSwitcher} from './src/scripts/header-main-module.j
 import {createModalWindowMenu, createModalWindowCart} from './src/scripts/navigation-header.js';
 import {modalWindowPosition} from "./src/scripts/constants.js";
 import {loginInit, registrateInit} from "./src/scripts/requests.js";
-import {addProductToMongoDb} from "./src/scripts/requests.js";
+// import {addProductToMongoDb} from "./src/scripts/requests.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     const hamburgerIcon = document.querySelector(".header-icon__menu");
