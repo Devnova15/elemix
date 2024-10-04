@@ -1,0 +1,43 @@
+@import "/src/design/setting/variables";
+
+/* Контейнер для всей секции */
+.features-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  margin: 0 auto;
+  border-bottom: 1px solid $border-color-lightgray;
+}
+
+/* Каждый элемент секции */
+.features-item {
+  text-align: center;
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Иконки */
+.features-item img {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 10px;
+}
+
+/* Заголовок каждого элемента */
+.features-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+  color: $text-color-black;
+  letter-spacing: 0.5px;
+}
+
+/* Описание каждого элемента */
+.features-description {
+  font-size: 14px;
+  color: $text-color-dimgrey;
+  margin: 5px 0 0;
+}

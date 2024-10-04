@@ -56,11 +56,6 @@ export const loginInit = async () => {
     console.log(store)
 }
 
-
-
-
-
-
 export const getProduct = async () => {
     return sendRequest(ENDPOINT.PRODUCTS.ROOT, 'GET', {
         headers: {

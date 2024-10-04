@@ -3,6 +3,7 @@ import {initializeProductImageSwitcher} from './src/scripts/header-main-module.j
 import {createModalWindowMenu, createModalWindowCart} from './src/scripts/navigation-header.js';
 import {modalWindowPosition} from "./src/scripts/constants.js";
 import {loginInit, registrateInit} from "./src/scripts/requests.js";
+import {addProductsAccessoriesCategory} from "./src/scripts/addProductsToDB.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     const hamburgerIcon = document.querySelector(".header-icon__menu");
@@ -62,8 +63,8 @@ document.querySelector(".product-button").addEventListener('click', async () => 
 //тут продукты
 
 document.querySelector(".header-search__button").addEventListener('click', async () => {
-    await addProductsMensCategory();
-    console.log('Men products added');
+    await addProductsAccessoriesCategory();
+    console.log('Accessories added');
 });
 
 
