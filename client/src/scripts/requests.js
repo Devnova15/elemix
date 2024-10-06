@@ -49,11 +49,41 @@ export const loginInit = async () => {
         loginOrEmail: "customer@gmail.com",
         password: "1111111"
     };
+
     const {token} = await loginAndGetToken(userData)
     store.token = token
+    store.user = userData
     console.log(store)
 }
 
+
+
+
+
+
+export const getProduct = async () => {
+    return sendRequest(ENDPOINT.PRODUCTS.ROOT, 'GET', {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+};
+
+
+
+
+
+export const addProduct =  async (product) => {
+    const addProducts = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': store.token,
+        },
+        body: JSON.stringify(product)
+    }
+    const responceProduct = await sendRequest(ENDPOINT.PRODUCTS.ROOT, 'POST', addProducts)
+    console.log(responceProduct)
+}
 
 
 // export const getAllProducts = async () => {

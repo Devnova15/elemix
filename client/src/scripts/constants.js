@@ -8,10 +8,14 @@ export const API = 'https://dummyjson.com';
 export const API_LOCAL = 'http://localhost:4000/api/'
 
 export const ENDPOINT = Object.freeze({
+  PRODUCTS: {
+    ROOT: `${API}/products`
+  },
 
   CUSTOMERS: {
     LOGIN: `${API}/customers/login`,
     REGISTER: `${API}/customers`,
+    PASSWORD: `${API}/customers/password`
   }
 
 
