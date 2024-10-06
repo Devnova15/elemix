@@ -7,7 +7,7 @@ import {
 import {modalWindowPosition} from "./src/scripts/constants.js";
 import {loginInit, registrateInit} from "./src/scripts/requests.js";
 import {addProduct} from "./src/scripts/requests.js";
-import {addProductsMensCategory} from "./src/scripts/addProductsToDB.js";
+import {addProductsMensCategory, addProductsWomensCategory} from "./src/scripts/addProductsToDB.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     const hamburgerIcon = document.querySelector(".header-icon__menu");
@@ -30,16 +30,22 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 initializeProductImageSwitcher();
 
-document.querySelector(".product-button").addEventListener('click', async () => {
-    console.log('clicked')
-    await loginInit()
-})
+// В файле с обработчиком события
+document.addEventListener('click', async (event) => {
+    // Проверяем, был ли клик по кнопке с классом form-button
+    if (event.target.classList.contains('form-button')) {
+        console.log('clicked');
+        await loginInit();
+    }
+});
+
 
 
 //тут продукты
 
 document.querySelector(".header-search__button").addEventListener('click', async () => {
     await addProductsMensCategory();
+    await addProductsWomensCategory()
     console.log('Men products added');
 });
 
