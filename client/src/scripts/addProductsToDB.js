@@ -183,12 +183,54 @@ export const addProductsAccessoriesCategory = async () => {
             ],
             quantity: 23,
             description: 'Oversized oval sunglasses with a sleek design and UV protection, adding a chic and retro vibe to any outfit'
-        }]
+        },
+        {
+            name: 'Round Sunglasses',
+            currentPrice: 16.00,
+            categories: 'women',
+            type: 'Accessories, sunglasses',
+            imageUrls: [
+                'https://elemix.pixel-show.com/wp-content/uploads/2019/05/sunglasses-2-2-150x150.jpg',
+                'https://elemix.pixel-show.com/wp-content/uploads/2019/05/sunglasses-2-1.jpg'
+            ],
+            quantity: 82,
+            description: 'Round Sunglasses — stylish round-lens sunglasses offering UV protection, combining retro charm with modern simplicity. Ideal for daily wear and as a trendy accessory.'
+        },
+        {
+            name: '90s Shoulder Bag',
+            currentPrice: '39.00',
+            categories: 'women',
+            type:'Accessories, Bags',
+            color: 'Black',
+            imageUrls: [
+                'https://elemix.pixel-show.com/wp-content/uploads/2019/05/80s-bag-black-2-min.jpg',
+                'https://elemix.pixel-show.com/wp-content/uploads/2019/05/80s-bag-black-3-min-760x970.jpg',
+                'https://elemix.pixel-show.com/wp-content/uploads/2019/05/80s-bag-black-1-min-760x970.jpg',
+            ],
+            quantity: '14',
+            description: '90s Shoulder Bag — a trendy shoulder bag inspired by 90s fashion, offering both style and practicality. Compact yet spacious enough for essentials, it\'s perfect for daily use and adds a nostalgic touch to any outfit.',
+        },
+        {
+            name: '90s Shoulder Bag',
+            currentPrice: '39.00',
+            categories: 'women',
+            type:'Accessories, Bags',
+            color: 'Powder',
+            imageUrls: [
+                'https://elemix.pixel-show.com/wp-content/uploads/2019/05/80s-bag-min.jpg',
+                'https://elemix.pixel-show.com/wp-content/uploads/2019/05/80s-bag-3-min.jpg',
+                'https://elemix.pixel-show.com/wp-content/uploads/2019/05/80s-bag-2-min.jpg',
+            ],
+            quantity: '41',
+            description: '90s Shoulder Bag — a trendy shoulder bag inspired by 90s fashion, offering both style and practicality. Compact yet spacious enough for essentials, it\'s perfect for daily use and adds a nostalgic touch to any outfit.',
+        },
+    ]
 
-    const womenProducts = products.filter(product => product.categories === "women");
+    const accessoriesProducts = products.filter(product => product.categories === 'accessories');
 
-    const productsPromise = womenProducts.map((product) => addProduct(product));
+    const productsPromise = accessoriesProducts.map((product) => addProduct(product));
 
     await Promise.all(productsPromise);
-    console.log('Women category products added');
+    console.log('Accessories category products added');
+    console.log(products)
 }
