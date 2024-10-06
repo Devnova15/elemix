@@ -4,6 +4,8 @@ export const store = {
   token: null,
   user: null,
 }
+export const API = 'https://dummyjson.com';
+export const API_LOCAL = 'http://localhost:4000/api/'
 
 export const ENDPOINT = Object.freeze({
   PRODUCTS: {
