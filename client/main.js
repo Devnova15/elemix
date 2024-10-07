@@ -5,12 +5,25 @@ import {
     createModalWindowCart, createModalForSingUpForm,
 
 } from './src/scripts/navigation-header.js';
-import {modalWindowPosition} from "./src/scripts/constants.js";
-import {loginInit, registrateInit} from "./src/scripts/requests.js";
+import {modalWindowPosition, store} from "./src/scripts/constants.js";
+import {getAllProducts, getProduct, loginInit, registrateInit} from "./src/scripts/requests.js";
 import {addProduct} from "./src/scripts/requests.js";
 import {addProductsMensCategory, addProductsWomensCategory} from "./src/scripts/addProductsToDB.js";
+import {createCartProduct} from "./src/scripts/top-sellers.js";
+
+
+
+document.addEventListener("DOMContentLoaded", async()=>{
+    store.topSellers = await getAllProducts()
+    const productList = document.querySelector('.product-list')
+
+    const productCarts = store.topSellers.map(product => createCartProduct(product))
+    productList.append(...productCarts)
+})
+
 
 document.addEventListener("DOMContentLoaded", () => {
+
     const hamburgerIcon = document.querySelector(".header-icon__menu");
 
     if (hamburgerIcon) {
