@@ -1,3 +1,4 @@
+import './src/scripts/top-sellers.js'
 import {initializeProductImageSwitcher} from './src/scripts/header-main-module.js';
 import {
     createModalWindowMenu,
