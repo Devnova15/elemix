@@ -1,4 +1,3 @@
-
 import {API, ENDPOINT, store} from './constants.js';
 
 export const sendRequest = async (url, method = "GET", options = {}) => {
@@ -13,7 +12,6 @@ export const sendRequest = async (url, method = "GET", options = {}) => {
         throw error;
     }
 };
-
 
 
 export const loginAndGetToken = async (credentional) => {
@@ -40,8 +38,8 @@ export const registrateInit = async () => {
         password: "1111111",
         isAdmin: true
     }
-   const responce = await registrateUser(newUser)
-   console.log(responce)
+    const responce = await registrateUser(newUser)
+    console.log(responce)
 }
 
 export const loginInit = async () => {
@@ -56,11 +54,6 @@ export const loginInit = async () => {
     console.log(store)
 }
 
-
-
-
-
-
 export const getProduct = async () => {
     return sendRequest(ENDPOINT.PRODUCTS.ROOT, 'GET', {
         headers: {
@@ -70,10 +63,7 @@ export const getProduct = async () => {
 };
 
 
-
-
-
-export const addProduct =  async (product) => {
+export const addProduct = async (product) => {
     const addProducts = {
         headers: {
             'Content-Type': 'application/json',
@@ -86,10 +76,11 @@ export const addProduct =  async (product) => {
 }
 
 
-// export const getAllProducts = async () => {
-//
-//     return sendRequest(`${API}${ENDPOINT.PRODUCTS.ROOT}?limit=0`)
-// }
+export const getAllProducts = async () => {
+    return await sendRequest(ENDPOINT.PRODUCTS.ROOT)
+}
+
+
 // //по идее сюда тоже логику с пагинацией нужно
 // const searchProducts = async (item, ) => {
 //     return await sendRequest(`${API}${ENDPOINT.PRODUCTS.SEARCH}${item}`)
@@ -116,6 +107,3 @@ export const addProduct =  async (product) => {
 // getAllProducts().then(products => {
 //     console.log("Products on page 1:", products);
 // });
-
-
-
