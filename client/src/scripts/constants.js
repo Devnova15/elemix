@@ -4,19 +4,19 @@ export const store = {
   token: null,
   user: null,
 }
-export const API = 'https://dummyjson.com';
-export const API_LOCAL = 'http://localhost:4000/api/'
 
 export const ENDPOINT = Object.freeze({
   PRODUCTS: {
-    ROOT: `${API}/products`
+    ROOT: `${API}/products`,
+    ID_PRODUCTS: `${API}/products${id}`
   },
 
   CUSTOMERS: {
     LOGIN: `${API}/customers/login`,
     REGISTER: `${API}/customers`,
     PASSWORD: `${API}/customers/password`
-  }
+  },
+
 
 
   // PRODUCTS: {
