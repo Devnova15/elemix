@@ -1,5 +1,4 @@
 @import "/src/design/setting/variables";
-
 .top-sellers {
     margin-top: 100px; /* Отступ сверху */
     display: flex; /* Используем флексбокс для выравнивания содержимого */
@@ -73,19 +72,19 @@
   
   /* Стили кнопки при наведении */
   .button--load-more:hover {
-    $background-color-firebrick: firebrick;
+    background-color: firebrick;
     
   }
   
-  /* Медиазапрос для экранов от 480 до 768 пикселей (планшеты) */
-  @media (min-width: 480px) and (max-width: 768px) {
-    .button--load-more {
-      width: 100%; /* Кнопка растягивается на всю ширину экрана на мобильных устройствах */
-    }
-  }
-  /* Медиазапрос для экранов от 480 до 768 пикселей (планшеты) */
-  @media (min-width: 480px) and (max-width: 768px) {
-    .product-list {
-      grid-template-columns: repeat(2, 1fr); /* 2 колонки для мобильных устройств */
-    }
-  }
+  // /* Медиазапрос для экранов от 480 до 768 пикселей (планшеты) */
+  // @media (min-width: 480px) and (max-width: 768px) {
+  //   .button--load-more {
+  //     width: 100%; /* Кнопка растягивается на всю ширину экрана на мобильных устройствах */
+  //   }
+  // }
+  // /* Медиазапрос для экранов от 480 до 768 пикселей (планшеты) */
+  // @media (min-width: 480px) and (max-width: 768px) {
+  //   .product-list {
+  //     grid-template-columns: repeat(2, 1fr); /* 2 колонки для мобильных устройств */
+  //   }
+  // }
