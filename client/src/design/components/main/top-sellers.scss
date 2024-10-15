@@ -1,90 +1,136 @@
-@import "/src/design/setting/variables";
 .top-sellers {
-    margin-top: 100px; /* Отступ сверху */
-    display: flex; /* Используем флексбокс для выравнивания содержимого */
-    flex-direction: column; /* Вертикальное расположение элементов */
-    align-items: center; /* Выравнивание по центру по горизонтали */
-    justify-content: center; /* Выравнивание по центру по вертикали */
-    padding: 20px; /* Внутренние отступы */
-    text-align: center; /* Центрируем текст */
-  
-    /* Вложенный элемент для заголовка */
-    &__title {
-      font-size: 35px; /* Размер шрифта */
-      font-family: 'HansKendrick'; /* Шрифт заголовка */
-      //font-weight: $font-weight-bold; /* Используйте переменную для жирности текста */
-      margin-bottom: 40px; /* Отступ снизу */
-    }
-  
-    /* Вложенный элемент для текста под заголовком */
-    &__text {
-      margin-bottom: 50px;
-      font-weight: lighter; /* Используйте переменную для лёгкости шрифта */
-      // font-size: 20px;
-      line-height: 30px;
-    }
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+
+  &__title {
+    font-size: 32px;
+    font-family: $font-primary;
+    font-weight: bold;
+    margin-bottom: 40px;
   }
-  
-  /* Сетка для списка продуктов */
-  .product-list {
-    display: grid; /* Используем CSS Grid */
-    grid-template-columns: repeat(4, 1fr); /* 4 колонки с равной шириной */
-    grid-gap: 20px; /* Промежуток между элементами сетки */
-    margin-bottom: 20px; /* Отступ снизу */
-    cursor: pointer; /* Устанавливаем курсор как указатель (рука) */
+
+  &__text {
+    font-family: $font-primary;
+    margin-bottom: 50px;
+    font-weight: lighter;
+    font-size: 15px;
+    line-height: 30px;
   }
-  
-  /* Отдельный элемент продукта */
-  .product-list__item {
-    //border: 1px solid $background-color-secondary; /* Добавить границу с использованием переменной */
-    padding: 10px; /* Внутренние отступы */
-    text-align: center; /* Центрируем текст внутри элемента */
-  }
-  
-  /* Изображение продукта */
-  .product-list__image {
-    max-width: 100%; /* Ограничиваем изображение шириной контейнера */
-    height: auto; /* Автоматическая высота для сохранения пропорций */
-  }
-  
-  /* Заголовок продукта */
-  .product-list__title {
-    margin: 10px; /* Отступы вокруг заголовка продукта */
-  }
-  
-  
-  
-  /* Кнопка для загрузки большего количества продуктов */
-  .button--load-more {
-    display: block; /* Кнопка занимает всю ширину контейнера */
-    margin: 0 auto; /* Центрируем кнопку */
-    padding: 13px 20px; /* Внутренние отступы кнопки */
-    //background-color: $background-color-primary; /* Используйте переменную для цвета фона */
-    border: 1px solid silver; /* Серая граница */
-    //font-size: $font-size-small; /* Используйте переменную для размера текста */
-    //font-weight: $font-weight-bold; /* Используйте переменную для жирности текста */
-    text-transform: uppercase; /* Преобразование текста в верхний регистр */
-    border-radius: 5px; /* Скругленные углы */
-    letter-spacing: 1px; /* Увеличение межбуквенного расстояния */
-    width: 150px; /* Фиксированная ширина кнопки */
-    cursor: pointer; /* Указатель при наведении курсора */
-  }
-  
-  /* Стили кнопки при наведении */
-  .button--load-more:hover {
-    background-color: firebrick;
-    
-  }
-  
-  // /* Медиазапрос для экранов от 480 до 768 пикселей (планшеты) */
-  // @media (min-width: 480px) and (max-width: 768px) {
-  //   .button--load-more {
-  //     width: 100%; /* Кнопка растягивается на всю ширину экрана на мобильных устройствах */
-  //   }
-  // }
-  // /* Медиазапрос для экранов от 480 до 768 пикселей (планшеты) */
-  // @media (min-width: 480px) and (max-width: 768px) {
-  //   .product-list {
-  //     grid-template-columns: repeat(2, 1fr); /* 2 колонки для мобильных устройств */
-  //   }
-  // }
+}
+
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 40px;
+  margin-bottom: 80px;
+  cursor: pointer;
+}
+
+.product-list__item {
+  padding: 10px;
+  text-align: center;
+}
+
+
+.product-list__title {
+  margin: 10px;
+}
+
+.product-name {
+  padding: 5px;
+  font-family: $font-primary;
+  font-weight: 100;
+  text-align: left;
+  text-transform: capitalize;
+}
+
+.product-rating {
+  text-align: left;
+  margin-top: 5px;
+}
+
+.product-element {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.star {
+  color: $star-color-reddish-orange;
+  font-size: 15px;
+  text-align: left;
+}
+
+.product-price-container {
+  display: flex; 
+  align-items: center; 
+}
+
+.product-price {
+  font-family: $font-primary; 
+  font-size: 14px;
+  font-weight: 600;
+  padding: 5px;
+}
+
+.product-previous-price {
+  font-family: $font-primary; 
+  font-size: 13px;
+  font-weight: 600;
+  margin-left: 5px; 
+  text-decoration: line-through;
+  color: gray; 
+}
+
+
+.product-img {
+  width: 235px;
+  height: auto;
+}
+
+
+.button--load-more {
+  display: block;
+  margin: 0 auto;
+  padding: 13px 20px;
+  background-color: $background-color-white;
+  border: 1px solid silver;
+  border-width: 2px 2px 2px 2px;
+  font-family: $font-primary;
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  height: 45px;
+  width: 165px;
+  cursor: pointer;
+}
+
+.button--load-more:hover {
+  transition: background-color 0.5s ease;
+
+  color: $text-color-white;
+  background-color: $text-color-firebrick;
+
+
+}
+
+
+
+// /* Медиазапрос для экранов от 480 до 768 пикселей (планшеты) */
+// @media (min-width: 480px) and (max-width: 768px) {
+//   .button--load-more {
+//     width: 100%; /* Кнопка растягивается на всю ширину экрана на мобильных устройствах */
+//   }
+// }
+// /* Медиазапрос для экранов от 480 до 768 пикселей (планшеты) */
+// @media (min-width: 480px) and (max-width: 768px) {
+//   .product-list {
+//     grid-template-columns: repeat(2, 1fr); /* 2 колонки для мобильных устройств */
+//   }
+// }

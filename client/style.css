@@ -1,15 +1,3 @@
 @import "src/design/components/index.scss";
-@import "/src/design/setting/index.scss";
-
-@import "src/design/components/main/reset.scss";
-@import "src/design/components/main/navigation-header.scss";
-@import "src/design/components/main/navigation-header-module-window.scss";
-@import "src/design/components/main/header-main-module.scss";
-@import "src/design/components/main/header-features-info.scss";
-@import "src/design/components/main/footer-section.scss";
-@import "src/design/components/main/navigation-header-cart-module-window.scss";
-@import "src/design/components/main/singUpForm.scss";
-@import "src/design/components/main/newsletter-section.scss";
-@import "src/design/components/main/followTheLates.scss";
-/* @import "src/design/components/main/top-sellers.scss"; */
+@import "src/design/setting/index.scss";
 
