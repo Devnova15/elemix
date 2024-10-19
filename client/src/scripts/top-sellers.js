@@ -55,10 +55,31 @@ export const createCartProduct = (product) => {
     const productImage1 = document.createElement('img');
     const productImage2 = document.createElement('img');
     const productName = document.createElement('p');
-    const productRating = document.createElement('div'); 
+    const productRating = document.createElement('div');
     const productPriceContainer = document.createElement('div');
     const productPrice = document.createElement('p');
     const productPreviousPrice = document.createElement('p');
+
+
+
+// const defineProductStatus = (product, statusLabel)=>{
+
+//     if (product.previousPrice) {
+//         productLabel = document.createElement('label')
+//         productLabel.textContent = 'SALE!'
+//         }
+//         // if (product.)
+// }
+// const productLabel = [];
+
+//     // const productLabelNew = document.createElement('label');
+//     // const productLabelHot = document.createElement('label');
+
+
+//     // productLabelSale.textContent = 'SALE!';
+//     // productLabelNew.textContent = 'NEW';
+//     // productLabelHot.textContent = 'HOT';
+
 
     productImage1.className = 'product-img';
     productImage2.className = 'product-img hover-img';
@@ -68,43 +89,85 @@ export const createCartProduct = (product) => {
 
     productName.className = 'product-name';
     productName.textContent = product.name;
-
     if (product.variations && product.variations.length > 0) {
         const currentVariation = product.variations[0];
+    
+    //     productPrice.textContent = `$${currentVariation.currentPrice ? currentVariation.currentPrice.toFixed(2) : product.currentPrice.toFixed(2)}`;
+    
+    //     if (currentVariation.previousPrice) {
+    //         productPreviousPrice.textContent = `$${currentVariation.previousPrice.toFixed(2)}`;
+    //         productPrice.style.color = '#ca2728'; 
+    //         productPreviousPrice.style.textDecoration = 'line-through'; 
+    //     }
+    // } else {
+    //     productPrice.textContent = `$${product.currentPrice.toFixed(2)}`;
+    
+    //     if (product.previousPrice) {
+    //         productPreviousPrice.textContent = `$${product.previousPrice.toFixed(2)}`;
+    //         productPrice.style.color = '#ca2728'; 
+    //         productPreviousPrice.style.textDecoration = 'line-through'; 
+    //     }
+    // } 
+    
+    // productPriceContainer.className = 'product-price-container';
+    // productPrice.className = 'product-price';
+    // productPreviousPrice.className = 'product-previous-price';
+    // productRating.className = 'product-rating';
 
-        productPrice.textContent = `$${currentVariation.currentPrice ? currentVariation.currentPrice.toFixed(2) : product.currentPrice.toFixed(2)}`;
+    // productPriceContainer.append(productPrice);
+    // if (productPreviousPrice.textContent) {
+    //     productPriceContainer.append(productPreviousPrice);
+    // }
 
-        if (currentVariation.previousPrice) {
-            productPreviousPrice.textContent = `$${currentVariation.previousPrice.toFixed(2)}`;
-        }
-    } else {
-        productPrice.textContent = `$${product.currentPrice.toFixed(2)}`;
-        if (product.previousPrice) {
-            productPreviousPrice.textContent = `$${product.previousPrice.toFixed(2)}`;
-        }
+
+// Проверяем наличие currentVariation и его свойства currentPrice
+if (currentVariation && currentVariation.currentPrice) {
+    productPrice.textContent = `$${currentVariation.currentPrice.toFixed(2)}`;
+} else if (product.currentPrice) {
+    // Если у вариации нет текущей цены, используем цену из продукта
+    productPrice.textContent = `$${product.currentPrice.toFixed(2)}`;
+}
+
+// Проверяем наличие предыдущей цены у currentVariation или у продукта
+if (currentVariation && currentVariation.previousPrice) {
+    productPreviousPrice.textContent = `$${currentVariation.previousPrice.toFixed(2)}`;
+    productPrice.style.color = '#ca2728'; 
+    productPreviousPrice.style.textDecoration = 'line-through'; 
+} else if (product.previousPrice) {
+    productPreviousPrice.textContent = `$${product.previousPrice.toFixed(2)}`;
+    productPrice.style.color = '#ca2728'; 
+    productPreviousPrice.style.textDecoration = 'line-through'; 
+} else {
+    productPreviousPrice.textContent = ''; // Если предыдущая цена не указана, очищаем поле
+    productPrice.style.color = ''; // Сбрасываем цвет
+}
+
+// Установка классов
+productPriceContainer.className = 'product-price-container';
+productPrice.className = 'product-price';
+productPreviousPrice.className = 'product-previous-price';
+productRating.className = 'product-rating';
+
+// Добавляем элементы в контейнер
+productPriceContainer.append(productPrice);
+if (productPreviousPrice.textContent) {
+    productPriceContainer.append(productPreviousPrice);
+}
     }
 
-    // Добавляем классы для контейнера цен
-    productPriceContainer.className = 'product-price-container';
-    productPrice.className = 'product-price';
-    productPreviousPrice.className = 'product-previous-price';
-    productRating.className = 'product-rating';
 
 
-    // Добавляем цены в контейнер
-    productPriceContainer.append(productPrice);
-    if (productPreviousPrice.textContent) {
-        productPriceContainer.append(productPreviousPrice); 
-    }
     const stars = product.rank
-        ? Math.round(product.rank)
+        ? product.rank 
         : product.variations && product.variations[0].rank
-            ? Math.round(product.variations[0].rank)
+            ? product.variations[0].rank
             : 0;
     productRating.innerHTML = getStarsHTML(stars);
 
+    addRatingEventListeners(productRating, product);
+
     productImageContainer.append(productImage1, productImage2);
-    productElement.append(productImageContainer, productName, productRating, productPriceContainer); // Добавляем контейнер цен
+    productElement.append(productImageContainer, productName, productRating, productPriceContainer); 
 
     productImageContainer.addEventListener('mouseover', () => {
         productImage1.style.display = 'none';
@@ -124,11 +187,67 @@ export const createCartProduct = (product) => {
 const getStarsHTML = (rating) => {
     let starsHTML = '';
     for (let i = 1; i <= 5; i++) {
-        if (i <= rating) {
-            starsHTML += '<span class="star">★</span>'; 
-        } else {
-            starsHTML += '<span class="star">☆</span>'; 
-        }
+        starsHTML += `
+            <span class="star ${i <= Math.floor(rating) ? 'filled' : ''} 
+            ${i - 0.5 <= rating && i > Math.floor(rating) ? 'half-filled' : ''}" 
+            data-rating="${i}">★</span>`;
     }
     return starsHTML;
+}
+
+const addRatingEventListeners = (productRating, product) => {
+    const stars = productRating.querySelectorAll('.star');
+
+    stars.forEach(star => {
+        star.addEventListener('mousemove', (event) => {
+            const starIndex = parseFloat(star.getAttribute('data-rating'));
+            const rect = star.getBoundingClientRect();
+            const offsetX = event.clientX - rect.left; 
+            const width = rect.width;
+
+            
+            const hoverRating = offsetX < width / 2 ? starIndex - 0.5 : starIndex;
+            updateStarsDisplay(productRating, hoverRating);
+        });
+
+        star.addEventListener('mouseout', () => {
+         
+            const currentRank = product.variations && product.variations.length > 0 
+                ? product.variations[0].rank || 0
+                : product.rank || 0;
+
+            updateStarsDisplay(productRating, currentRank); 
+        });
+
+        star.addEventListener('click', (event) => {
+            const starIndex = parseFloat(star.getAttribute('data-rating'));
+            const rect = star.getBoundingClientRect();
+            const offsetX = event.clientX - rect.left;
+            const width = rect.width;
+            const newRating = offsetX < width / 2 ? starIndex - 0.5 : starIndex;
+
+            product.rank = newRating; 
+            if (product.variations && product.variations.length > 0) {
+                product.variations.forEach(variation => {
+                    variation.rank = newRating; 
+                });
+            }
+
+            updateStarsDisplay(productRating, newRating); 
+        });
+    });
+};
+
+const updateStarsDisplay = (productRating, rating) => {
+    const stars = productRating.querySelectorAll('.star');
+    stars.forEach((star, index) => {
+        const starValue = index + 1;
+        star.classList.remove('filled', 'half-filled'); 
+
+        if (starValue <= rating) {
+            star.classList.add('filled'); 
+        } else if (starValue - 0.5 <= rating) {
+            star.classList.add('half-filled'); 
+        }
+    });
 }

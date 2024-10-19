@@ -60,15 +60,16 @@
   align-items: flex-start;
 }
 
-.star {
-  color: $star-color-reddish-orange;
-  font-size: 15px;
-  text-align: left;
-}
+// .star {
+//   color: $star-color-reddish-orange;
+//   font-size: 15px;
+//   text-align: left;
+// }
 
 .product-price-container {
   display: flex; 
   align-items: center; 
+  margin-top: 5px;
 }
 
 .product-price {
@@ -120,6 +121,29 @@
 
 }
 
+
+.star {
+  font-size: 18px;
+  color: #ccc; 
+  cursor: pointer;
+  position: relative;
+}
+
+.star.filled {
+  color: $star-color-reddish-orange; 
+}
+
+.star.half-filled {
+  color: #ccc; }
+
+.star.half-filled::before {
+  content: '★'; /* Звезда */
+  position: absolute;
+  left: 0;
+  width: 50%; 
+  overflow: hidden;
+  color: $star-color-reddish-orange; 
+}
 
 
 // /* Медиазапрос для экранов от 480 до 768 пикселей (планшеты) */
