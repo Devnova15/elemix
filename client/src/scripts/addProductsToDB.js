@@ -1,3 +1,4 @@
+
 import {addProduct} from "./requests.js";
 
 // Функция для добавления только мужских продуктов
@@ -777,5 +778,4 @@ export const addProductsWomensCategory = async () => {
     await Promise.all(productsPromise);
     console.log('Women category products added');
 }
-
 
