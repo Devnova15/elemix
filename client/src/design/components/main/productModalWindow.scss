@@ -1,0 +1,185 @@
+/* Основной стиль для модального окна */
+.modal-center {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  padding: 20px;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  width: 80%; /* Более горизонтальное, увеличенное окно */
+  max-width: 900px; /* Максимальная ширина */
+  height: auto; /* Высота может изменяться в зависимости от контента */
+  flex-direction: row; /* Размещаем элементы горизонтально */
+}
+
+
+/* Контент внутри модального окна */
+.modal-content-center, .modal-content-right {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+/* Контейнер для изображения */
+.modal-img__container {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+ }
+
+.modal-img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+
+/* Контейнер для текста в модалке */
+.modal-text__container {
+  width: 50%; /* Половина окна под текст */
+  padding: 20px;
+}
+
+/* Заголовок */
+.modal-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Цена */
+.modal-price {
+  font-size: 20px;
+  color: #444;
+  margin-bottom: 10px;
+}
+
+/* Описание товара */
+.modal-description {
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: #666;
+}
+
+/* Кнопка закрытия */
+.modal-close__button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+
+
+/* Кнопки переключения изображений */
+.modal-img__button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.9); /* Полупрозрачный белый фон */
+  color: #999; /* Более серый цвет текста */
+  border: none;
+  padding: 15px; /* Увеличенный отступ для большего круга */
+  cursor: pointer;
+  font-size: 20px; /* Уменьшенный размер текста для тонкости */
+  border-radius: 50%; /* Круглая форма */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Тень для кнопок */
+  transition: background-color 0.3s ease, opacity 0.3s ease; /* Плавные переходы */
+  opacity: 0; /* Начальная прозрачность */
+}
+
+/* Отображаем кнопки при наведении на контейнер */
+.modal-img__container:hover .modal-img__button {
+  opacity: 1; /* Кнопки становятся видимыми */
+}
+
+.modal-img__button:first-of-type {
+  left: 20px; /* Кнопка влево */
+}
+
+.modal-img__button:last-of-type {
+  right: 20px; /* Кнопка вправо */
+}
+
+/* Дополнительный стиль для изменения фона кнопки при наведении */
+.modal-img__button:hover {
+  background-color: rgba(255, 255, 255, 1); /* Полностью белый при наведении */
+}
+
+/* Кнопка "Add to Cart" */
+.add-to-cart-button {
+  background-color: #e60023; /* Ярко-красный цвет */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.add-to-cart-button:hover {
+  background-color: #cc001f; /* Темнее при наведении */
+}
+
+
+/* Селекторы размеров и цветов */
+.modal-colors, .modal-sizes {
+  margin-bottom: 15px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 12px; /* Сделал меньше размер текста */
+  width: 100px; /* Ограничил ширину */
+  appearance: none; /* Убрал стандартные стрелки */
+  -moz-appearance: none; /* Убрал стрелки для Firefox */
+  -webkit-appearance: none; /* Убрал стрелки для Webkit (Chrome, Safari) */
+  background-color: #f9f9f9; /* Светлый фон для селектов */
+  padding-right: 10px; /* Дополнительный отступ справа */
+}
+
+/* Кнопки для увеличения и уменьшения количества товара */
+.quantity-button, .quantity-counter {
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  padding: 10px;
+  font-size: 18px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.quantity-button:hover, .quantity-counter:hover {
+  background-color: #ddd;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Выравнивание кнопок */
+.quantity-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+
+/* Рейтинг продукта */
+.modal-products-rank {
+  font-size: 14px;
+  color: #888;
+  margin-top: 10px;
+}

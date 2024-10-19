@@ -1,6 +1,4 @@
 export  const API = '//localhost:4000/api'
-// export const API = 'https://dummyjson.com';
-// export const API_LOCAL = 'http://localhost:4000/api/'
 
 export const store = {
   token: null,
@@ -11,7 +9,6 @@ export const store = {
 export const ENDPOINT = Object.freeze({
   PRODUCTS: {
     ROOT: `${API}/products`,
-    ID_PRODUCTS: `${API}/products${id}`
   },
 
   CUSTOMERS: {
