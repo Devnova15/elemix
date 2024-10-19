@@ -1,52 +1,8 @@
+import { modalWindowPosition } from './constants.js';
+import { extractImgUrls } from "./helper/extractImgUrls.js";
+import { createModal } from "./helper/createModalFunction.js";
 import { getAllProducts } from './requests.js';
-
-// export const createCartProduct = (product) => {
-//     const productElement = document.createElement('div');
-//     const productImage = document.createElement('img');
-//     const productName = document.createElement('p')
-//     const productTitle = document.createElement('p');
-//     const productPrice = document.createElement('p');
-//     const productRank = document.createElement('p');
-
-// const defineProductStatus = (product, statusLabel)=>{
-
-//     if (product.previousPrice) {
-//         productLabel = document.createElement('label')
-//         productLabel.textContent = 'SALE!'
-//         }
-//         // if (product.)
-// }
-// const productLabel = [];
-
-//     // const productLabelNew = document.createElement('label');
-//     // const productLabelHot = document.createElement('label');
-
-
-//     // productLabelSale.textContent = 'SALE!';
-//     // productLabelNew.textContent = 'NEW';
-//     // productLabelHot.textContent = 'HOT';
-
-
-//     productImage.className = 'product-img';
-//     productImage.src = product.imageUrls[0] ? product.imageUrls[0] : product.variations[0].imageUrls[0];
-
-//     productName.className = 'product-name'
-//     productName.textContent = product.name
-
-//     productPrice.className ='product-price'
-//     productPrice.textContent = `$${product.currentPrice.toFixed(2)}`;
-//     // productRank.textContent = product.rank
-
-//     productElement.append(productImage, productName, productPrice, ...productLabel);
-//     // productRank,
-//     return productElement
-// }
-
-
-
-
-////
-
+import { modalProductWindow } from './modalProductWindow.js'
 
 
 export const createCartProduct = (product) => {
@@ -60,76 +16,56 @@ export const createCartProduct = (product) => {
     const productPrice = document.createElement('p');
     const productPreviousPrice = document.createElement('p');
 
+    const moreButton = document.createElement('button');
+    productImageContainer.addEventListener('click', () => {
+        modalProductWindow(product);
+    });
 
 
-// const defineProductStatus = (product, statusLabel)=>{
 
-//     if (product.previousPrice) {
-//         productLabel = document.createElement('label')
-//         productLabel.textContent = 'SALE!'
-//         }
-//         // if (product.)
-// }
-// const productLabel = [];
+    const defineProductStatus = (product) => {
+        const productLabelContainer = document.createElement('div');
+        productLabelContainer.className = 'product-label-container';
 
-//     // const productLabelNew = document.createElement('label');
-//     // const productLabelHot = document.createElement('label');
+        if (product.previousPrice) {
+            const productLabelSale = document.createElement('label');
+            productLabelSale.textContent = 'SALE!';
+            productLabelSale.className = 'product-sale-label';
+            productLabelContainer.appendChild(productLabelSale);
+        }
+        // array.reduce((accumulator, currentValue, index, array) => {
+        // }, initialValue);
+        
+        const totalQuantity = product.variations.reduce((total, variation) => total + variation.quantity, 0);
+        if (totalQuantity < 11) {
+            const productLabelHot = document.createElement('label');
+            productLabelHot.textContent = 'HOT';
+            productLabelHot.className = 'product-hot-label';
+            productLabelContainer.appendChild(productLabelHot);
+        }
 
-
-//     // productLabelSale.textContent = 'SALE!';
-//     // productLabelNew.textContent = 'NEW';
-//     // productLabelHot.textContent = 'HOT';
+        return productLabelContainer;
+    };
+    const productStatusLabels = defineProductStatus(product);
 
 
     productImage1.className = 'product-img';
     productImage2.className = 'product-img hover-img';
 
-    productImage1.src = product.imageUrls[0] ? product.imageUrls[0] : product.variations[0].imageUrls[0];
-    productImage2.src = product.imageUrls[1] ? product.imageUrls[1] : product.variations[0].imageUrls[1];
+    productImage1.src = product.imageUrls[0] || product.variations[0].imageUrls[0];
+    productImage2.src = product.imageUrls[1] || product.variations[0].imageUrls[1];
 
     productName.className = 'product-name';
     productName.textContent = product.name;
+
     if (product.variations && product.variations.length > 0) {
         const currentVariation = product.variations[0];
 
-        //     productPrice.textContent = `$${currentVariation.currentPrice ? currentVariation.currentPrice.toFixed(2) : product.currentPrice.toFixed(2)}`;
+        productPrice.textContent = currentVariation.currentPrice
+            ? `$${currentVariation.currentPrice.toFixed(2)}`
+            : `$${product.currentPrice.toFixed(2)}`;
 
-        //     if (currentVariation.previousPrice) {
-        //         productPreviousPrice.textContent = `$${currentVariation.previousPrice.toFixed(2)}`;
-        //         productPrice.style.color = '#ca2728';
-        //         productPreviousPrice.style.textDecoration = 'line-through';
-        //     }
-        // } else {
-        //     productPrice.textContent = `$${product.currentPrice.toFixed(2)}`;
-
-        //     if (product.previousPrice) {
-        //         productPreviousPrice.textContent = `$${product.previousPrice.toFixed(2)}`;
-        //         productPrice.style.color = '#ca2728';
-        //         productPreviousPrice.style.textDecoration = 'line-through';
-        //     }
-        // }
-
-        // productPriceContainer.className = 'product-price-container';
-        // productPrice.className = 'product-price';
-        // productPreviousPrice.className = 'product-previous-price';
-        // productRating.className = 'product-rating';
-
-        // productPriceContainer.append(productPrice);
-        // if (productPreviousPrice.textContent) {
-        //     productPriceContainer.append(productPreviousPrice);
-        // }
-
-
-// Проверяем наличие currentVariation и его свойства currentPrice
-        if (currentVariation && currentVariation.currentPrice) {
-            productPrice.textContent = `$${currentVariation.currentPrice.toFixed(2)}`;
-        } else if (product.currentPrice) {
-            // Если у вариации нет текущей цены, используем цену из продукта
-            productPrice.textContent = `$${product.currentPrice.toFixed(2)}`;
-        }
-
-// Проверяем наличие предыдущей цены у currentVariation или у продукта
-        if (currentVariation && currentVariation.previousPrice) {
+        if (currentVariation.previousPrice) {
             productPreviousPrice.textContent = `$${currentVariation.previousPrice.toFixed(2)}`;
             productPrice.style.color = '#ca2728';
             productPreviousPrice.style.textDecoration = 'line-through';
@@ -138,24 +74,20 @@ export const createCartProduct = (product) => {
             productPrice.style.color = '#ca2728';
             productPreviousPrice.style.textDecoration = 'line-through';
         } else {
-            productPreviousPrice.textContent = ''; // Если предыдущая цена не указана, очищаем поле
-            productPrice.style.color = ''; // Сбрасываем цвет
+            productPreviousPrice.textContent = '';
+            productPrice.style.color = '';
         }
 
-// Установка классов
         productPriceContainer.className = 'product-price-container';
         productPrice.className = 'product-price';
         productPreviousPrice.className = 'product-previous-price';
         productRating.className = 'product-rating';
 
-// Добавляем элементы в контейнер
         productPriceContainer.append(productPrice);
         if (productPreviousPrice.textContent) {
             productPriceContainer.append(productPreviousPrice);
         }
     }
-
-
 
     const stars = product.rank
         ? product.rank
@@ -167,7 +99,7 @@ export const createCartProduct = (product) => {
     addRatingEventListeners(productRating, product);
 
     productImageContainer.append(productImage1, productImage2);
-    productElement.append(productImageContainer, productName, productRating, productPriceContainer);
+    productElement.append(productStatusLabels, productImageContainer, productName, productRating, productPriceContainer,);
 
     productImageContainer.addEventListener('mouseover', () => {
         productImage1.style.display = 'none';

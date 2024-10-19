@@ -90,7 +90,7 @@ export const addProductsMensCategory = async () => {
                         "https://elemix.pixel-show.com/wp-content/uploads/2019/05/hoodie-3-760x970.jpg",
                     ],
                     rank: 2.5,
-                    quantity: 100,
+                    quantity: 7,
                 }
             ],
             sizes: "XSS, S, M, L, XL",
@@ -215,7 +215,7 @@ export const addProductsMensCategory = async () => {
                         "https://elemix.pixel-show.com/wp-content/uploads/2019/05/sunglasses-4-2-760x970.jpg",
                     ],
                     rank: 4,
-                    quantity: 50,
+                    quantity: 5,
                 }
             ],
             sizes: 'One size',
@@ -291,7 +291,7 @@ export const addProductsWomensCategory = async () => {
                         "https://elemix.pixel-show.com/wp-content/uploads/2019/05/sunglasses-3-1-760x970.jpg",
                     ],
                     rank: 1.5,
-                    quantity: 245,
+                    quantity: 332,
                 }
             ],
             sizes: 'One size',
@@ -355,7 +355,7 @@ export const addProductsWomensCategory = async () => {
                         "https://elemix.pixel-show.com/wp-content/uploads/2019/05/80s-bag-2-min-760x970.jpg",
                     ],
                     rank: 5,
-                    quantity: 70,
+                    quantity: 4,
                 },
                 {
                     color: "Black",
@@ -365,7 +365,7 @@ export const addProductsWomensCategory = async () => {
                         "https://elemix.pixel-show.com/wp-content/uploads/2019/05/80s-bag-black-1-min-760x970.jpg"
                     ],
                     rank: 4.5,
-                    quantity: 70,
+                    quantity: 3,
                 }
             ],
             sizes: 'One size',
