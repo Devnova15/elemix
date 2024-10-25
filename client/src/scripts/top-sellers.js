@@ -27,12 +27,15 @@ export const createCartProduct = (product) => {
         const productLabelContainer = document.createElement('div');
         productLabelContainer.className = 'product-label-container';
 
-        if (product.previousPrice) {
+        if (product.variations[0].previousPrice) {
             const productLabelSale = document.createElement('label');
             productLabelSale.textContent = 'SALE!';
             productLabelSale.className = 'product-sale-label';
             productLabelContainer.appendChild(productLabelSale);
         }
+
+
+
         // array.reduce((accumulator, currentValue, index, array) => {
         // }, initialValue);
         
