@@ -1,4 +1,4 @@
-.modal-center {
+.singup-modal-center {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -10,8 +10,9 @@
   z-index: 1000;
   border-radius: 10px;
 }
-
-
+.singup-modal-content {
+  display: block;
+}
 
 .form-header {
   text-align: center;

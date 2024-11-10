@@ -1,14 +1,16 @@
-import {modalWindowPosition} from "./constants.js";
-import {createCartProduct} from "./top-sellers.js";
+import {modalWindowPosition, store} from "./constants.js";
+import {addRatingEventListeners, createCartProduct, getStarsHTML, updateStarsDisplay} from "./top-sellers.js";
 import {extractImgUrls} from "./helper/extractImgUrls.js";
 import {createModal} from "./helper/createModalFunction.js";
+import {addToCartProducts} from "./helper/addToCartProducts.js";
 
 export const modalProductWindow = (product, position = modalWindowPosition.center) => {
     const imgUrls = extractImgUrls(product)
-    const {modalDiv, modalContent} = createModal(position);
+    const {modalDiv, modalContent, overlay} = createModal(position);
 
     let currentIndex = 0;  // Начальный индекс изображения
     let currentQuantity = 1; // Начальное количество товара
+
 
     const modalTextContainer = document.createElement('div');
     modalTextContainer.className = 'modal-text__container';
@@ -21,7 +23,7 @@ export const modalProductWindow = (product, position = modalWindowPosition.cente
     modalTitle.className = 'modal-title';
 
     const modalPrice = document.createElement('p');
-    modalPrice.textContent = `$${product.currentPrice}`;
+    modalPrice.textContent = `Price: $${product.currentPrice}`;
     modalPrice.className = 'modal-price';
 
     const modalDescription = document.createElement('p');
@@ -29,47 +31,207 @@ export const modalProductWindow = (product, position = modalWindowPosition.cente
     modalDescription.className = 'modal-description'
 
 
-    const productCategory = document.createElement('p');
-    productCategory.textContent = `Category: ${product.categories}`
+    ////ТЕГИ ТОВАРОВ
+    const stockKeepingUnit = document.createElement('p');
+    stockKeepingUnit.className = 'stock-keeping-unit';
+    stockKeepingUnit.textContent = `SKU: `;
 
-    const productType = document.createElement('p')
-    productType.textContent = `Type: ${product.type}`
+    const stockKeepingUnitValue = document.createElement('p');
+    stockKeepingUnitValue.className = 'stock-keeping-unit__value';
+    stockKeepingUnitValue.textContent = 'N/A';
+
+    const stockKeepingContainer = document.createElement('div');
+    stockKeepingContainer.className = 'stock-keeping-container';
+
+    stockKeepingContainer.appendChild(stockKeepingUnit);
+    stockKeepingContainer.appendChild(stockKeepingUnitValue);
+
+    const categoryLabel = document.createElement('p');
+    categoryLabel.className = 'category-label';
+    categoryLabel.textContent = 'Category:';
+
+    const productCategory = document.createElement('p');
+    productCategory.className = 'product-category';
+    productCategory.textContent = `${product.categories}`;
+
+// Объединяем метку и значение в один контейнер
+    const categoryContainer = document.createElement('div');
+    categoryContainer.className = 'category-container'; // Добавляем класс для стилей
+    categoryContainer.appendChild(categoryLabel);
+    categoryContainer.appendChild(productCategory);
+
+    const typeLabel = document.createElement('p');
+    typeLabel.className = 'product-tag';
+    typeLabel.textContent = 'Type:';
+
+    const productType = document.createElement('p');
+    productType.className = 'product-type';
+    productType.textContent = `${product.type}`;
+
+
+    // Создаем контейнер для блока "Share:"
+    const shareProductContainer = document.createElement('div');
+    shareProductContainer.className = 'product-share';
+
+// Текст "Share:"
+    const shareProductText = document.createElement('p');
+    shareProductText.className = 'product-share__text';
+    shareProductText.textContent = 'Share: ';
+    shareProductContainer.appendChild(shareProductText);
+
+// Функция для создания ссылки с иконкой соцсети
+    function createSocialLink(href, imgSrc, altText) {
+        const link = document.createElement('a');
+        link.href = href;
+
+        const icon = document.createElement('img');
+        icon.src = imgSrc;
+        icon.alt = altText;
+        icon.className = 'social-icon';
+
+        link.appendChild(icon);
+        return link;
+    }
+
+    const facebookLink = createSocialLink(
+        'https://www.facebook.com',
+        '/src/img/svg-product-modal-window/facebook.png',
+        'Facebook'
+    );
+
+    const twitterLink = createSocialLink(
+        'https://www.twitter.com',
+        '/src/img/svg-product-modal-window/twitter.png',
+        'Twitter'
+    );
+
+    const pinterestLink = createSocialLink(
+        'https://www.pinterest.com',
+        '/src/img/svg-product-modal-window/pinterest.png',
+        'Pinterest'
+    );
+
+    const linkedInLink = createSocialLink(
+        'https://www.linkedin.com',
+        '/src/img/svg-product-modal-window/linkedin.png',
+        'LinkedIn'
+    );
+
+// Добавляем ссылки в контейнер
+    shareProductContainer.append(facebookLink, twitterLink, pinterestLink, linkedInLink);
+
+
+// Объединяем метку и значение в один контейнер
+    const typeContainer = document.createElement('div');
+    typeContainer.className = 'type-container'; // Добавляем класс для стилей
+    typeContainer.appendChild(typeLabel);
+    typeContainer.appendChild(productType);
+    ////ТЕГИ ТОВАРОВ
+
 
     const modalImg = document.createElement('img');
     modalImg.src = imgUrls[currentIndex]
     modalImg.className = 'modal-img';
 
+    /////КНОПКИ ДЛЯ СВАЙПА ФОТО
+
+    // Создайте контейнер для индикаторов изображений
+    const indicatorsContainer = document.createElement('div');
+    indicatorsContainer.className = 'indicators-container';
+
+// Функция для создания индикаторов
+    function updateIndicators() {
+        indicatorsContainer.innerHTML = ''; // Очистите контейнер перед обновлением
+        imgUrls.forEach((_, index) => {
+            const indicator = document.createElement('span');
+            indicator.className = 'indicator';
+            if (index === currentIndex) {
+                indicator.classList.add('active'); // Подсветите активный индикатор
+            }
+            indicatorsContainer.appendChild(indicator);
+        });
+    }
+
+    updateIndicators();
 
     const modalImgButtonLeft = document.createElement('button');
     modalImgButtonLeft.className = 'modal-img__button';
-    modalImgButtonLeft.textContent = '<'
+
     modalImgButtonLeft.addEventListener('click', () => {
         currentIndex = (currentIndex - 1 + imgUrls.length) % imgUrls.length;
         modalImg.src = imgUrls[currentIndex];
+        updateIndicators();
     })
+
+    const leftArrowImg = document.createElement('img');
+    leftArrowImg.src = '/src/img/svg-product-modal-window/left-chevron.png';
+    leftArrowImg.className = 'left-arrow__img';
+    modalImgButtonLeft.appendChild(leftArrowImg);
 
     const modalImgButtonRight = document.createElement('button');
     modalImgButtonRight.className = 'modal-img__button';
-    modalImgButtonRight.textContent = '>'
+
     modalImgButtonRight.addEventListener('click', () => {
         currentIndex = (currentIndex + 1) % imgUrls.length;  // Смена индекса
         modalImg.src = imgUrls[currentIndex];  // Обновляем изображение
+        updateIndicators();
+
     })
+
+    const rightArrowImg = document.createElement('img');
+    rightArrowImg.className = 'right-arrow__img'
+    rightArrowImg.src = '/src/img/svg-product-modal-window/right-chevron.png';
+    modalImgButtonRight.appendChild(rightArrowImg);
+    /////КНОПКИ ДЛЯ СВАЙПА ФОТО
 
 
     const modalCloseButton = document.createElement('button');
     modalCloseButton.textContent = '×';
     modalCloseButton.className = 'modal-close__button'
-    modalCloseButton.addEventListener('click', () => modalDiv.remove());
+    modalCloseButton.addEventListener('click', () => {
+        overlay.remove();
+        modalDiv.remove()
+    });
 
+    const buttonsContainer = document.createElement('div');
+    buttonsContainer.className = 'buttons-container';
 
     const addToCartButton = document.createElement('button');
     addToCartButton.textContent = 'ADD TO CART';
     addToCartButton.className = 'add-to-cart-button';
 
+    addToCartButton.addEventListener('click', () => {
+        const selectedColor = colorSelect ? colorSelect.value : null;
+        const selectedSize = sizeSelect ? sizeSelect.value : null;
+        const quantity = currentQuantity;
+
+        addToCartProducts(product, quantity);
+        console.log(store.cart.products)
+
+    });
+
+    const addToWishListButton = document.createElement('button');
+    addToWishListButton.className = 'add-to-wish-list__button';
+    addToWishListButton.textContent = 'ADD TO WISHLIST';
+
+    const addToWishListButtonImg = document.createElement('img');
+    addToWishListButtonImg.className = 'add-to-wish-list-button__img';
+    addToWishListButtonImg.src = '/src/img/svg-product-modal-window/heart.png';
+    addToWishListButtonImg.alt = 'Heart Icon';
+
+    addToWishListButton.prepend(addToWishListButtonImg);
+    buttonsContainer.append(addToCartButton, addToWishListButton)
+
+
+    //РЕЙТИНГ ЗВЕЗДЫ
+    const modalStarsContainer = document.createElement('div');
+    modalStarsContainer.className = 'modal-stars__container';
+
 
     const modalProductsRank = document.createElement('p');
-    modalProductsRank.textContent = `Rank:${product.variations ? product.variations[0].rank : product.rank}`;
+    modalStarsContainer.innerHTML = getStarsHTML(product.rank);
+
+    modalTextContainer.appendChild(modalStarsContainer);
 
 
     // Блок для селекторов цветов и размеров
@@ -182,21 +344,28 @@ export const modalProductWindow = (product, position = modalWindowPosition.cente
     quantityContainer.append(increaseButton);
 
 
+    updateStarsDisplay(modalStarsContainer, product.rank);
+
+    addRatingEventListeners(modalStarsContainer, product);
+
     modalTextContainer.append(
         modalCloseButton,
         modalTitle,
+        modalStarsContainer, // Добавили звездный рейтинг
         modalProductsRank,
         modalPrice,
         modalDescription,
         sizeText, sizeSelect,
         colorText, colorSelect,
         quantityContainer,
-        addToCartButton,
-        productCategory,
-        productType,
+        buttonsContainer,
+        stockKeepingContainer,
+        categoryContainer, // Используем контейнер для категории
+        typeContainer, // Используем контейнер для типа
+        shareProductContainer
     );
 
-    modalImgContainer.append(modalImg, modalImgButtonLeft, modalImgButtonRight);
+    modalImgContainer.append(modalImg, modalImgButtonLeft, modalImgButtonRight,  indicatorsContainer);
 
     modalContent.append(modalImgContainer, modalTextContainer);
     document.body.appendChild(modalDiv);

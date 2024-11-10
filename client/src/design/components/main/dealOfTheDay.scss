@@ -1,0 +1,137 @@
+/* General container style */
+.deal-of-the-day__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 1400px;
+  height: 900px;
+  padding: 20px;
+  background-color: #ffffff;
+}
+
+/* Image positioning */
+.deal__background__container {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 600px;
+  z-index: 1;
+}
+
+.product-glasses {
+  position: relative;
+  width: 290px;
+  height: 250px;
+}
+
+.product-model {
+  position: relative;
+  width: 530px;
+  height: 750px;
+}
+
+.product-shoes {
+  position: relative;
+  width: 290px;
+  height: 230px;
+}
+
+.product-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Central sale banner styling */
+.sale-banner {
+  position: relative;
+  z-index: 2;
+  width: 500px;
+  height: 500px;
+  background-color: #a13a35;
+  color: #ffffff;
+  text-align: center;
+  padding: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+
+  /* Center content using flexbox */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.sale-banner__header {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  padding-bottom: 20px;
+
+  /* Use absolute positioning to move the header up */
+  position: relative;
+  top: -40px; /* Adjust this value to move the header up as needed */
+}
+
+
+.sale-banner__discount-text {
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  position: relative;
+  top: -40px; /* Adjust this value to move the header up as needed */
+}
+
+.sale-banner__discount-percentage {
+  font-size: 140px;
+  margin-bottom: 10px;
+}
+
+.sale-banner__description {
+  font-size: 13px;
+  margin: 10px 0;
+}
+
+.sale-banner__countdown {
+  font-size: 12px;
+  color: #ffe1e1;
+  margin-bottom: 20px;
+}
+
+.sale-banner__button {
+  display: inline-block;
+  padding: 15px 30px;  /* Увеличиваем отступы, чтобы сделать кнопку больше */
+  background-color: #000;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 12px;  /* Уменьшаем размер текста */
+  font-weight: 600;  /* Делаем текст жирнее */
+  border-radius: 0;  /* Убираем скругление углов */
+}
+
+
+/* Positioning for each product image */
+.product-glasses {
+  position: absolute;
+  bottom: -15px;
+  left: -40px;
+  transform: translateX(-50%);
+}
+
+.product-shoes {
+  position: absolute;
+  top: 150px;
+  left: -15px;
+  transform: translateX(-50%);
+}
+
+.product-model {
+  position: absolute;
+  top: -350px;
+  right: -350px;
+
+}
+

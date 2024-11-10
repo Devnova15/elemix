@@ -1,5 +1,5 @@
 /* Основные стили модального окна для правостороннего окна */
-.modal-right {
+.menu-modal-right {
   position: fixed;
   top: 0;
   right: 0;
@@ -13,6 +13,11 @@
   padding: 20px;
   font-family: 'Arial', sans-serif;
 }
+
+.modal-menu-content {
+  display: block;
+}
+
 
 .menu-search__container {
   display: flex;
@@ -111,6 +116,7 @@
   font-size: 14px;
   color:$text-color-dimgray;
 }
+
 
 .menu-footer-cart__text span {
   position: absolute;

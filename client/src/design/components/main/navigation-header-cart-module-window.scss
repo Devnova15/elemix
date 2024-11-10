@@ -3,8 +3,6 @@
   position: fixed;
   top: 0;
   right: 0;
-  width: 300px;
-  height: 750px; //ИЛИ СЮДА 100%
   background-color: $background-color-white;
   box-shadow: -4px 0 15px rgba(0, 0, 0, 0.1);
   z-index: 1000;
@@ -12,6 +10,7 @@
   flex-direction: column;
   padding: 20px;
   font-family: 'Arial', sans-serif;
+  overflow: hidden; /* Чтобы не было скроллинга по модальному окну */
 }
 
 /* Стили для анимации модального окна */
@@ -20,27 +19,43 @@
   animation: slideInRight 0.3s ease-out;
 }
 
-
+.modal-cart-content {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 400px;
+  height: 870px;  ///ВЫСОТА МОДАЛКИ
+  background-color: #fff;
+  box-shadow: -4px 0 15px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+  overflow: hidden;
+}
 
 
 .cart-side-bar__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 15px;
-  margin-bottom: 20px;
+  padding-bottom: 10px;
 }
 
 .cart-side-bar__title {
-  font-size: 13px;
-  color:$text-color-dimgray;
+  font-size: 12px; /* Маленький размер шрифта */
+  font-weight: bold; /* Жирный шрифт */
+  text-transform: uppercase; /* Заглавные буквы */
+  color: black; /* Черный цвет текста */
+  margin-right: 5px; /* Отступ между меткой и значением */
 }
 
 .cart-side-bar__span {
   position: absolute;
   top: 20px; /* Попробуйте изменить это значение */
-  right: 55%; /* Попробуйте изменить это значение */
-  background-color: $background-color-indianred;
+  right: 68%; /* Попробуйте изменить это значение */
+  background-color: firebrick;
   color: $text-color-white;
   font-size: 10px;
   width: 16px;
@@ -50,6 +65,32 @@
   justify-content: center;
   border-radius: 50%;
 }
+
+/* Название товара */
+.cart-product-name {
+  font-size: 14px;
+  font-weight: 400;
+  color: #333;
+  line-height: 1.5;
+  flex: 1; /* Название растягивается по оставшемуся пространству */
+  text-overflow: ellipsis; /* Обрезаем текст с троеточием, если длинное */
+  overflow: hidden;
+  white-space: nowrap; /* Запрещаем перенос строки */
+}
+
+/* Цена товара */
+.cart-product-price {
+  font-size: 12px;
+  font-weight: 300;
+  color: #000;
+  line-height: 1.4;
+  text-align: right; /* Выравнивание цены по правому краю */
+  width: 80px; /* Фиксированная ширина для выравнивания цены */
+  text-overflow: ellipsis; /* Обрезаем цену, если она слишком длинная */
+  white-space: nowrap; /* Запрещаем перенос на новую строку */
+}
+
+
 
 .cart-side-bar__button {
   background: none;
@@ -62,12 +103,24 @@
   height: 20px;
 }
 
+
 .cart-side-bar__content {
-  flex-grow: 1;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column; /* Добавьте эту строку */
+  gap: 15px; /* Задает расстояние между продуктами в корзине */
+  align-items: flex-start; /* Выравнивает элементы по левому краю */
+  overflow-y: auto; /* Добавляет прокрутку, если элементов слишком много */
+  padding-bottom: 20px; /* Для отступа перед футером */
+  max-height: 100%; /* Чтобы прокрутка занимала всю высоту */
+  color:$text-color-grey;
+}
+.cart-product-item {
   display: flex;
   align-items: center;
-  text-align: center;
-  color:$text-color-grey;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%; /* Чтобы продукт занимал всю ширину контейнера */
 }
 
 .cart-side-bar-content-empty__massage {
@@ -99,6 +152,13 @@
   cursor: pointer;
   position: relative;
 }
+.cart-product-image {
+  width: 50px;  /* Ширина изображения */
+  height: auto;  /* Высота автоматически подстраивается, чтобы сохранить пропорции */
+  margin-right: 10px;  /* Отступ справа для пространства между изображением и текстом */
+  object-fit: cover;  /* Обеспечивает обрезку изображений, чтобы они вписывались в заданные размеры */
+}
+
 
 .header-icon__cart::after {
   content: attr(data-count);
@@ -116,3 +176,84 @@
 .header-icon__cart[data-count]:after {
   display: block;
 }
+
+/* Стили для футера корзины */
+.cart-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px 0;
+  border-top: 1px solid #ddd;
+  margin-top: auto; /* Позволяет футеру оставаться внизу */
+  width: 100%; /* Чтобы кнопки не уходили за пределы */
+  box-sizing: border-box;
+}
+
+/* Для контейнера кнопок */
+.cart-footer-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  gap: 10px; /* Space between buttons */
+  margin-top: 10px;
+}
+
+.total-container {
+  display: flex;
+  justify-content: space-between; /* Распределяет элементы по краям */
+  align-items: center; /* Выравнивание по центру вертикально */
+  margin-bottom: 20px; /* Пространство снизу для добавления отступа между Total и ценой */
+}
+
+.total-amount__text {
+  font-size: 12px; /* Маленький размер шрифта */
+  font-weight: bold; /* Жирный шрифт */
+  text-transform: uppercase; /* Заглавные буквы */
+  color: black; /* Черный цвет текста */
+  margin-right: 5px; /* Отступ между меткой и значением */
+}
+
+.cart-total-amount {
+  font-size: 12px; /* Маленький размер шрифта */
+  font-weight: bold; /* Жирный шрифт */
+  text-transform: uppercase; /* Заглавные буквы */
+  color: black; /* Черный цвет текста */
+  margin-right: 5px; /* Отступ между меткой и значением */
+  margin-left: 230px; /* Большой отступ между текстом и ценой */
+}
+
+.cart-view-total-button,
+.cart-checkout-button {
+  flex: 1;
+  padding: 15px 0;
+  font-size: 16px;
+  color: #fff;
+  border: none;
+  border-radius: 0; /* Square corners as per the screenshot */
+  cursor: pointer;
+  text-align: center;
+}
+
+.cart-view-total-button {
+  background-color: #f0f0f0;
+  color: #333; /* Dark color for text */}
+
+.cart-checkout-button {
+  background-color: #b22222; /* Красная (firebrick) для Check Out */
+}
+
+.cart-view-total-button:hover,
+.cart-checkout-button:hover {
+  opacity: 0.9;
+}
+
+.cart-product-item {
+  display: flex;
+  justify-content: space-between; /* Разделяет элементы по ширине */
+  align-items: center; /* Выравнивание по центру вертикально */
+  margin-bottom: 15px;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+

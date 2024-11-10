@@ -1,21 +1,23 @@
 import {modalWindowPosition} from "./constants.js";
 import {createModal} from "./helper/createModalFunction.js";
+import {store} from "./constants.js";
+import {createCartProductCart} from "./helper/cart-product-card.js";
 
 // Функция для удаления окна по нажатию клавиши
-export const removeWindowByKeyPress = (event, target) => {
+export const removeWindowByKeyPress = (event, modal, overlay) => {
     if (event.keyCode === 27) {
-        target.remove();
-        document.removeEventListener('keydown', removeWindowByKeyPress);
+        modal.remove(); // Убираем модальное окно
+        overlay.remove(); // Убираем затемнение
+        document.removeEventListener('keydown', (e) => removeWindowByKeyPress(e, modal, overlay)); // Удаляем обработчик события
     }
     console.log(event);
 };
 
 
 
-
 // МОДАЛКА МЕНЮ
 export const createModalWindowMenu = (error, position = modalWindowPosition.right) => {
-    const {modalDiv, modalContent} = createModal(position);
+    const {modalDiv, modalContent} = createModal(position, 'modal-menu-content');
 
     // это обертка поисковика
     let menuSearchContainer = document.createElement('div');
@@ -155,72 +157,187 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-// МОДАЛКА КОРЗИНЫ
-export const createModalWindowCart = (error, position = modalWindowPosition.right) => {
-    const {modalDiv, modalContent} = createModal(position);
+// // МОДАЛКА КОРЗИНЫ
+// export const createModalWindowCart = (error, position = modalWindowPosition.right) => {
+//     const {modalDiv, modalContent} = createModal(position);
+//
+//     let cartSideBarHeader = document.createElement('div');
+//     cartSideBarHeader.className = "cart-side-bar__header"
+//
+//     let cartSideBarTitle = document.createElement('p');
+//     cartSideBarTitle.className = "cart-side-bar__title"
+//     cartSideBarTitle.textContent = "SHOPPING CART"
+//
+//     let cartSideBarSpan = document.createElement('span');
+//     cartSideBarSpan.className = "cart-side-bar__span"
+//     cartSideBarSpan.textContent = "0"
+//
+//
+//     let cartSideBarButton = document.createElement('button');
+//     cartSideBarButton.className = "cart-side-bar__button"
+//
+//     let cartSideBarButtonCloseImg = document.createElement('img');
+//     cartSideBarButtonCloseImg.className = "cart-side-bar-button-close__img"
+//     cartSideBarButtonCloseImg.src = "/src/img/header-images/close-svgrepo-com.png"
+//
+//     cartSideBarButtonCloseImg.addEventListener('click', () => {
+//         modalDiv.remove();
+//     })
+//
+//     let cartSideBarContent = document.createElement('div');
+//     cartSideBarContent.className = "cart-side-bar__content"
+//
+//     let cartSideBarContentEmptyMassage = document.createElement('p');
+//     cartSideBarContentEmptyMassage.className = "cart-side-bar-content-empty__massage"
+//     cartSideBarContentEmptyMassage.textContent = "No products in the cart"
+//
+//
+//
+//     cartSideBarButton.appendChild(cartSideBarButtonCloseImg);
+//     cartSideBarHeader.appendChild(cartSideBarTitle);
+//     cartSideBarHeader.appendChild(cartSideBarSpan);
+//     cartSideBarHeader.appendChild(cartSideBarButton);
+//
+//     cartSideBarContent.appendChild(cartSideBarContentEmptyMassage);
+//
+//     modalContent.appendChild(cartSideBarHeader);  // Вставляем шапку в контент модального окна
+//     modalContent.appendChild(cartSideBarContent); // Вставляем основной контент в модальное окно
+//
+//
+//     if (error) {
+//         let title = document.createElement("h2");
+//         title.textContent = "Error";
+//         modalContent.appendChild(title);
+//     }
+//
+//     document.body.append(modalDiv);
+// }
 
+
+// МОДАЛКА КОРЗИНЫ
+
+export const createModalWindowCart = (error, position = modalWindowPosition.right) => {
+    const { modalDiv, modalContent, overlay } = createModal(position, 'modal-cart-content');
+
+    // Заголовок корзины
     let cartSideBarHeader = document.createElement('div');
-    cartSideBarHeader.className = "cart-side-bar__header"
+    cartSideBarHeader.className = "cart-side-bar__header";
 
     let cartSideBarTitle = document.createElement('p');
-    cartSideBarTitle.className = "cart-side-bar__title"
-    cartSideBarTitle.textContent = "SHOPPING CART"
+    cartSideBarTitle.className = "cart-side-bar__title";
+    cartSideBarTitle.textContent = "SHOPPING CART";
 
     let cartSideBarSpan = document.createElement('span');
-    cartSideBarSpan.className = "cart-side-bar__span"
-    cartSideBarSpan.textContent = "0"
+    cartSideBarSpan.className = "cart-side-bar__span";
+    cartSideBarSpan.textContent = store.cart.quantity;
 
     let cartSideBarButton = document.createElement('button');
-    cartSideBarButton.className = "cart-side-bar__button"
+    cartSideBarButton.className = "cart-side-bar__button";
 
     let cartSideBarButtonCloseImg = document.createElement('img');
-    cartSideBarButtonCloseImg.className = "cart-side-bar-button-close__img"
-    cartSideBarButtonCloseImg.src = "/src/img/header-images/close-svgrepo-com.png"
+    cartSideBarButtonCloseImg.className = "cart-side-bar-button-close__img";
+    cartSideBarButtonCloseImg.src = "/src/img/header-images/close-svgrepo-com.png";
 
+    // Закрытие модального окна при клике на крестик
     cartSideBarButtonCloseImg.addEventListener('click', () => {
+        overlay.remove();
         modalDiv.remove();
-    })
+    });
 
+    // Контейнер для контента корзины
     let cartSideBarContent = document.createElement('div');
-    cartSideBarContent.className = "cart-side-bar__content"
+    cartSideBarContent.className = "cart-side-bar__content";
 
-    let cartSideBarContentEmptyMassage = document.createElement('p');
-    cartSideBarContentEmptyMassage.className = "cart-side-bar-content-empty__massage"
-    cartSideBarContentEmptyMassage.textContent = "No products in the cart"
-
-
-
+    // Сборка модального окна
     cartSideBarButton.appendChild(cartSideBarButtonCloseImg);
     cartSideBarHeader.appendChild(cartSideBarTitle);
     cartSideBarHeader.appendChild(cartSideBarSpan);
     cartSideBarHeader.appendChild(cartSideBarButton);
 
-    cartSideBarContent.appendChild(cartSideBarContentEmptyMassage);
+    modalContent.appendChild(cartSideBarHeader);
+    modalContent.appendChild(cartSideBarContent);
 
-    modalContent.appendChild(cartSideBarHeader);  // Вставляем шапку в контент модального окна
-    modalContent.appendChild(cartSideBarContent); // Вставляем основной контент в модальное окно
+    // Если корзина пустая
+    if (store.cart.products.length === 0) {
+        let cartSideBarContentEmptyMessage = document.createElement('p');
+        cartSideBarContentEmptyMessage.className = "cart-side-bar-content-empty__message";
+        cartSideBarContentEmptyMessage.textContent = "No products in the cart";
+        cartSideBarContent.appendChild(cartSideBarContentEmptyMessage);
+    } else {
+        // Создаем карточки товаров в корзине
+        const cards = store.cart.products.map(product => createCartProductCart(product));
+        cartSideBarContent.append(...cards);
 
+        // Подсчет общей суммы
+        const totalAmount = store.cart.products.reduce((total, product) => {
+            return total + product.currentPrice * product.cartQuantity;
+        }, 0);
+
+        // Создание элемента для отображения общей суммы
+
+        const totalContainer = document.createElement('div');
+        totalContainer.className = 'total-container';
+
+
+        const totalAmountText = document.createElement('p');
+        totalAmountText.className = 'total-amount__text';
+        totalAmountText.textContent = 'Total:';
+
+        let totalAmountElement = document.createElement('p');
+        totalAmountElement.className = "cart-total-amount";
+        totalAmountElement.textContent = `$${totalAmount.toFixed(2)}`;
+
+        // Создание кнопок View Total и Check Out
+        let viewTotalButton = document.createElement('button');
+        viewTotalButton.className = "cart-view-total-button";
+        viewTotalButton.textContent = "View Total";
+
+        let checkOutButton = document.createElement('button');
+        checkOutButton.className = "cart-checkout-button";
+        checkOutButton.textContent = "Check Out";
+
+        // Контейнер для футера с кнопками
+        let cartFooter = document.createElement('div');
+        cartFooter.className = "cart-footer";
+
+        // Контейнер для кнопок (для размещения в один ряд)
+        let buttonsContainer = document.createElement('div');
+        buttonsContainer.className = "cart-footer-buttons";
+        buttonsContainer.appendChild(viewTotalButton);
+        buttonsContainer.appendChild(checkOutButton);
+
+        // Добавляем элементы в футер
+        totalContainer.appendChild(totalAmountText);
+        totalContainer.appendChild(totalAmountElement);
+        cartFooter.appendChild(totalContainer);
+        cartFooter.appendChild(buttonsContainer);
+
+        // Добавляем футер в модальное окно
+        modalContent.appendChild(cartFooter);
+    }
 
     if (error) {
         let title = document.createElement("h2");
         title.textContent = "Error";
         modalContent.appendChild(title);
     }
-
     document.body.append(modalDiv);
-}
+};
 
-// document.addEventListener("DOMContentLoaded", () => {
-//     const cartIcon = document.querySelector(".header-icon__cart");
-//
-//     if (cartIcon) {
-//         cartIcon.addEventListener("click", () => {
-//         });
-//     }
-// });
+
+
+
+
+
+
+
+
+
 
 export const createModalForSingUpForm = (error, position = modalWindowPosition.center) => {
-    const { modalDiv, modalContent } = createModal(position);
+    const {modalDiv, modalContent} = createModal(position, 'singup-modal-content');
+
+    modalDiv.className = 'singup-modal-center';
 
     // Создание заголовка формы
     let formHeader = document.createElement('div');

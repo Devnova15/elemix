@@ -4,6 +4,13 @@ export const store = {
   token: null,
   user: null,
   topSellers: null,
+
+  cart: {
+    products: [],
+    totalPrice: 0,
+    quantity: 0,
+  },
+  wishlist: null,
 }
 
 export const ENDPOINT = Object.freeze({

@@ -1,185 +1,369 @@
-/* Основной стиль для модального окна */
+/* Общий стиль модального окна */
 .modal-center {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: white;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   z-index: 1000;
-  padding: 20px;
-  border-radius: 8px;
   overflow: hidden;
   display: flex;
-  width: 80%; /* Более горизонтальное, увеличенное окно */
-  max-width: 900px; /* Максимальная ширина */
-  height: auto; /* Высота может изменяться в зависимости от контента */
-  flex-direction: row; /* Размещаем элементы горизонтально */
+  max-width: 800px;
+  width: 100%;
+  height: auto;
+  font-family: Arial, sans-serif;
 }
 
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный цвет */
+  z-index: 999; /* Задаем уровень z-index выше остальных элементов */
+}
 
-/* Контент внутри модального окна */
-.modal-content-center, .modal-content-right {
+/* Основной контейнер контента в модальном окне */
+.modal-content-center {
   display: flex;
-  flex-direction: row;
   width: 100%;
 }
 
-/* Контейнер для изображения */
+/* Контейнер изображения */
 .modal-img__container {
   width: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
- }
+  background-color: #f8f8f8;
+  overflow: hidden;
+}
 
 .modal-img {
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%; /* Изображение занимает весь контейнер */
+  height: 100%; /* Растягивается по высоте */
+  object-fit: cover; /* Сохраняет соотношение сторон, обрезая лишнее */
+  border-radius: 0; /* Убираем закругление углов */
 }
 
-
-/* Контейнер для текста в модалке */
+/* Контейнер для текста и кнопок */
 .modal-text__container {
-  width: 50%; /* Половина окна под текст */
+  width: 50%;
   padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto; /* Добавляем вертикальный скролл */
+  max-height: 500px; /* Максимальная высота контейнера */
 }
 
-/* Заголовок */
+/* Название товара */
 .modal-title {
   font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 10px;
+  text-transform: capitalize;
+  font-weight: 400;
+  margin-bottom: 12px;
+  color: #333;
 }
 
-/* Цена */
+/* Цена товара */
 .modal-price {
-  font-size: 20px;
-  color: #444;
-  margin-bottom: 10px;
+  font-size: 15px;
+  color: black;
+  margin-top: 12px;
+  margin-bottom: 12px;
 }
 
-/* Описание товара */
+/* Описание */
 .modal-description {
-  font-size: 16px;
+  font-size: 15px;
+  color: #555;
+  line-height: 1.6;
   margin-bottom: 20px;
-  color: #666;
 }
 
 /* Кнопка закрытия */
 .modal-close__button {
   position: absolute;
   top: 10px;
-  right: 15px;
+  right: 10px;
   font-size: 24px;
   background: none;
   border: none;
   cursor: pointer;
+  color: #999;
+  transition: color 0.3s;
+}
+
+.modal-close__button:hover {
+  color: #666;
 }
 
 
 
-/* Кнопки переключения изображений */
+/* Контейнер для индикаторов */
+.indicators-container {
+  position: absolute;     /* Для размещения внизу изображения */
+  bottom: 10px;           /* Отступ от нижней части контейнера изображения */
+  left: 50%;              /* Центрирование по горизонтали */
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;               /* Расстояние между индикаторами */
+}
+
+/* Стили для каждого индикатора */
+.indicator {
+  width: 10px;            /* Размер индикатора */
+  height: 10px;
+  border-radius: 50%;     /* Круглая форма */
+  background-color: transparent; /* Без фона по умолчанию */
+  border: 1px solid gray;  /* Красная рамка для видимости */
+  cursor: pointer;        /* Указатель при наведении */
+  transition: background-color 0.3s ease; /* Плавный переход при изменении цвета */
+}
+
+/* Стили для активного индикатора */
+.indicator.active {
+  background-color: firebrick;  /* Закрашивание активного индикатора в красный цвет */
+  border: none;           /* Убираем рамку у активного индикатора */
+}
+
+
+/* Основные стили для кнопок навигации изображений */
 .modal-img__button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(255, 255, 255, 0.9); /* Полупрозрачный белый фон */
-  color: #999; /* Более серый цвет текста */
-  border: none;
-  padding: 15px; /* Увеличенный отступ для большего круга */
-  cursor: pointer;
-  font-size: 20px; /* Уменьшенный размер текста для тонкости */
-  border-radius: 50%; /* Круглая форма */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Тень для кнопок */
-  transition: background-color 0.3s ease, opacity 0.3s ease; /* Плавные переходы */
-  opacity: 0; /* Начальная прозрачность */
+  position: absolute; /* Позволяет позиционировать кнопки относительно контейнера */
+  top: 50%; /* Вертикальное центрирование */
+  transform: translateY(-50%); /* Центрирование по вертикали */
+  background-color: rgba(255, 255, 255, 0.7); /* Полупрозрачный белый фон */
+  border: none; /* Убираем границу */
+  border-radius: 50%; /* Делаем кнопки круглыми */
+  padding: 10px; /* Отступы внутри кнопки */
+  cursor: pointer; /* Изменяем курсор при наведении */
+  transition: background-color 0.3s, opacity 0.3s; /* Плавный переход */
+  opacity: 0; /* Скрываем кнопки по умолчанию */
+  z-index: 10; /* Обеспечиваем, что кнопки поверх других элементов */
 }
 
-/* Отображаем кнопки при наведении на контейнер */
+/* Появление кнопок при наведении на контейнер с изображением */
 .modal-img__container:hover .modal-img__button {
-  opacity: 1; /* Кнопки становятся видимыми */
+  opacity: 1; /* Показываем кнопки при наведении */
 }
 
+/* Стили для левой кнопки */
 .modal-img__button:first-of-type {
-  left: 20px; /* Кнопка влево */
+  left: 10px; /* Позиция кнопки слева */
 }
 
+/* Стили для правой кнопки */
 .modal-img__button:last-of-type {
-  right: 20px; /* Кнопка вправо */
+  right: 10px; /* Позиция кнопки справа */
 }
 
-/* Дополнительный стиль для изменения фона кнопки при наведении */
+/* Стили для стрелок */
+.left-arrow__img,
+.right-arrow__img {
+  width: 15px; /* Ширина изображения */
+  height: 15px; /* Высота изображения */
+}
+
+/* Эффект при наведении на кнопку */
 .modal-img__button:hover {
-  background-color: rgba(255, 255, 255, 1); /* Полностью белый при наведении */
+  background-color: rgba(255, 255, 255, 0.9); /* Изменяем фон на более яркий при наведении */
 }
 
-/* Кнопка "Add to Cart" */
+/* Анимация при наведении */
+.modal-img__button:hover img {
+  transform: scale(1.1); /* Увеличиваем стрелки при наведении */
+}
+
+/* Общий стиль контейнера для кнопок */
+.buttons-container {
+  display: flex; /* Используем flexbox для размещения кнопок в один ряд */
+  gap: 10px; /* Отступ между кнопками */
+}
+
+/* Стиль кнопки "Добавить в корзину" */
 .add-to-cart-button {
-  background-color: #e60023; /* Ярко-красный цвет */
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-top: 15px;
-  transition: background-color 0.3s ease;
+  background-color: firebrick; /* Цвет фона */
+  color: white; /* Цвет текста */
+  width: 150px; /* Ширина кнопки */
+  padding: 8px 12px; /* Уменьшенные отступы для компактности */
+  border: none; /* Убираем рамку */
+  border-radius: 0; /* Острые углы */
+  cursor: pointer; /* Курсор при наведении */
+  font-size: 12px; /* Уменьшенный размер шрифта */
+  text-align: center; /* Центрируем текст */
+  margin-top: 15px; /* Отступ сверху */
+  margin-bottom: 15px; /* Отступ снизу */
+  transition: background-color 0.3s; /* Плавный переход при наведении */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Легкая тень для глубины */
 }
 
+/* Эффект при наведении для кнопки "Добавить в корзину" */
 .add-to-cart-button:hover {
-  background-color: #cc001f; /* Темнее при наведении */
+  background-color: #c7001d; /* Более темный оттенок при наведении */
+}
+
+/* Стиль кнопки "Добавить в список желаемого" */
+.add-to-wish-list__button {
+  display: flex; /* Используем flexbox для выравнивания содержимого */
+  align-items: center; /* Центрируем элементы по вертикали */
+  color: firebrick; /* Цвет текста (можно изменить на любой другой) */
+  font-size: 12px; /* Уменьшенный размер шрифта */
+  font-weight: 400; /* Тонкий шрифт */
+  border: none; /* Убираем рамку */
+  background: none; /* Убираем фон */
+  cursor: pointer; /* Курсор при наведении */
+  text-align: left; /* Текст выравнивается по левому краю */
+  margin-top: 15px; /* Отступ сверху */
+  margin-bottom: 15px; /* Отступ снизу */
+}
+
+/* Эффект при наведении для кнопки "Добавить в список желаемого" */
+.add-to-wish-list__button:hover {
+  text-decoration: underline; /* Подчеркивание текста при наведении */
+}
+
+/* Стили для иконки внутри кнопки */
+.add-to-wish-list-button__img {
+  width: 20px; /* Ширина иконки */
+  height: 20px; /* Высота иконки */
+  margin-right: 8px; /* Отступ между иконкой и текстом */
+  vertical-align: middle; /* Выравнивание иконки по центру */
 }
 
 
-/* Селекторы размеров и цветов */
+/* Стиль для контейнера категории и типа */
+.category-container,
+.stock-keeping-container,
+.type-container {
+  display: flex; /* Расположение метки и значения в строку */
+  align-items: center; /* Вертикальное центрирование */
+  margin-bottom: 10px; /* Отступ снизу */
+}
+
+/* Стили для меток */
+.category-label,
+.product-share__text,
+.product-tag,
+.stock-keeping-unit,
+.type-label {
+  font-size: 12px; /* Маленький размер шрифта */
+  font-weight: bold; /* Жирный шрифт */
+  text-transform: uppercase; /* Заглавные буквы */
+  color: black; /* Черный цвет текста */
+  margin-right: 5px; /* Отступ между меткой и значением */
+}
+
+/* Стили для значений */
+.product-category,
+.stock-keeping-unit__value,
+.product-type {
+  font-size: 14px; /* Размер шрифта для значений */
+  color: #555; /* Цвет текста для значений */
+}
+
+/* Стили для контейнера с ссылками */
+.product-share {
+  display: flex;            /* Располагает иконки в строку */
+  align-items: center;      /* Выравнивает иконки по центру */
+  gap: 10px;                /* Расстояние между иконками */
+  font-family: Arial, sans-serif; /* Шрифт для текста */
+}
+
+
+/* Стили для иконок соцсетей */
+.social-icon {
+  width: 17px;              /* Ширина иконки */
+  height: 17px;             /* Высота иконки */
+  cursor: pointer;          /* Указатель при наведении */
+  transition: transform 0.2s; /* Анимация при наведении */
+}
+
+
+.modal-size__label,
+.modal-color__label {
+  display: flex;
+  font-size: 14px;
+  margin-right: 8px;
+}
+
+/* Стиль выпадающих списков для выбора цвета и размера */
 .modal-colors, .modal-sizes {
   margin-bottom: 15px;
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 12px; /* Сделал меньше размер текста */
-  width: 100px; /* Ограничил ширину */
-  appearance: none; /* Убрал стандартные стрелки */
-  -moz-appearance: none; /* Убрал стрелки для Firefox */
-  -webkit-appearance: none; /* Убрал стрелки для Webkit (Chrome, Safari) */
-  background-color: #f9f9f9; /* Светлый фон для селектов */
-  padding-right: 10px; /* Дополнительный отступ справа */
-}
-
-/* Кнопки для увеличения и уменьшения количества товара */
-.quantity-button, .quantity-counter {
-  background-color: #f1f1f1;
-  border: 1px solid #ccc;
-  border-radius: 50%;
   padding: 10px;
-  font-size: 18px;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 15px;
+  width: 120px;
+  text-align: center;
+  background-color: #fafafa;
+  color: #333;
+  transition: border-color 0.3s;
 }
 
-.quantity-button:hover, .quantity-counter:hover {
-  background-color: #ddd;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+.modal-colors:focus, .modal-sizes:focus {
+  border-color: #e60023;
 }
 
-/* Выравнивание кнопок */
+/* Контейнер для управления количеством */
 .quantity-container {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+  margin-bottom: 15px;
 }
 
+.quantity-button,
+.quantity-counter {
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+  width: 30px; /* Установите ширину */
+  height: 30px; /* Установите высоту */
+  padding: 0; /* Уберите отступы, чтобы сделать форму более квадратной */
+  border: 1px solid #ccc; /* Добавьте рамку для визуального эффекта */
+  border-radius: 5px; /* Установите радиус закругления углов (можно убрать для более квадратного вида) */
+  display: flex; /* Для центрирования текста */
+  justify-content: center; /* Центрирование по горизонтали */
+  align-items: center; /* Центрирование по вертикали */
+}
 
-/* Рейтинг продукта */
+/* Дополнительный стиль для рейтинга продукта */
 .modal-products-rank {
-  font-size: 14px;
-  color: #888;
-  margin-top: 10px;
+  font-size: 13px;
+  color: #777;
+  margin-top: 5px;
+}
+
+.modal-quantity__input {
+  text-align: center; /* Центрирование текста */
+  width: 45px; /* Уменьшенная ширина инпута */
+  padding: 5px; /* Уменьшенные внутренние отступы */
+  border: 1px solid gray; /* Цвет рамки */
+  border-radius: 4px; /* Скругленные углы */
+  font-size: 14px; /* Уменьшенный размер шрифта */
+  font-weight: 300; /* Легкий шрифт */
+  outline: none; /* Убираем обводку при фокусе */
+  transition: border-color 0.3s, box-shadow 0.3s; /* Плавные переходы */
+}
+
+/* Скрытие стрелочек для инпута типа number */
+.modal-quantity__input::-webkit-inner-spin-button,
+.modal-quantity__input::-webkit-outer-spin-button {
+  -webkit-appearance: none; /* Убираем стрелки в Chrome и Safari */
+  margin: 0; /* Убираем отступы */
+}
+
+.modal-quantity__input[type=number] {
+  -moz-appearance: textfield; /* Убираем стрелки в Firefox */
+}
+
+.options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Отступы между секциями */
 }

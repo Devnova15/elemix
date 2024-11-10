@@ -1,4 +1,5 @@
 import { getAllProducts } from './requests.js';
+import {modalProductWindow} from "./modalProductWindow.js";
 
 // export const createCartProduct = (product) => {
 //     const productElement = document.createElement('div');
@@ -60,7 +61,9 @@ export const createCartProduct = (product) => {
     const productPrice = document.createElement('p');
     const productPreviousPrice = document.createElement('p');
 
-
+    productImageContainer.addEventListener('click', () => {
+    modalProductWindow(product)
+})
 
 // const defineProductStatus = (product, statusLabel)=>{
 
@@ -184,7 +187,7 @@ export const createCartProduct = (product) => {
     return productElement;
 }
 
-const getStarsHTML = (rating) => {
+export const getStarsHTML = (rating) => {
     let starsHTML = '';
     for (let i = 1; i <= 5; i++) {
         starsHTML += `
@@ -195,7 +198,7 @@ const getStarsHTML = (rating) => {
     return starsHTML;
 }
 
-const addRatingEventListeners = (productRating, product) => {
+export const addRatingEventListeners = (productRating, product) => {
     const stars = productRating.querySelectorAll('.star');
 
     stars.forEach(star => {
@@ -238,7 +241,7 @@ const addRatingEventListeners = (productRating, product) => {
     });
 };
 
-const updateStarsDisplay = (productRating, rating) => {
+export const updateStarsDisplay = (productRating, rating) => {
     const stars = productRating.querySelectorAll('.star');
     stars.forEach((star, index) => {
         const starValue = index + 1;

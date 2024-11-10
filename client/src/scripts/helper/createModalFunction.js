@@ -2,7 +2,7 @@
 import {modalWindowPosition} from "../constants.js";
 import {removeWindowByKeyPress} from "../navigation-header.js";
 
-export const createModal = (position) => {
+export const createModal = (position, contentStyle = 'modal-content-center') => {
     let modalDiv = document.createElement("div");
     let modalContent = document.createElement("div");
 
@@ -15,25 +15,24 @@ export const createModal = (position) => {
         modalDiv.className = "modal-center"; // Модальное окно по центру
     }
 
-    // Присваиваем класс контенту модального окна в зависимости от позиции
-    switch (position) {
-        case modalWindowPosition.right:
-            modalContent.className = 'modal-content-right';
-            break;
-        case modalWindowPosition.center:
-            modalContent.className = "modal-content-center";
-            break;
-    }
+    modalContent.className = contentStyle
+
+    // Создание затемняющего элемента
+    const overlay = document.createElement('div');
+    overlay.className = 'modal-overlay';
+    document.body.appendChild(overlay);
+
 
     modalDiv.appendChild(modalContent);
 
     // Закрытие модального окна по нажатию клавиши
     document.addEventListener('keydown', (event) => {
-        removeWindowByKeyPress(event, modalDiv);
+        removeWindowByKeyPress(event, modalDiv, overlay);
     });
 
     return {
         modalDiv,
-        modalContent
+        modalContent,
+        overlay
     };
 };
