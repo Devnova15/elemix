@@ -56,6 +56,19 @@ export const createCartProduct = (product) => {
             productLabelContainer.appendChild(productLabelHot);
         }
 
+        if (totalQuantity < 0) {
+            const productSoldOut = document.createElement('label');
+            productSoldOut.textContent = 'SOLD OUT';
+            productSoldOut.className = 'product-sold-out';
+            productLabelContainer.appendChild(productSoldOut);
+        }
+
+
+
+
+
+
+
         return productLabelContainer;
     };
 

@@ -215,7 +215,7 @@ export const addProductsMensCategory = async () => {
                         "https://elemix.pixel-show.com/wp-content/uploads/2019/05/sunglasses-4-2-760x970.jpg",
                     ],
                     rank: 4,
-                    quantity: 5,
+                    quantity: 0,
                 }
             ],
             sizes: 'One size',

@@ -184,6 +184,23 @@
   ;
 }
 
+.product-sold-out{
+  position: relative;
+  display: inline-block;
+  left: 45px;
+  top: 35px;
+  width: 50px;
+  height: 25px;
+  font-family: $font-primary;
+  font-size: 11px;
+  line-height: 30px;
+  font-weight: bold;
+  text-align: center;
+  background-color: $background-color-label-hot;
+  color: $text-color-black;
+  cursor: pointer;
+}
+
 
 
 .product-element {
