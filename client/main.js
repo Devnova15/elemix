@@ -37,7 +37,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const cartIcon = document.querySelector(".header-icon__cart");
 
     if (cartIcon) {
-        cartIcon.addEventListener("click", () => {
+        cartIcon.addEventListener("click", (event) => {
+            event.preventDefault();
             createModalWindowCart(false, modalWindowPosition.right)
         });
     }
@@ -70,9 +71,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const cartIcon = document.querySelector(".header-icon__user");
 
     if (cartIcon) {
-        cartIcon.addEventListener("click", () => {
+        cartIcon.addEventListener("click", (event) => {
             // Вызов функции для создания модального окна
             createModalForSingUpForm(false, modalWindowPosition.center); // Передайте ошибку, если она есть
+            event.preventDefault()
         });
     }
 });

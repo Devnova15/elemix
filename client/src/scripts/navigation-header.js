@@ -152,7 +152,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const hamburgerIcon = document.querySelector(".header-icon__menu");
 
     if (hamburgerIcon) {
-        hamburgerIcon.addEventListener("click", () => {
+        hamburgerIcon.addEventListener("click", (event) => {
+            event.preventDefault();
         });
     }
 });
