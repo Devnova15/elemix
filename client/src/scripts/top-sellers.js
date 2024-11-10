@@ -168,7 +168,7 @@ export const createCartProduct = (product) => {
 }
 
 
-const getStarsHTML = (rating) => {
+export const getStarsHTML = (rating) => {
     let starsHTML = '';
     for (let i = 1; i <= 5; i++) {
         starsHTML += `
@@ -179,7 +179,7 @@ const getStarsHTML = (rating) => {
     return starsHTML;
 }
 
-const addRatingEventListeners = (productRating, product) => {
+export const addRatingEventListeners = (productRating, product) => {
     const stars = productRating.querySelectorAll('.star');
 
     stars.forEach(star => {
@@ -222,7 +222,7 @@ const addRatingEventListeners = (productRating, product) => {
     });
 };
 
-const updateStarsDisplay = (productRating, rating) => {
+export const updateStarsDisplay = (productRating, rating) => {
     const stars = productRating.querySelectorAll('.star');
     stars.forEach((star, index) => {
         const starValue = index + 1;
