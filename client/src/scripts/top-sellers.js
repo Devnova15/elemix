@@ -16,12 +16,26 @@ export const createCartProduct = (product) => {
     const productPrice = document.createElement('p');
     const productPreviousPrice = document.createElement('p');
 
-    const moreButton = document.createElement('button');
-    productImageContainer.addEventListener('click', () => {
-        modalProductWindow(product);
+
+    productElement.className = 'product-element';
+
+    const backgroundOverlay = document.createElement('div');
+    backgroundOverlay.className = 'background-overlay';
+
+    const quickViewBtn = document.createElement('div');
+    quickViewBtn.className = 'product-quick-view-btn';
+    quickViewBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"><path d="M16 0v2h-8v-2h8zm-16 16h2v-8h-2v8zm16 8v-2h-8v2h8zm2-22h1c1.654 0 3 1.346 3 3v1h2v-1c0-2.761-2.238-5-5-5h-1v2zm-12 20h-1c-1.654 0-3-1.346-3-3v-1h-2v1c0 2.761 2.238 5 5 5h1v-2zm16-4v1c0 1.654-1.346 3-3 3h-1v2h1c2.762 0 5-2.239 5-5v-1h-2zm2-10h-2v8h2v-8zm-22-2v-1c0-1.654 1.346-3 3-3h1v-2h-1c-2.762 0-5 2.239-5 5v1h2z"/></svg>`
+    const favoriteBtn = document.createElement('div');
+    favoriteBtn.className = 'favorite-btn'
+    favoriteBtn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402m5.726-20.583c-2.203 0-4.446 1.042-5.726 3.238-1.285-2.206-3.522-3.248-5.719-3.248-3.183 0-6.281 2.187-6.281 6.191 0 4.661 5.571 9.429 12 15.809 6.43-6.38 12-11.148 12-15.809 0-4.011-3.095-6.181-6.274-6.181"/></svg>`
+
+
+
+    // Add click event to the quick view button
+    quickViewBtn.addEventListener('click', (event) => {
+        event.stopPropagation(); // Prevent triggering parent click events
+        modalProductWindow(product); // Open the product modal
     });
-
-
 
     const defineProductStatus = (product) => {
         const productLabelContainer = document.createElement('div');
@@ -34,11 +48,6 @@ export const createCartProduct = (product) => {
             productLabelContainer.appendChild(productLabelSale);
         }
 
-
-
-        // array.reduce((accumulator, currentValue, index, array) => {
-        // }, initialValue);
-        
         const totalQuantity = product.variations.reduce((total, variation) => total + variation.quantity, 0);
         if (totalQuantity < 11) {
             const productLabelHot = document.createElement('label');
@@ -49,8 +58,8 @@ export const createCartProduct = (product) => {
 
         return productLabelContainer;
     };
-    const productStatusLabels = defineProductStatus(product);
 
+    const productStatusLabels = defineProductStatus(product);
 
     productImage1.className = 'product-img';
     productImage2.className = 'product-img hover-img';
@@ -101,23 +110,50 @@ export const createCartProduct = (product) => {
 
     addRatingEventListeners(productRating, product);
 
-    productImageContainer.append(productImage1, productImage2);
+    productImageContainer.append(productImage1, productImage2, backgroundOverlay, quickViewBtn, favoriteBtn);
     productElement.append(productStatusLabels, productImageContainer, productName, productRating, productPriceContainer,);
 
     productImageContainer.addEventListener('mouseover', () => {
+
         productImage1.style.display = 'none';
         productImage2.style.display = 'block';
+        backgroundOverlay.style.display = 'block';
+        // backgroundOverlay.style.animation = 'slideUp 0.5s ease-out forwards';
+
+        quickViewBtn.style.display = 'block';
+
+        favoriteBtn.style.display = 'block';
+        // quickViewBtn.style.animation = 'slideUp 0.5s ease-out forwards';
+
+
     });
 
     productImageContainer.addEventListener('mouseout', () => {
         productImage1.style.display = 'block';
         productImage2.style.display = 'none';
+
+        backgroundOverlay.style.display = 'none';
+        backgroundOverlay.style.animation = '';
+
+        quickViewBtn.style.display = 'none';
+        quickViewBtn.style.animation = '';
+
+        favoriteBtn.style.display = 'none';
+        favoriteBtn.style.animation = ''
     });
 
     productImage2.style.display = 'none';
 
+    backgroundOverlay.style.display = 'none';
+
+    quickViewBtn.style.display = 'none';
+
+    favoriteBtn.style.display = 'none';
+
+
     return productElement;
 }
+
 
 const getStarsHTML = (rating) => {
     let starsHTML = '';
