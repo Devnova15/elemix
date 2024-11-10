@@ -60,38 +60,32 @@
   align-items: flex-start;
 }
 
-// .star {
-//   color: $star-color-reddish-orange;
-//   font-size: 15px;
-//   text-align: left;
-// }
-
 .product-price-container {
-  display: flex; 
-  align-items: center; 
+  display: flex;
+  align-items: center;
   margin-top: 5px;
 }
 
 .product-price {
-  font-family: $font-primary; 
+  font-family: $font-primary;
   font-size: 14px;
   font-weight: 600;
   padding: 5px;
 }
 
 .product-previous-price {
-  font-family: $font-primary; 
+  font-family: $font-primary;
   font-size: 13px;
   font-weight: 600;
-  margin-left: 5px; 
+  margin-left: 5px;
   text-decoration: line-through;
-  color: gray; 
+  color: gray;
 }
 
 
 .product-img {
-  width: 235px;
-  height: auto;
+  width: 225px;
+  height: 335px;
 }
 
 
@@ -124,26 +118,154 @@
 
 .star {
   font-size: 18px;
-  color: #ccc; 
+  color: #ccc;
   cursor: pointer;
   position: relative;
 }
 
 .star.filled {
-  color: $star-color-reddish-orange; 
+  color: $star-color-reddish-orange;
 }
 
 .star.half-filled {
-  color: #ccc; }
+  color: #ccc;
+}
 
 .star.half-filled::before {
-  content: '★'; /* Звезда */
+  content: '★';
+  /* Звезда */
   position: absolute;
   left: 0;
-  width: 50%; 
+  width: 50%;
   overflow: hidden;
-  color: $star-color-reddish-orange; 
+  color: $star-color-reddish-orange;
 }
+
+
+
+
+.product-label-container {
+  position: absolute;
+}
+
+
+.product-sale-label {
+  position: relative;
+  display: inline-block;
+  left: 15px;
+  top: 15px;
+  width: 50px;
+  height: 25px;
+  font-family: $font-primary;
+  font-size: 11px;
+  line-height: 30px;
+  font-weight: bold;
+  text-align: center;
+  background-color: $background-color-label-sale;
+  color: $text-color-white;
+  cursor: pointer;
+}
+
+.product-hot-label {
+  position: relative;
+  display: inline-block;
+  left: 15px;
+  top: 15px;
+  width: 50px;
+  height: 25px;
+  font-family: $font-primary;
+  font-size: 11px;
+  line-height: 30px;
+  font-weight: bold;
+  text-align: center;
+  background-color: $background-color-label-hot;
+  color: $text-color-black;
+  cursor: pointer;
+  ;
+}
+
+.product-sold-out{
+  position: relative;
+  display: inline-block;
+  left: 45px;
+  top: 35px;
+  width: 50px;
+  height: 25px;
+  font-family: $font-primary;
+  font-size: 11px;
+  line-height: 30px;
+  font-weight: bold;
+  text-align: center;
+  background-color: $background-color-label-hot;
+  color: $text-color-black;
+  cursor: pointer;
+}
+
+
+
+.product-element {
+  position: relative;
+}
+
+.background-overlay {
+  position: absolute;
+  bottom: 77px;
+  left: 0;
+  width: 100%;
+  height: 30px;
+  background-color: $background-color-white;
+  // background-color: red;
+  animation: slideUp 0.5s ease-out forwards;
+}
+
+.favorite-btn{
+  position: absolute;
+  height: 0px;
+  left: 210px;
+  top: 319px;
+  bottom: 0;
+  right: 0; 
+  width: 0;
+  animation: showUp 1.5s ease-out forwards;
+
+}
+.product-quick-view-btn{
+  position: absolute;
+  height: 0px;
+  left: 140px;
+  top: 320px;
+  bottom: 0;
+  right: 0; 
+  animation: showUp 1.5s ease-out forwards;
+}
+
+/* Определение анимации для увеличения высоты */
+@keyframes slideUp {
+  from {
+    height: 0;
+  }
+
+  to {
+    height: 33px;
+  }
+}
+
+@keyframes showUp {
+
+  from {
+  opacity: 0;
+  }
+
+  to {
+
+    opacity: 1;
+  }
+
+}
+
+
+
+
 
 
 // /* Медиазапрос для экранов от 480 до 768 пикселей (планшеты) */
