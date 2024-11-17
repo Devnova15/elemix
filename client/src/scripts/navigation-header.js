@@ -217,10 +217,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // МОДАЛКА КОРЗИНЫ
 
-export const createModalWindowCart = (error, position = modalWindowPosition.right) => {
+export const createModalWindowCart = (position = modalWindowPosition.right) => {
+    const existingModal = document.querySelector('.modal-cart-content');
+    if (existingModal) {
+        // Если модальное окно уже существует, просто обновляем товары и сумму
+        const cartSideBarContent = existingModal.querySelector('.cart-side-bar__content');
+        const cartFooter = existingModal.querySelector('.cart-footer');
+
+        // Очищаем только карточки товаров, но не удаляем сам контейнер
+        cartSideBarContent.innerHTML = '';
+
+        // Обновляем только содержимое товаров и итоговую сумму
+        updateCartContent(cartSideBarContent, cartFooter);
+        return;
+    }
+
+    // Если окно еще не создано, создаем его полностью
     const { modalDiv, modalContent, overlay } = createModal(position, 'modal-cart-content');
 
-    // Заголовок корзины
     let cartSideBarHeader = document.createElement('div');
     cartSideBarHeader.className = "cart-side-bar__header";
 
@@ -239,17 +253,14 @@ export const createModalWindowCart = (error, position = modalWindowPosition.righ
     cartSideBarButtonCloseImg.className = "cart-side-bar-button-close__img";
     cartSideBarButtonCloseImg.src = "/src/img/header-images/close-svgrepo-com.png";
 
-    // Закрытие модального окна при клике на крестик
     cartSideBarButtonCloseImg.addEventListener('click', () => {
         overlay.remove();
         modalDiv.remove();
     });
 
-    // Контейнер для контента корзины
     let cartSideBarContent = document.createElement('div');
     cartSideBarContent.className = "cart-side-bar__content";
 
-    // Сборка модального окна
     cartSideBarButton.appendChild(cartSideBarButtonCloseImg);
     cartSideBarHeader.appendChild(cartSideBarTitle);
     cartSideBarHeader.appendChild(cartSideBarSpan);
@@ -258,27 +269,37 @@ export const createModalWindowCart = (error, position = modalWindowPosition.righ
     modalContent.appendChild(cartSideBarHeader);
     modalContent.appendChild(cartSideBarContent);
 
-    // Если корзина пустая
+    // Создаем контейнер футера и добавляем его в окно
+    const cartFooter = document.createElement('div');
+    cartFooter.className = "cart-footer";
+    modalContent.appendChild(cartFooter);
+
+    // Заполняем содержимое корзины (товары и сумму)
+    updateCartContent(cartSideBarContent, cartFooter);
+
+    document.body.append(modalDiv);
+};
+
+// Функция обновления только содержимого товаров и суммы в корзине
+const updateCartContent = (cartSideBarContent, cartFooter) => {
+    // Очистка футера для обновления
+    cartFooter.innerHTML = '';
+
     if (store.cart.products.length === 0) {
         let cartSideBarContentEmptyMessage = document.createElement('p');
         cartSideBarContentEmptyMessage.className = "cart-side-bar-content-empty__message";
         cartSideBarContentEmptyMessage.textContent = "No products in the cart";
         cartSideBarContent.appendChild(cartSideBarContentEmptyMessage);
     } else {
-        // Создаем карточки товаров в корзине
         const cards = store.cart.products.map(product => createCartProductCart(product));
         cartSideBarContent.append(...cards);
 
-        // Подсчет общей суммы
         const totalAmount = store.cart.products.reduce((total, product) => {
             return total + product.currentPrice * product.cartQuantity;
         }, 0);
 
-        // Создание элемента для отображения общей суммы
-
         const totalContainer = document.createElement('div');
         totalContainer.className = 'total-container';
-
 
         const totalAmountText = document.createElement('p');
         totalAmountText.className = 'total-amount__text';
@@ -288,7 +309,6 @@ export const createModalWindowCart = (error, position = modalWindowPosition.righ
         totalAmountElement.className = "cart-total-amount";
         totalAmountElement.textContent = `$${totalAmount.toFixed(2)}`;
 
-        // Создание кнопок View Total и Check Out
         let viewTotalButton = document.createElement('button');
         viewTotalButton.className = "cart-view-total-button";
         viewTotalButton.textContent = "View Total";
@@ -297,32 +317,22 @@ export const createModalWindowCart = (error, position = modalWindowPosition.righ
         checkOutButton.className = "cart-checkout-button";
         checkOutButton.textContent = "Check Out";
 
-        // Контейнер для футера с кнопками
-        let cartFooter = document.createElement('div');
-        cartFooter.className = "cart-footer";
-
-        // Контейнер для кнопок (для размещения в один ряд)
         let buttonsContainer = document.createElement('div');
         buttonsContainer.className = "cart-footer-buttons";
         buttonsContainer.appendChild(viewTotalButton);
         buttonsContainer.appendChild(checkOutButton);
 
-        // Добавляем элементы в футер
         totalContainer.appendChild(totalAmountText);
         totalContainer.appendChild(totalAmountElement);
         cartFooter.appendChild(totalContainer);
         cartFooter.appendChild(buttonsContainer);
-
-        // Добавляем футер в модальное окно
-        modalContent.appendChild(cartFooter);
     }
 
-    if (error) {
-        let title = document.createElement("h2");
-        title.textContent = "Error";
-        modalContent.appendChild(title);
+    // Обновляем счётчик товаров в заголовке корзины
+    const cartSideBarSpan = document.querySelector('.cart-side-bar__span');
+    if (cartSideBarSpan) {
+        cartSideBarSpan.textContent = store.cart.quantity;
     }
-    document.body.append(modalDiv);
 };
 
 
@@ -330,12 +340,7 @@ export const createModalWindowCart = (error, position = modalWindowPosition.righ
 
 
 
-
-
-
-
-
-export const createModalForSingUpForm = (error, position = modalWindowPosition.center) => {
+export const createModalForSingUpForm = (position = modalWindowPosition.center) => {
     const {modalDiv, modalContent} = createModal(position, 'singup-modal-content');
 
     modalDiv.className = 'singup-modal-center';
@@ -441,12 +446,7 @@ export const createModalForSingUpForm = (error, position = modalWindowPosition.c
     modalContent.appendChild(formHeader);
     modalContent.appendChild(formContainer);
 
-    if (error) {
-        let errorMessage = document.createElement("p");
-        errorMessage.className = "form-error";
-        errorMessage.textContent = "An error occurred. Please try again.";
-        modalContent.appendChild(errorMessage);
-    }
+
 
     document.body.append(modalDiv);
 };

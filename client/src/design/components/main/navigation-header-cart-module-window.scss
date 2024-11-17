@@ -257,3 +257,24 @@
 }
 
 
+.remove-product-button {
+  background: none;            /* Убираем фон */
+  border: none;                /* Убираем границу */
+  color: #333;                 /* Цвет крестика */
+  font-size: 16px;             /* Размер символа */
+  font-weight: 300;            /* Тонкий крестик */
+  cursor: pointer;             /* Курсор "указатель" при наведении */
+  padding: 0;                  /* Убираем отступы */
+  line-height: 1;              /* Убираем лишние отступы вокруг */
+  display: inline-flex;        /* Для точного позиционирования */
+  align-items: center;
+  justify-content: center;
+  position: relative;          /* Для точного смещения */
+  top: -15px;                   /* Поднимаем крестик вверх */
+}
+
+.remove-product-button:hover {
+  color:black;              /* Цвет крестика при наведении */
+}
+
+

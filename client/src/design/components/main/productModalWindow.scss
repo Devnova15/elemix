@@ -367,3 +367,60 @@
   flex-direction: column;
   gap: 15px; /* Отступы между секциями */
 }
+///* Стили для сообщения об отсутствии товара */
+//.out-of-stock-message {
+//  position: absolute;
+//  top: 10px;
+//  left: 50%;
+//  transform: translateX(-50%);
+//  background-color: #f8d7da;
+//  color: #721c24;
+//  padding: 10px;
+//  text-align: center;
+//  border: 1px solid #f5c6cb;
+//  border-radius: 5px;
+//  font-weight: bold;
+//  font-size: 16px;
+//  z-index: 999; /* Чтобы сообщение не скрывалось за другими элементами */
+//}
+/* Стили для сообщения об отсутствии товара */
+.out-of-stock-message {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #f2f2f2;  /* Нежный серый фон */
+  color: #333333;  /* Черный текст */
+  padding: 12px 20px;
+  border-radius: 0px;  /* Острие углы (без скругления) */
+  font-size: 16px;
+  text-align: center;
+  z-index: 999;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  /* Мягкая тень */
+  opacity: 0;
+  animation: fadeInUp 0.5s ease-out forwards, fadeOutDown 0.5s ease-in 3s forwards;
+}
+
+/* Анимация для появления */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* Анимация для исчезновения */
+@keyframes fadeOutDown {
+  0% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+}

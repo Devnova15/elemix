@@ -1,15 +1,19 @@
 import { store } from "../constants.js";
 
+const saveCartToLocalStorage = () => {
+    localStorage.setItem('cart', JSON.stringify(store.cart));
+};
+
 export const addToCartProducts = (product, quantity = 1) => {
     const cartCountElement = document.querySelector('.header-icon__cart-count');
     const existingProduct = store.cart.products.find(p => p._id === product._id);
-console.log(product);
+
     if (!existingProduct) {
         const productImage = product.variations[0].imageUrls[0];
 
         store.cart.products.push({
             ...product,
-            cartQuantity: quantity,  // Устанавливаем количество из модального окна
+            cartQuantity: quantity,
             image: productImage
         });
 
@@ -20,6 +24,9 @@ console.log(product);
             cartCountElement.textContent = store.cart.quantity;
         }
     } else {
-        existingProduct.cartQuantity += 1;
+        existingProduct.cartQuantity += quantity;
     }
+
+    // Сохраняем корзину в localStorage
+    saveCartToLocalStorage();
 }
