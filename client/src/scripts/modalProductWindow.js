@@ -205,10 +205,45 @@ export const modalProductWindow = (product, position = modalWindowPosition.cente
         const selectedSize = sizeSelect ? sizeSelect.value : null;
         const quantity = currentQuantity;
 
-        addToCartProducts(product, quantity);
-        console.log(store.cart.products)
+        // Проверка наличия товара
+        const selectedVariation = product.variations.find(variation => variation.color === selectedColor);
 
+        // Если товар отсутствует на складе
+        if (selectedVariation && selectedVariation.quantity === 0) {
+            showOutOfStockMessage(); // Показать сообщение об отсутствии товара
+            return; // Останавливаем выполнение
+        }
+
+        if (quantity <= 0) {
+            alert('Please select a valid quantity');
+            return; // Останавливаем выполнение, если количество меньше 1
+        }
+
+        // Добавляем товар в корзину, если количество больше 0
+        addToCartProducts(product, quantity);
+        console.log(store.cart.products);
     });
+
+    function showOutOfStockMessage() {
+        // Создаем сообщение об отсутствии товара
+        const outOfStockMessage = document.createElement('div');
+        outOfStockMessage.className = 'out-of-stock-message'; // Используем класс из CSS
+
+        // Текст сообщения
+        outOfStockMessage.textContent = 'Sorry, this product is out of stock!';
+
+        // Добавляем сообщение в модальное окно
+        modalTextContainer.prepend(outOfStockMessage); // Используем prepend, чтобы сообщение шло первым элементом
+
+        // Убираем сообщение через 3 секунды
+        setTimeout(() => {
+            outOfStockMessage.remove();
+        }, 3000);
+    }
+
+
+
+
 
     const addToWishListButton = document.createElement('button');
     addToWishListButton.className = 'add-to-wish-list__button';

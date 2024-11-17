@@ -10,6 +10,7 @@ import {getAllProducts, getProduct, loginInit, registrateInit} from "./src/scrip
 import {addProduct} from "./src/scripts/requests.js";
 import {addProductsMensCategory, addProductsWomensCategory} from "./src/scripts/addProductsToDB.js";
 import {createCartProduct} from "./src/scripts/top-sellers.js";
+import {loadCartFromLocalStorage} from "./src/scripts/helper/loadCartFromLocalStorage.js";
 
 
 
@@ -77,6 +78,9 @@ document.addEventListener("DOMContentLoaded", () => {
             event.preventDefault()
         });
     }
+});
+document.addEventListener("DOMContentLoaded", () => {
+    loadCartFromLocalStorage();
 });
 
 
