@@ -313,12 +313,23 @@ export const modalProductWindow = (product, position = modalWindowPosition.cente
 
         colorSelect.addEventListener('change', (event) => {
             const selectedColor = event.target.value;
-            const selectedVariation = product.variations.find(variations => variations.color === selectedColor)
-            if (selectedVariation && selectedVariation.imageUrls) {
-                modalImg.src = selectedVariation.imageUrls[0]
-            }
+            const selectedVariation = product.variations.find(variation => variation.color === selectedColor);
 
-        })
+            if (selectedVariation) {
+                // Если для выбранного цвета существует изображение, меняем его
+                if (selectedVariation.imageUrls) {
+                    modalImg.src = selectedVariation.imageUrls[0]; // Обновляем изображение
+                }
+
+                // Обновляем цену в зависимости от наличия скидки
+                if (selectedVariation.previousPrice !== undefined && selectedVariation.previousPrice !== selectedVariation.currentPrice) {
+                    modalPrice.textContent = `Price: $${selectedVariation.previousPrice.toFixed(2)}`;  // Показываем цену со скидкой
+                } else {
+                    modalPrice.textContent = `Price: $${selectedVariation.currentPrice.toFixed(2)}`;  // Показываем обычную цену
+                }
+            }
+        });
+
     }
 
     // отображения количества товара
