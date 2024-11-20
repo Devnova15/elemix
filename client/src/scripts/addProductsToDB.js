@@ -395,13 +395,13 @@ export const addProductsWomensCategory = async () => {
 
         {
             name: "Small Backpack",
-            currentPrice: 29.00,
+            currentPrice: 25.00,
             categories: "women",
             type: "Accessories, Bags",
             variations: [
                 {
                     color: "White",
-                    previousPrice: 25.00,
+                    previousPrice: 29.00,
                     imageUrls: [
                         "https://elemix.pixel-show.com/wp-content/uploads/2019/05/backpack-white-1-min-760x970.jpg",
                         "https://elemix.pixel-show.com/wp-content/uploads/2019/05/backpack-white-2-min-760x970.jpg",
@@ -660,12 +660,12 @@ export const addProductsWomensCategory = async () => {
         {
             name: "Belt With Chain",
             currentPrice: 99.00, // Новая цена со скидкой
-            previousPrice: 129.00, // Старая цена (до скидки)
             categories: "women",
             type: "Accessories",
             variations: [
                 {
                     color: 'Gold',
+            previousPrice: 199.00, // Старая цена (до скидки)
                     imageUrls: [
                         "https://elemix.pixel-show.com/wp-content/uploads/2019/05/belt-3-1-760x970.jpg",
                         "https://elemix.pixel-show.com/wp-content/uploads/2019/05/belt-1-1-760x970.jpg",
