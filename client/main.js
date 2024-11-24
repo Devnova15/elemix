@@ -46,13 +46,13 @@ document.addEventListener("DOMContentLoaded", () => {
 initializeProductImageSwitcher();
 
 // В файле с обработчиком события
-document.addEventListener('click', async (event) => {
-    // Проверяем, был ли клик по кнопке с классом form-button
-    if (event.target.classList.contains('form-button')) {
-        console.log('clicked');
-        await loginInit();
-    }
-});
+// document.addEventListener('click', async (event) => {
+//     // Проверяем, был ли клик по кнопке с классом form-button
+//     if (event.target.classList.contains('form-button')) {
+//         console.log('clicked');
+//         await loginInit();
+//     }
+// });
 
 
 

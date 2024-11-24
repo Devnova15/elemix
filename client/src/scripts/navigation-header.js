@@ -2,6 +2,7 @@ import {modalWindowPosition} from "./constants.js";
 import {createModal} from "./helper/createModalFunction.js";
 import {store} from "./constants.js";
 import {createCartProductCart} from "./helper/cart-product-card.js";
+import { loginInit } from "./requests.js";
 
 // Функция для удаления окна по нажатию клавиши
 export const removeWindowByKeyPress = (event, modal, overlay) => {
@@ -376,6 +377,8 @@ export const createModalForSingUpForm = (error, position = modalWindowPosition.c
     signInForm.appendChild(signInEmail);
     signInForm.appendChild(signInPassword);
     signInForm.appendChild(signInButton);
+
+    signInButton.addEventListener ('click', loginInit())
 
     // Создание ссылки на регистрацию (Switch to Register)
     let switchToRegister = document.createElement('p');
