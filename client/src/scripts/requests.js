@@ -1,4 +1,4 @@
-import {API, ENDPOINT, store} from './constants.js';
+import { API, ENDPOINT, store } from './constants.js';
 
 export const sendRequest = async (url, method = "GET", options = {}) => {
     try {
@@ -16,14 +16,14 @@ export const sendRequest = async (url, method = "GET", options = {}) => {
 
 export const loginAndGetToken = async (credentional) => {
     return await sendRequest(ENDPOINT.CUSTOMERS.LOGIN, 'POST', {
-        headers: {'Content-Type': 'application/json'},
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(credentional)
     })
 }
 
 export const registrateUser = (userData) => {
     return sendRequest(ENDPOINT.CUSTOMERS.REGISTER, 'POST', {
-        headers: {'Content-Type': 'application/json'},
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(userData)
     })
 
@@ -48,7 +48,7 @@ export const loginInit = async () => {
         password: "1111111"
     };
 
-    const {token} = await loginAndGetToken(userData)
+    const { token } = await loginAndGetToken(userData)
     store.token = token
     store.user = userData
     console.log(store)
@@ -79,6 +79,28 @@ export const addProduct = async (product) => {
 export const getAllProducts = async () => {
     return await sendRequest(ENDPOINT.PRODUCTS.ROOT)
 }
+
+export const addProductToWishlist = async (productId) => {
+    try {
+        return await sendRequest(`${ENDPOINT.CUSTOMERS.WISHLIST}/${productId}`, 'PUT', {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': store.token,
+            }
+        },)
+
+
+    } catch (error) {
+        console.log(error);
+
+    }
+}
+
+
+
+
+
+
 
 
 // //по идее сюда тоже логику с пагинацией нужно

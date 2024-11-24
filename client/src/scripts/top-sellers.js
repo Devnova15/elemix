@@ -3,7 +3,7 @@ import { extractImgUrls } from "./helper/extractImgUrls.js";
 import { createModal } from "./helper/createModalFunction.js";
 import { getAllProducts } from './requests.js';
 import { modalProductWindow } from './modalProductWindow.js'
-
+import { addProductToWishlist } from './requests.js'
 export const createCartProduct = (product) => {
     const productElement = document.createElement('div');
     const productImageContainer = document.createElement('div');
@@ -203,28 +203,32 @@ export const createCartProduct = (product) => {
     productElement.append(productStatusLabels, productImageContainer, productName, productRating, productPriceContainer);
     favoriteBtnShaded.style.display = 'none';
 
-    favoriteBtn.addEventListener('click', (e) => {
+    favoriteBtn.addEventListener('click', async (e) => {
         e.stopPropagation();
         console.log("store", store);
-        if(store.user) {
-            favoriteBtn.style.display = 'none';
-            favoriteBtnShaded.style.display = 'block';
-            console.log('Добавлено в избранное:', product);
+        if (store.user) {
+
+            const responce =  await addProductToWishlist(product._id)
+
+            if (responce) {
+                favoriteBtn.style.display = 'none';
+                favoriteBtnShaded.style.display = 'block';
+                console.log('Добавлено в избранное:', product);
+            }
         } else {
             alert('Need to login first')
         }
     });
 
-    
-    
-            favoriteBtnShaded.addEventListener('click', (e) => {
-                e.stopPropagation();
-                if(store.user) {
-                    favoriteBtnShaded.style.display = 'none';
-                favoriteBtn.style.display = 'block';
-                console.log('Удалено из избранного:', product);
-                }
-            });
+
+    favoriteBtnShaded.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (store.user) {
+            favoriteBtnShaded.style.display = 'none';
+            favoriteBtn.style.display = 'block';
+            console.log('Удалено из избранного:', product);
+        }
+    });
 
 
 

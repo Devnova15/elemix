@@ -21,8 +21,12 @@ export const ENDPOINT = Object.freeze({
   CUSTOMERS: {
     LOGIN: `${API}/customers/login`,
     REGISTER: `${API}/customers`,
-    PASSWORD: `${API}/customers/password`
+    PASSWORD: `${API}/customers/password`,
+WISHLIST: `${API}/wishlist`,
+
   },
+
+
 
 
 
