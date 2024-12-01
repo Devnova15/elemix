@@ -3,7 +3,6 @@ body {
     margin: 0;
     padding: 0;
 }
-
 .header {
     display: flex;
     align-items: center;
@@ -165,6 +164,7 @@ body {
     z-index: 1000;
     width: 800px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
 }
 
 .header-menu__item:hover .header-menu__dropdown,

@@ -1,7 +1,6 @@
 
 import {addProduct} from "./requests.js";
 
-// Функция для добавления только мужских продуктов
 export const addProductsMensCategory = async () => {
     const products = [
         {
@@ -244,7 +243,6 @@ export const addProductsMensCategory = async () => {
         },
     ];
 
-    // Фильтрация по категории "men"
     const menProducts = products.filter(product => product.categories === "men");
 
     const productsPromise = menProducts.map((product) => addProduct(product));

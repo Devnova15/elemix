@@ -54,7 +54,6 @@ export const modalProductWindow = (product, position = modalWindowPosition.cente
     productCategory.className = 'product-category';
     productCategory.textContent = `${product.categories}`;
 
-// Объединяем метку и значение в один контейнер
     const categoryContainer = document.createElement('div');
     categoryContainer.className = 'category-container'; // Добавляем класс для стилей
     categoryContainer.appendChild(categoryLabel);
@@ -69,17 +68,14 @@ export const modalProductWindow = (product, position = modalWindowPosition.cente
     productType.textContent = `${product.type}`;
 
 
-    // Создаем контейнер для блока "Share:"
     const shareProductContainer = document.createElement('div');
     shareProductContainer.className = 'product-share';
 
-// Текст "Share:"
     const shareProductText = document.createElement('p');
     shareProductText.className = 'product-share__text';
     shareProductText.textContent = 'Share: ';
     shareProductContainer.appendChild(shareProductText);
 
-// Функция для создания ссылки с иконкой соцсети
     function createSocialLink(href, imgSrc, altText) {
         const link = document.createElement('a');
         link.href = href;
@@ -117,11 +113,9 @@ export const modalProductWindow = (product, position = modalWindowPosition.cente
         'LinkedIn'
     );
 
-// Добавляем ссылки в контейнер
     shareProductContainer.append(facebookLink, twitterLink, pinterestLink, linkedInLink);
 
 
-// Объединяем метку и значение в один контейнер
     const typeContainer = document.createElement('div');
     typeContainer.className = 'type-container'; // Добавляем класс для стилей
     typeContainer.appendChild(typeLabel);
@@ -135,18 +129,16 @@ export const modalProductWindow = (product, position = modalWindowPosition.cente
 
     /////КНОПКИ ДЛЯ СВАЙПА ФОТО
 
-    // Создайте контейнер для индикаторов изображений
     const indicatorsContainer = document.createElement('div');
     indicatorsContainer.className = 'indicators-container';
 
-// Функция для создания индикаторов
     function updateIndicators() {
-        indicatorsContainer.innerHTML = ''; // Очистите контейнер перед обновлением
+        indicatorsContainer.innerHTML = '';
         imgUrls.forEach((_, index) => {
             const indicator = document.createElement('span');
             indicator.className = 'indicator';
             if (index === currentIndex) {
-                indicator.classList.add('active'); // Подсветите активный индикатор
+                indicator.classList.add('active');
             }
             indicatorsContainer.appendChild(indicator);
         });
@@ -172,8 +164,8 @@ export const modalProductWindow = (product, position = modalWindowPosition.cente
     modalImgButtonRight.className = 'modal-img__button';
 
     modalImgButtonRight.addEventListener('click', () => {
-        currentIndex = (currentIndex + 1) % imgUrls.length;  // Смена индекса
-        modalImg.src = imgUrls[currentIndex];  // Обновляем изображение
+        currentIndex = (currentIndex + 1) % imgUrls.length;
+        modalImg.src = imgUrls[currentIndex];
         updateIndicators();
 
     })
@@ -205,37 +197,31 @@ export const modalProductWindow = (product, position = modalWindowPosition.cente
         const selectedSize = sizeSelect ? sizeSelect.value : null;
         const quantity = currentQuantity;
 
-        // Проверка наличия товара
         const selectedVariation = product.variations.find(variation => variation.color === selectedColor);
+        const selectedImage = selectedVariation ? selectedVariation.imageUrls[0] : product.variations[0].imageUrls[0];
 
-        // Если товар отсутствует на складе
         if (selectedVariation && selectedVariation.quantity === 0) {
-            showOutOfStockMessage(); // Показать сообщение об отсутствии товара
-            return; // Останавливаем выполнение
+            showOutOfStockMessage();
+            return;
         }
 
         if (quantity <= 0) {
             alert('Please select a valid quantity');
-            return; // Останавливаем выполнение, если количество меньше 1
+            return;
         }
 
-        // Добавляем товар в корзину, если количество больше 0
-        addToCartProducts(product, quantity);
+        addToCartProducts(product, quantity, selectedColor, selectedImage);
         console.log(store.cart.products);
     });
 
     function showOutOfStockMessage() {
-        // Создаем сообщение об отсутствии товара
         const outOfStockMessage = document.createElement('div');
-        outOfStockMessage.className = 'out-of-stock-message'; // Используем класс из CSS
+        outOfStockMessage.className = 'out-of-stock-message';
 
-        // Текст сообщения
         outOfStockMessage.textContent = 'Sorry, this product is out of stock!';
 
-        // Добавляем сообщение в модальное окно
-        modalTextContainer.prepend(outOfStockMessage); // Используем prepend, чтобы сообщение шло первым элементом
+        modalTextContainer.prepend(outOfStockMessage);
 
-        // Убираем сообщение через 3 секунды
         setTimeout(() => {
             outOfStockMessage.remove();
         }, 3000);
@@ -316,12 +302,10 @@ export const modalProductWindow = (product, position = modalWindowPosition.cente
             const selectedVariation = product.variations.find(variation => variation.color === selectedColor);
 
             if (selectedVariation) {
-                // Если для выбранного цвета существует изображение, меняем его
                 if (selectedVariation.imageUrls) {
                     modalImg.src = selectedVariation.imageUrls[0]; // Обновляем изображение
                 }
 
-                // Обновляем цену в зависимости от наличия скидки
                 if (selectedVariation.previousPrice !== undefined && selectedVariation.previousPrice !== selectedVariation.currentPrice) {
                     modalPrice.textContent = `Price: $${selectedVariation.previousPrice.toFixed(2)}`;  // Показываем цену со скидкой
                 } else {
@@ -332,7 +316,6 @@ export const modalProductWindow = (product, position = modalWindowPosition.cente
 
     }
 
-    // отображения количества товара
     const quantityInput = document.createElement('input');
     quantityInput.className = 'modal-quantity__input';
     quantityInput.type = "number";
@@ -350,7 +333,6 @@ export const modalProductWindow = (product, position = modalWindowPosition.cente
         }
     })
 
-//кнопка для увиличения к-ства
     const increaseButton = document.createElement('button');
     increaseButton.className = 'quantity-counter';
     increaseButton.textContent = '+';
@@ -365,7 +347,6 @@ export const modalProductWindow = (product, position = modalWindowPosition.cente
         }
     })
 
-    // изменения значения в input
     quantityInput.addEventListener('input', () => {
         const value = parseInt(quantityInput.value);
         const selectedColor = document.querySelector('.modal-colors')?.value; // Получаем выбранный цвет
@@ -397,7 +378,7 @@ export const modalProductWindow = (product, position = modalWindowPosition.cente
     modalTextContainer.append(
         modalCloseButton,
         modalTitle,
-        modalStarsContainer, // Добавили звездный рейтинг
+        modalStarsContainer,
         modalProductsRank,
         modalPrice,
         modalDescription,
@@ -406,8 +387,8 @@ export const modalProductWindow = (product, position = modalWindowPosition.cente
         quantityContainer,
         buttonsContainer,
         stockKeepingContainer,
-        categoryContainer, // Используем контейнер для категории
-        typeContainer, // Используем контейнер для типа
+        categoryContainer,
+        typeContainer,
         shareProductContainer
     );
 

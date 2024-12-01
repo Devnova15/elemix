@@ -3,12 +3,20 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 600px; /* Увеличили ширину */
+  width: 600px;
   background-color: $background-color-white;
-  padding: 40px; /* Увеличили отступы */
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* Увеличили тень для выделения */
+  padding: 40px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   z-index: 1000;
-  border-radius: 0; /* Убрали закругление углов */
+  border-radius: 0;
+}
+
+.singUp-button-close__modal {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  right: 10px;
+  top: 20px;
 }
 
 .singup-modal-content {
@@ -17,11 +25,11 @@
 
 .form-header {
   text-align: center;
-  margin-bottom: 25px; /* Увеличили отступ для красоты */
+  margin-bottom: 25px;
 }
 
 .form-title {
-  font-size: 28px; /* Увеличили размер шрифта */
+  font-size: 28px;
   font-weight: bold;
   color: $text-color-dimgrey;
 }
@@ -33,21 +41,21 @@
 
 .form-input {
   width: 100%;
-  padding: 12px; /* Увеличили padding */
-  margin-bottom: 20px; /* Увеличили отступы между элементами */
-  border: 1px solid #ddd;
-  border-radius: 0; /* Убрали закругление углов */
-  font-size: 16px; /* Увеличили размер шрифта */
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid $border-color-lightgray;
+  border-radius: 0;
+  font-size: 16px;
 }
 
 .form-button {
   background-color: $background-color-firebrick;
   color: white;
-  padding: 12px; /* Увеличили padding */
+  padding: 12px;
   border: none;
-  border-radius: 0; /* Убрали закругление углов */
+  border-radius: 0;
   cursor: pointer;
-  font-size: 18px; /* Увеличили размер шрифта */
+  font-size: 18px;
 }
 
 .form-button:hover {
@@ -67,5 +75,5 @@
 .form-error {
   color: $text-color-dimgray;
   text-align: center;
-  margin-top: 15px; /* Немного увеличили отступ */
+  margin-top: 15px;
 }

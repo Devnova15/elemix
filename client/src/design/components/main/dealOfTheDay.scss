@@ -4,10 +4,9 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  width: 1400px;
   height: 900px;
   padding: 20px;
-  background-color: #ffffff;
+  background-color: $background-color-white;
 }
 
 /* Image positioning */
@@ -50,7 +49,7 @@
   z-index: 2;
   width: 500px;
   height: 500px;
-  background-color: #a13a35;
+  background-color: $background-color-indianred-dark;
   color: #ffffff;
   text-align: center;
   padding: 20px;
@@ -97,23 +96,22 @@
 
 .sale-banner__countdown {
   font-size: 12px;
-  color: #ffe1e1;
+  color:$text-color-light-pink;
   margin-bottom: 20px;
 }
 
 .sale-banner__button {
   display: inline-block;
-  padding: 15px 30px;  /* Увеличиваем отступы, чтобы сделать кнопку больше */
-  background-color: #000;
-  color: #ffffff;
+  padding: 15px 30px;
+  background-color: $background-color-black;
+  color: $text-color-white;
   text-decoration: none;
-  font-size: 12px;  /* Уменьшаем размер текста */
-  font-weight: 600;  /* Делаем текст жирнее */
-  border-radius: 0;  /* Убираем скругление углов */
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 0;
 }
 
 
-/* Positioning for each product image */
 .product-glasses {
   position: absolute;
   bottom: -15px;

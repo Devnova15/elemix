@@ -67,14 +67,12 @@ document.querySelector(".header-search__button").addEventListener('click', async
 
 
 
-// Обработчик события для открытия модального окна при нажатии на иконку корзины
 document.addEventListener("DOMContentLoaded", () => {
     const cartIcon = document.querySelector(".header-icon__user");
 
     if (cartIcon) {
         cartIcon.addEventListener("click", (event) => {
-            // Вызов функции для создания модального окна
-            createModalForSingUpForm(false, modalWindowPosition.center); // Передайте ошибку, если она есть
+            createModalForSingUpForm(false, modalWindowPosition.center);
             event.preventDefault()
         });
     }

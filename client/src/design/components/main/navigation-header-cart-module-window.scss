@@ -1,4 +1,3 @@
-/* Основные стили модального окна для правостороннего окна */
 .modal-right {
   position: fixed;
   top: 0;
@@ -10,10 +9,9 @@
   flex-direction: column;
   padding: 20px;
   font-family: 'Arial', sans-serif;
-  overflow: hidden; /* Чтобы не было скроллинга по модальному окну */
+  overflow: hidden;
 }
 
-/* Стили для анимации модального окна */
 .modal-right.show {
   display: flex;
   animation: slideInRight 0.3s ease-out;
@@ -24,8 +22,8 @@
   top: 0;
   right: 0;
   width: 400px;
-  height: 870px;  ///ВЫСОТА МОДАЛКИ
-  background-color: #fff;
+  height: 100%;  ///ВЫСОТА МОДАЛКИ
+  background-color: $background-color-white;
   box-shadow: -4px 0 15px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   display: flex;
@@ -44,18 +42,18 @@
 }
 
 .cart-side-bar__title {
-  font-size: 12px; /* Маленький размер шрифта */
-  font-weight: bold; /* Жирный шрифт */
-  text-transform: uppercase; /* Заглавные буквы */
-  color: black; /* Черный цвет текста */
-  margin-right: 5px; /* Отступ между меткой и значением */
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: $text-color-black;
+  margin-right: 5px;
 }
 
 .cart-side-bar__span {
   position: absolute;
-  top: 20px; /* Попробуйте изменить это значение */
-  right: 68%; /* Попробуйте изменить это значение */
-  background-color: firebrick;
+  top: 20px;
+  right: 68%;
+  background-color: $background-color-firebrick;
   color: $text-color-white;
   font-size: 10px;
   width: 16px;
@@ -66,28 +64,26 @@
   border-radius: 50%;
 }
 
-/* Название товара */
 .cart-product-name {
   font-size: 14px;
   font-weight: 400;
-  color: #333;
+  color: $text-color-dirt;
   line-height: 1.5;
-  flex: 1; /* Название растягивается по оставшемуся пространству */
-  text-overflow: ellipsis; /* Обрезаем текст с троеточием, если длинное */
+  flex: 1;
+  text-overflow: ellipsis;
   overflow: hidden;
-  white-space: nowrap; /* Запрещаем перенос строки */
+  white-space: nowrap;
 }
 
-/* Цена товара */
 .cart-product-price {
   font-size: 12px;
   font-weight: 300;
-  color: #000;
+  color: $text-color-black;
   line-height: 1.4;
-  text-align: right; /* Выравнивание цены по правому краю */
-  width: 80px; /* Фиксированная ширина для выравнивания цены */
-  text-overflow: ellipsis; /* Обрезаем цену, если она слишком длинная */
-  white-space: nowrap; /* Запрещаем перенос на новую строку */
+  text-align: right;
+  width: 80px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 
@@ -107,12 +103,12 @@
 .cart-side-bar__content {
   padding-top: 10px;
   display: flex;
-  flex-direction: column; /* Добавьте эту строку */
-  gap: 15px; /* Задает расстояние между продуктами в корзине */
-  align-items: flex-start; /* Выравнивает элементы по левому краю */
-  overflow-y: auto; /* Добавляет прокрутку, если элементов слишком много */
-  padding-bottom: 20px; /* Для отступа перед футером */
-  max-height: 100%; /* Чтобы прокрутка занимала всю высоту */
+  flex-direction: column;
+  gap: 15px;
+  align-items: flex-start;
+  overflow-y: auto;
+  padding-bottom: 20px;
+  max-height: 100%;
   color:$text-color-grey;
 }
 .cart-product-item {
@@ -120,43 +116,34 @@
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  width: 100%; /* Чтобы продукт занимал всю ширину контейнера */
+  width: 100%;
 }
 
 .cart-side-bar-content-empty__massage {
   color: $text-color-dimgrey;
-  font-size: 14px; /* Небольшой шрифт */
-  font-weight: normal; /* Обычный вес шрифта */
-  font-family: Arial, sans-serif; /* Простой, чистый шрифт */
-  line-height: 1.5; /* Для лучшей читаемости */
+  font-size: 14px;
+  font-weight: normal;
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
 }
 
 
-/* Стили для анимации модального окна */
 .modal.show {
   display: flex;
   animation: slideInRight 0.3s ease-out;
 }
 
-//@keyframes slideInRight {
-//  0% {
-//    transform: translateX(100%);
-//  }
-//  100% {
-//    transform: translateX(0);
-//  }
-//}
 
-/* Стили для кнопки открытия корзины */
+
 .header-icon__cart {
   cursor: pointer;
   position: relative;
 }
 .cart-product-image {
-  width: 50px;  /* Ширина изображения */
-  height: auto;  /* Высота автоматически подстраивается, чтобы сохранить пропорции */
-  margin-right: 10px;  /* Отступ справа для пространства между изображением и текстом */
-  object-fit: cover;  /* Обеспечивает обрезку изображений, чтобы они вписывались в заданные размеры */
+  width: 50px;
+  height: auto;
+  margin-right: 10px;
+  object-fit: cover;
 }
 
 
@@ -177,49 +164,46 @@
   display: block;
 }
 
-/* Стили для футера корзины */
 .cart-footer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 15px 0;
-  border-top: 1px solid #ddd;
-  margin-top: auto; /* Позволяет футеру оставаться внизу */
-  width: 100%; /* Чтобы кнопки не уходили за пределы */
+  padding: 45px 0;
+  margin-top: auto;
+  width: 100%;
   box-sizing: border-box;
 }
 
-/* Для контейнера кнопок */
 .cart-footer-buttons {
   display: flex;
   justify-content: space-between;
-  width: 90%;
-  gap: 10px; /* Space between buttons */
+  width: 100%;
+  gap: 15px;
   margin-top: 10px;
 }
 
 .total-container {
   display: flex;
-  justify-content: space-between; /* Распределяет элементы по краям */
-  align-items: center; /* Выравнивание по центру вертикально */
-  margin-bottom: 20px; /* Пространство снизу для добавления отступа между Total и ценой */
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .total-amount__text {
-  font-size: 12px; /* Маленький размер шрифта */
-  font-weight: bold; /* Жирный шрифт */
-  text-transform: uppercase; /* Заглавные буквы */
-  color: black; /* Черный цвет текста */
-  margin-right: 5px; /* Отступ между меткой и значением */
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: black;
+  margin-right: 5px;
 }
 
 .cart-total-amount {
-  font-size: 12px; /* Маленький размер шрифта */
-  font-weight: bold; /* Жирный шрифт */
-  text-transform: uppercase; /* Заглавные буквы */
-  color: black; /* Черный цвет текста */
-  margin-right: 5px; /* Отступ между меткой и значением */
-  margin-left: 230px; /* Большой отступ между текстом и ценой */
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: black;
+  margin-right: 5px;
+  margin-left: 230px;
 }
 
 .cart-view-total-button,
@@ -227,19 +211,20 @@
   flex: 1;
   padding: 15px 0;
   font-size: 16px;
-  color: #fff;
+  color: $text-color-white;
   border: none;
-  border-radius: 0; /* Square corners as per the screenshot */
+  border-radius: 0;
   cursor: pointer;
   text-align: center;
 }
 
 .cart-view-total-button {
-  background-color: #f0f0f0;
-  color: #333; /* Dark color for text */}
+  background-color: $background-color-whitesmoke;
+  color: $text-color-dirt;
+}
 
 .cart-checkout-button {
-  background-color: #b22222; /* Красная (firebrick) для Check Out */
+  background-color:$background-color-firebrick;
 }
 
 .cart-view-total-button:hover,
@@ -249,32 +234,75 @@
 
 .cart-product-item {
   display: flex;
-  justify-content: space-between; /* Разделяет элементы по ширине */
-  align-items: center; /* Выравнивание по центру вертикально */
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 15px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid $border-color-lightgray;
   padding: 10px 0;
 }
 
 
 .remove-product-button {
-  background: none;            /* Убираем фон */
-  border: none;                /* Убираем границу */
-  color: #333;                 /* Цвет крестика */
-  font-size: 16px;             /* Размер символа */
-  font-weight: 300;            /* Тонкий крестик */
-  cursor: pointer;             /* Курсор "указатель" при наведении */
-  padding: 0;                  /* Убираем отступы */
-  line-height: 1;              /* Убираем лишние отступы вокруг */
-  display: inline-flex;        /* Для точного позиционирования */
+  background: none;
+  border: none;
+  color: $text-color-dirt;
+  font-size: 16px;
+  font-weight: 300;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  position: relative;          /* Для точного смещения */
-  top: -15px;                   /* Поднимаем крестик вверх */
+  position: relative;
+  top: -15px;
 }
 
 .remove-product-button:hover {
-  color:black;              /* Цвет крестика при наведении */
+  color:$text-color-black;
 }
 
 
+.cart-quantity__container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  width: fit-content;
+  margin-left: auto;
+}
+
+
+.quantity-decrease__button, .quantity-increase__button {
+  width: 20px;
+  height: 20px;
+  background-color: $background-color-white;
+  border: 1px solid $border-color-lightgray;
+  color: $text-color-dirt;
+  font-size: 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.quantity-decrease__button:hover, .quantity-increase__button:hover {
+  background-color: $background-color-firebrick;
+  color: $text-color-white;
+}
+
+
+.quantity-display {
+  font-size: 8px;
+  font-weight: 600;
+  color: $text-color-dirt;
+  width: 25px;
+  text-align: center;
+  border: 1px solid $border-color-lightgray;
+  background-color: $background-color-white;
+  border-radius: 4px;
+  padding: 4px 0;
+}
