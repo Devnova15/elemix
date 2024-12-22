@@ -80,6 +80,7 @@ export const getAllProducts = async () => {
     return await sendRequest(ENDPOINT.PRODUCTS.ROOT)
 }
 
+// WISHLIST
 export const addProductToWishlist = async (productId) => {
     try {
         return await sendRequest(`${ENDPOINT.CUSTOMERS.WISHLIST}/${productId}`, 'PUT', {
@@ -89,7 +90,6 @@ export const addProductToWishlist = async (productId) => {
             }
         },)
 
-
     } catch (error) {
         console.log(error);
 
@@ -97,35 +97,31 @@ export const addProductToWishlist = async (productId) => {
 }
 
 
+export const deleteProductFromWishlist = async (productId) => {
+    try {
+        return await sendRequest(`${ENDPOINT.CUSTOMERS.WISHLIST}/${productId}`, 'DELETE', {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': store.token,
+            }
+        },)
+    }catch (error){
+        console.log(error);
+    }
+}
+
+
+export const getWishList = async () =>{
+    console.log('store token',store.token)
+        return await  sendRequest(ENDPOINT.CUSTOMERS.WISHLIST, 'GET', {
+            headers: {
+                'content-type': 'application/json',
+                'Authorization': store.token,
+            }
+        })
+}
 
 
 
 
 
-
-// //по идее сюда тоже логику с пагинацией нужно
-// const searchProducts = async (item, ) => {
-//     return await sendRequest(`${API}${ENDPOINT.PRODUCTS.SEARCH}${item}`)
-// }
-//
-// //getAllUsers тоже пагинация
-//
-// const loginUser = async (username, password) => {
-//     const loginDetails = {
-//         username,
-//         password,
-//         expiresInMins: 30,
-//     };
-//
-//     return await sendRequest(`${API}${ENDPOINT.USERS.LOGIN}`, {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify(loginDetails),
-//     });
-// };
-
-// getAllProducts().then(products => {
-//     console.log("Products on page 1:", products);
-// });

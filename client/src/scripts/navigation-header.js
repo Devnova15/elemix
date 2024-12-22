@@ -2,7 +2,7 @@ import {modalWindowPosition} from "./constants.js";
 import {createModal} from "./helper/createModalFunction.js";
 import {store} from "./constants.js";
 import {createCartProductCart} from "./helper/cart-product-card.js";
-import { loginInit } from "./requests.js";
+import {getWishList, loginInit} from "./requests.js";
 
 // Функция для удаления окна по нажатию клавиши
 export const removeWindowByKeyPress = (event, modal, overlay) => {
@@ -13,6 +13,89 @@ export const removeWindowByKeyPress = (event, modal, overlay) => {
     }
     console.log(event);
 };
+
+export const createOverlay = () => {
+    let existingOverlay = document.querySelector('.modal-overlay');
+    if (existingOverlay) {
+        existingOverlay.remove();
+    }
+
+    const overlay = document.createElement('div');
+    overlay.className = 'modal-overlay';
+    document.body.appendChild(overlay);
+
+    return overlay;
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+    const wishlistIcon = document.querySelector(".header-icon__heart");
+
+    if (wishlistIcon) {
+        wishlistIcon.addEventListener("click", (event) => {
+            event.preventDefault();
+
+            createModalWindowWishlist("right");
+        });
+    }
+});
+
+
+export const createModalWindowWishlist = (position = modalWindowPosition.right) => {
+    const { modalDiv, modalContent } = createModal(position, 'modal-wishlist-content');
+    const overlay = createOverlay();
+
+    const title = document.createElement('h2');
+    title.textContent = "Your Wishlist";
+
+    const wishlistContent = document.createElement('div');
+    wishlistContent.className = "wishlist-content";
+
+    // Добавление товаров в модальное окно
+    if (store.wishlist.length > 0) {
+        store.wishlist.forEach(item => {
+            const itemDiv = document.createElement('div');
+            itemDiv.className = "wishlist-item";
+
+            const itemImage = document.createElement('img');
+            itemImage.src = item.image; // Изображение товара
+            itemImage.alt = item.name;
+
+            const itemName = document.createElement('p');
+            itemName.textContent = item.name; // Название товара
+
+            const itemPrice = document.createElement('p');
+            itemPrice.textContent = `$${item.currentPrice.toFixed(2)}`; // Цена товара
+
+            itemDiv.appendChild(itemImage);
+            itemDiv.appendChild(itemName);
+            itemDiv.appendChild(itemPrice);
+
+            wishlistContent.appendChild(itemDiv);
+        });
+    } else {
+        wishlistContent.textContent = "Your wishlist is empty.";
+    }
+
+    const closeButton = document.createElement('button');
+    closeButton.className = "modal-close";
+    closeButton.textContent = "×";
+
+    const closeModal = () => {
+        modalDiv.remove();
+        overlay.remove();
+    };
+
+    closeButton.addEventListener('click', closeModal);
+
+    modalContent.appendChild(closeButton);
+    modalContent.appendChild(title);
+    modalContent.appendChild(wishlistContent);
+
+    document.body.append(modalDiv);
+
+    overlay.addEventListener('click', closeModal);
+};
+
 
 
 
@@ -378,7 +461,19 @@ export const createModalForSingUpForm = (error, position = modalWindowPosition.c
     signInForm.appendChild(signInPassword);
     signInForm.appendChild(signInButton);
 
-    signInButton.addEventListener ('click', loginInit())
+    signInButton.addEventListener ('click', async () => {
+        await loginInit();
+        const data = await getWishList()
+        store.wishlist = data.products;
+        console.log('wishList', data);
+const wishListNodes= data.products.map(product => {
+    const node = document.querySelector(`[data-product-id="${product._id}"]`).querySelector('.favorite-btn-shaded').style.display="block";
+
+    return node;
+})
+
+        console.log(wishListNodes);
+    })
 
     // Создание ссылки на регистрацию (Switch to Register)
     let switchToRegister = document.createElement('p');

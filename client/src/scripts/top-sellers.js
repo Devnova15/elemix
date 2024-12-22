@@ -1,9 +1,11 @@
 import { modalWindowPosition, store } from './constants.js';
 import { extractImgUrls } from "./helper/extractImgUrls.js";
 import { createModal } from "./helper/createModalFunction.js";
-import { getAllProducts } from './requests.js';
+import {getAllProducts, loginInit} from './requests.js';
 import { modalProductWindow } from './modalProductWindow.js'
 import { addProductToWishlist } from './requests.js'
+
+
 export const createCartProduct = (product) => {
     const productElement = document.createElement('div');
     const productImageContainer = document.createElement('div');
@@ -14,7 +16,7 @@ export const createCartProduct = (product) => {
     const productPriceContainer = document.createElement('div');
     const productPrice = document.createElement('p');
     const productPreviousPrice = document.createElement('p');
-
+productElement.setAttribute('data-product-id', `${product._id}`);
     productElement.className = 'product-element';
 
     productImageContainer.className = 'product-image-container';
@@ -28,24 +30,12 @@ export const createCartProduct = (product) => {
     quickViewBtn.className = 'product-quick-view-btn';
     quickViewBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M16 0v2h-8v-2h8zm-16 16h2v-8h-2v8zm16 8v-2h-8v2h8zm2-22h1c1.654 0 3 1.346 3 3v1h2v-1c0-2.761-2.238-5-5-5h-1v2zm-12 20h-1c-1.654 0-3-1.346-3-3v-1h-2v1c0 2.761 2.238 5 5 5h1v-2zm16-4v1c0 1.654-1.346 3-3 3h-1v2h1c2.762 0 5-2.239 5-5v-1h-2zm2-10h-2v8h2v-8zm-22-2v-1c0-1.654 1.346-3 3-3h1v-2h-1c-2.762 0-5 2.239-5 5v1h2z"/></svg>`;
 
-
-
-
-
     quickViewBtn.addEventListener('click', (event) => {
         event.stopPropagation();
         modalProductWindow(product);
     });
 
-    ///
-    ///
-    ///
-    ///
-    //
-    //
-    //
-    //
-    //
+
 
     const defineProductStatus = (product) => {
         const productLabelContainer = document.createElement('div');
@@ -185,7 +175,7 @@ export const createCartProduct = (product) => {
     // favoriteBtn.style.display = 'none'; // Контурное сердце скрыто по умолчанию
 
 
-    /////////////
+
 
 
     const favoriteBtn = document.createElement('div');
@@ -199,24 +189,35 @@ export const createCartProduct = (product) => {
       <path d="M12 4.419c-2.826-5.695-11.999-4.064-11.999 3.27 0 7.27 9.903 10.938 11.999 15.311 2.096-4.373 12-8.041 12-15.311 0-7.327-9.17-8.972-12-3.27z" fill="red"/>
     </svg>`;
 
+
+
     productImageContainer.append(productImage1, productImage2, backgroundOverlay, quickViewBtn, favoriteBtn, favoriteBtnShaded);
     productElement.append(productStatusLabels, productImageContainer, productName, productRating, productPriceContainer);
     favoriteBtnShaded.style.display = 'none';
+
+
 
     favoriteBtn.addEventListener('click', async (e) => {
         e.stopPropagation();
         console.log("store", store);
         if (store.user) {
-
-            const responce =  await addProductToWishlist(product._id)
-
-            if (responce) {
+            const response = await addProductToWishlist(product._id);
+            if (response) {
                 favoriteBtn.style.display = 'none';
                 favoriteBtnShaded.style.display = 'block';
                 console.log('Добавлено в избранное:', product);
+          
+                const productToAdd = {
+                    name: product.name,
+                    currentPrice: product.currentPrice,
+                    image: product.variations[0].imageUrls[0],
+                };
+
+                store.wishlist.push(productToAdd);
+                // console.log('Текущий список избранного:', store.wishlist);
             }
         } else {
-            alert('Need to login first')
+            alert('Please log in first');
         }
     });
 
@@ -227,6 +228,7 @@ export const createCartProduct = (product) => {
             favoriteBtnShaded.style.display = 'none';
             favoriteBtn.style.display = 'block';
             console.log('Удалено из избранного:', product);
+            console.log('delet')
         }
     });
 
@@ -258,22 +260,6 @@ export const createCartProduct = (product) => {
 
     return productElement;
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

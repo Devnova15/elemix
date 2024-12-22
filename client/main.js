@@ -2,7 +2,7 @@ import './src/scripts/top-sellers.js'
 import {initializeProductImageSwitcher} from './src/scripts/header-main-module.js';
 import {
     createModalWindowMenu,
-    createModalWindowCart, createModalForSingUpForm,
+    createModalWindowCart, createModalForSingUpForm, createModalWindowWishlist
 
 } from './src/scripts/navigation-header.js';
 import {modalWindowPosition, store} from "./src/scripts/constants.js";
@@ -16,7 +16,6 @@ import {createCartProduct} from "./src/scripts/top-sellers.js";
 document.addEventListener("DOMContentLoaded", async()=>{
     store.topSellers = await getAllProducts()
     const productList = document.querySelector('.product-list')
-
     const productCarts = store.topSellers.map(product => createCartProduct(product))
     productList.append(...productCarts)
 })

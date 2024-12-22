@@ -10,7 +10,8 @@ export const store = {
     totalPrice: 0,
     quantity: 0,
   },
-  wishlist: null,
+  wishlist: [],
+
 }
 
 export const ENDPOINT = Object.freeze({
