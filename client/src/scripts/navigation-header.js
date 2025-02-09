@@ -2,6 +2,7 @@ import {modalWindowPosition} from "./constants.js";
 import {createModal} from "./helper/createModalFunction.js";
 import {store} from "./constants.js";
 import {createCartProductCart} from "./helper/cart-product-card.js";
+import {calculateTotalAmount} from "./helper/calculateTotalAmount.js";
 
 export const removeWindowByKeyPress = (event, modal, overlay) => {
     if (event.keyCode === 27) {
@@ -231,9 +232,6 @@ export const updateCartContent = (cartSideBarContent, cartFooter) => {
         const cards = store.cart.products.map(product => createCartProductCart(product));
         cartSideBarContent.append(...cards);
 
-        const totalAmount = store.cart.products.reduce((total, product) => {
-            return total + product.currentPrice * product.cartQuantity;
-        }, 0);
 
         const totalContainer = document.createElement('div');
         totalContainer.className = 'total-container';
@@ -244,7 +242,8 @@ export const updateCartContent = (cartSideBarContent, cartFooter) => {
 
         let totalAmountElement = document.createElement('p');
         totalAmountElement.className = "cart-total-amount";
-        totalAmountElement.textContent = `$${totalAmount.toFixed(2)}`;
+        totalAmountElement.id = "totalAmountElement";
+        totalAmountElement.textContent = calculateTotalAmount(store.cart.products);
 
         let viewTotalButton = document.createElement('button');
         viewTotalButton.className = "cart-view-total-button";
@@ -278,7 +277,7 @@ export const updateCartFooter = () => {
     cartFooter.innerHTML = '';
 
     const totalAmount = store.cart.products.reduce((total, product) => {
-        return total + product.currentPrice * product.cartQuantity;
+        return total + product.product.currentPrice * product.cartQuantity;
     }, 0);
 
     const totalContainer = document.createElement('div');

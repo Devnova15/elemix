@@ -2,14 +2,14 @@ import {modalWindowPosition, store} from "./constants.js";
 import {addRatingEventListeners, createCartProduct, getStarsHTML, updateStarsDisplay} from "./top-sellers.js";
 import {extractImgUrls} from "./helper/extractImgUrls.js";
 import {createModal} from "./helper/createModalFunction.js";
-import {addToCartProducts} from "./helper/addToCartProducts.js";
+import {updateCartWithProduct} from "./helper/updateCartWithProduct.js";
 
 export const modalProductWindow = (product, position = modalWindowPosition.center) => {
     const imgUrls = extractImgUrls(product)
     const {modalDiv, modalContent, overlay} = createModal(position);
 
-    let currentIndex = 0;  // Начальный индекс изображения
-    let currentQuantity = 1; // Начальное количество товара
+    let currentIndex = 0;
+    let currentQuantity = 1;
 
 
     const modalTextContainer = document.createElement('div');
@@ -55,7 +55,7 @@ export const modalProductWindow = (product, position = modalWindowPosition.cente
     productCategory.textContent = `${product.categories}`;
 
     const categoryContainer = document.createElement('div');
-    categoryContainer.className = 'category-container'; // Добавляем класс для стилей
+    categoryContainer.className = 'category-container';
     categoryContainer.appendChild(categoryLabel);
     categoryContainer.appendChild(productCategory);
 
@@ -188,36 +188,52 @@ export const modalProductWindow = (product, position = modalWindowPosition.cente
     const buttonsContainer = document.createElement('div');
     buttonsContainer.className = 'buttons-container';
 
+
+    // ЛОГИКА С ПРОВЕРКОЙ НА НАЛИЧЕЕ ПРОДУКТА
     const addToCartButton = document.createElement('button');
     addToCartButton.textContent = 'ADD TO CART';
     addToCartButton.className = 'add-to-cart-button';
 
     addToCartButton.addEventListener('click', () => {
-        const selectedColor = colorSelect ? colorSelect.value : null;
-        const selectedSize = sizeSelect ? sizeSelect.value : null;
         const quantity = currentQuantity;
+        const selectedColor = colorSelect.value;
+        const selectedSize = sizeSelect.value;
 
-        const selectedVariation = product.variations.find(variation => variation.color === selectedColor);
-        const selectedImage = selectedVariation ? selectedVariation.imageUrls[0] : product.variations[0].imageUrls[0];
+        if (!validateProductSelection(product, selectedColor, selectedSize, quantity)) return;
 
-        if (selectedVariation && selectedVariation.quantity === 0) {
+        const updatedProduct = {
+            ...product,
+            size: selectedSize,
+            color: selectedColor,
+        };
+
+        updateCartWithProduct(updatedProduct, quantity);
+        console.log(store.cart.products);
+    });
+
+    function validateProductSelection(product, color, size, quantity) {
+        if (!isProductAvailable(product, color, size, quantity)) {
             showOutOfStockMessage();
-            return;
+            return false;
         }
 
         if (quantity <= 0) {
             alert('Please select a valid quantity');
-            return;
+            return false;
         }
 
-        addToCartProducts(product, quantity, selectedColor, selectedImage);
-        console.log(store.cart.products);
-    });
+        return true;
+    }
+
+    function isProductAvailable(product, color, size, quantity) {
+        const variation = product.variations?.find(v => v.color === color);
+        const sizeInfo = variation?.sizes.find(s => s.size === size);
+        return sizeInfo && sizeInfo.quantity >= quantity;
+    }
 
     function showOutOfStockMessage() {
         const outOfStockMessage = document.createElement('div');
         outOfStockMessage.className = 'out-of-stock-message';
-
         outOfStockMessage.textContent = 'Sorry, this product is out of stock!';
 
         modalTextContainer.prepend(outOfStockMessage);
@@ -226,6 +242,33 @@ export const modalProductWindow = (product, position = modalWindowPosition.cente
             outOfStockMessage.remove();
         }, 3000);
     }
+
+
+
+    // const addToCartButton = document.createElement('button');
+    // addToCartButton.textContent = 'ADD TO CART';
+    // addToCartButton.className = 'add-to-cart-button';
+    //
+    // addToCartButton.addEventListener('click', () => {
+    //     const quantity = currentQuantity;
+    //
+    //     if (quantity <= 0) {
+    //         alert('Please select a valid quantity');
+    //         return;
+    //     }
+    //
+    //     const updatedProduct= {
+    //         ...product,
+    //         size: sizeSelect.value,
+    //         color: colorSelect.value,
+    //     }
+    //     console.log('Product color', product.variations[0]?.color)
+    //     updateCartWithProduct(updatedProduct, quantity);
+    //
+    //     console.log(store.cart.products);
+    // });
+
+
 
 
 
@@ -257,33 +300,35 @@ export const modalProductWindow = (product, position = modalWindowPosition.cente
 
     // Блок для селекторов цветов и размеров
     let sizeSelect;
-    let sizeText
-    if (product.variations && product.sizes) {
-        sizeText = document.createElement('p')
+    let sizeText;
+    if (product.variations && product.variations.length > 0) {
+        const firstVariation = product.variations[0];
+
+        sizeText = document.createElement('p');
         sizeText.className = 'modal-size__label';
-        sizeText.textContent = "Size:"
+        sizeText.textContent = "Size:";
 
         sizeSelect = document.createElement('select');
         sizeSelect.className = 'modal-sizes';
 
-        const sizesProduct = product.sizes.split(', ');
-        sizesProduct.forEach(size => {
+        firstVariation.sizes.forEach(sizeObj => {
             const sizeOption = document.createElement('option');
-            sizeOption.value = size;
-            sizeOption.text = size;
-            sizeSelect.append(sizeOption)
-        })
+            sizeOption.value = sizeObj.size;
+            sizeOption.text = sizeObj.size;
+            sizeSelect.append(sizeOption);
+        });
+
+
         modalTextContainer.appendChild(sizeText);
         modalTextContainer.appendChild(sizeSelect);
-
     }
 
     let colorSelect;
-    let colorText
+    let colorText;
     if (product.variations) {
-        colorText = document.createElement('p')
+        colorText = document.createElement('p');
         colorText.className = 'modal-color__label';
-        colorText.textContent = "Color:"
+        colorText.textContent = "Color:";
 
         colorSelect = document.createElement('select');
         colorSelect.className = 'modal-colors';
@@ -294,6 +339,7 @@ export const modalProductWindow = (product, position = modalWindowPosition.cente
             colorOption.textContent = variation.color;
             colorSelect.append(colorOption);
         });
+
         modalTextContainer.appendChild(colorText);
         modalTextContainer.appendChild(colorSelect);
 
@@ -303,17 +349,21 @@ export const modalProductWindow = (product, position = modalWindowPosition.cente
 
             if (selectedVariation) {
                 if (selectedVariation.imageUrls) {
-                    modalImg.src = selectedVariation.imageUrls[0]; // Обновляем изображение
+                    modalImg.src = selectedVariation.imageUrls[0];
                 }
 
-                if (selectedVariation.previousPrice !== undefined && selectedVariation.previousPrice !== selectedVariation.currentPrice) {
-                    modalPrice.textContent = `Price: $${selectedVariation.previousPrice.toFixed(2)}`;  // Показываем цену со скидкой
-                } else {
-                    modalPrice.textContent = `Price: $${selectedVariation.currentPrice.toFixed(2)}`;  // Показываем обычную цену
-                }
+                const sizeSelect = document.querySelector('.modal-sizes');
+                sizeSelect.innerHTML = '';
+                selectedVariation.sizes.forEach(sizeObj => {
+                    const sizeOption = document.createElement('option');
+                    sizeOption.value = sizeObj.size;
+                    sizeOption.text = sizeObj.size;
+                    sizeSelect.append(sizeOption);
+                });
+
+                modalPrice.textContent = `Price: $${selectedVariation.currentPrice.toFixed(2)}`;
             }
         });
-
     }
 
     const quantityInput = document.createElement('input');
@@ -322,7 +372,6 @@ export const modalProductWindow = (product, position = modalWindowPosition.cente
     quantityInput.value = currentQuantity;
     quantityInput.min = 1;
 
-    //кнопка для уменьшеная к-ства
     const decreaseButton = document.createElement('button');
     decreaseButton.className = 'quantity-button';
     decreaseButton.textContent = '-';
@@ -331,33 +380,37 @@ export const modalProductWindow = (product, position = modalWindowPosition.cente
             currentQuantity--;
             quantityInput.value = currentQuantity;
         }
-    })
+    });
 
     const increaseButton = document.createElement('button');
     increaseButton.className = 'quantity-counter';
     increaseButton.textContent = '+';
     increaseButton.addEventListener('click', () => {
-        const selectedColor = document.querySelector('.modal-colors')?.value  //выбранный цвет
+        const selectedColor = document.querySelector('.modal-colors')?.value;
+        const selectedSize = document.querySelector('.modal-sizes')?.value;
         const selectedVariation = product.variations.find(variation => variation.color === selectedColor);
 
-        // Если существует выбранная вариация и текущее количество (currentQuantity) меньше, чем доступное количество для этой вариации (selectedVariation.quantity) то Увеличиваем currentQuantity на 1.
-        if (selectedVariation && currentQuantity < selectedVariation.quantity) {
+        const selectedSizeObj = selectedVariation.sizes.find(sizeObj => sizeObj.size === selectedSize);
+
+        if (selectedSizeObj && currentQuantity < selectedSizeObj.quantity) {
             currentQuantity++;
             quantityInput.value = currentQuantity;
         }
-    })
-
+    });
     quantityInput.addEventListener('input', () => {
         const value = parseInt(quantityInput.value);
-        const selectedColor = document.querySelector('.modal-colors')?.value; // Получаем выбранный цвет
+        const selectedColor = document.querySelector('.modal-colors')?.value;
+        const selectedSize = document.querySelector('.modal-sizes')?.value;
         const selectedVariation = product.variations.find(variation => variation.color === selectedColor);
-        if (selectedVariation) {
+        const selectedSizeObj = selectedVariation.sizes.find(sizeObj => sizeObj.size === selectedSize);
+
+        if (selectedSizeObj) {
             if (value < 1) {
                 quantityInput.value = 1;
                 currentQuantity = 1;
-            } else if (value > selectedVariation.quantity) {
-                quantityInput.value = selectedVariation.quantity;
-                currentQuantity = selectedVariation.quantity;
+            } else if (value > selectedSizeObj.quantity) {
+                quantityInput.value = selectedSizeObj.quantity;
+                currentQuantity = selectedSizeObj.quantity;
             } else {
                 currentQuantity = value;
             }
@@ -370,9 +423,7 @@ export const modalProductWindow = (product, position = modalWindowPosition.cente
     quantityContainer.append(quantityInput);
     quantityContainer.append(increaseButton);
 
-
     updateStarsDisplay(modalStarsContainer, product.rank);
-
     addRatingEventListeners(modalStarsContainer, product);
 
     modalTextContainer.append(
@@ -392,8 +443,8 @@ export const modalProductWindow = (product, position = modalWindowPosition.cente
         shareProductContainer
     );
 
-    modalImgContainer.append(modalImg, modalImgButtonLeft, modalImgButtonRight,  indicatorsContainer);
+    modalImgContainer.append(modalImg, modalImgButtonLeft, modalImgButtonRight, indicatorsContainer);
 
     modalContent.append(modalImgContainer, modalTextContainer);
     document.body.appendChild(modalDiv);
-};
+}

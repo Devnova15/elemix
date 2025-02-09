@@ -250,6 +250,7 @@ exports.deleteProductFromCart = async (req, res, next) => {
       if (!cart) {
         res.status(400).json({ message: `Cart does not exist` });
       } else {
+          console.log('cart: ', cart);
         if (
           !cart.products.some(
             (item) => item.product.toString() === req.params.productId

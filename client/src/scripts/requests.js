@@ -1,4 +1,7 @@
 import {API, ENDPOINT, store} from './constants.js';
+import {initCart} from "./helper/initCart.js";
+import {saveCartToLocalStorage} from "./helper/saveCartToLocalStorage.js";
+import {saveTokenToLocalStorage} from "./helper/saveTokenToLocalStorage.js";
 
 export const sendRequest = async (url, method = "GET", options = {}) => {
     try {
@@ -42,16 +45,22 @@ export const registrateInit = async () => {
     console.log(responce)
 }
 
-export const loginInit = async () => {
+export const loginUser = async () => {
     const userData = {
         loginOrEmail: "customer@gmail.com",
         password: "1111111"
     };
 
+
     const {token} = await loginAndGetToken(userData)
-    store.token = token
-    store.user = userData
-    console.log(store)
+    if (token){
+        store.token = token
+        store.user = userData
+        saveTokenToLocalStorage(token)
+        await initCart(token)
+
+    }
+
 }
 
 export const getProduct = async () => {
@@ -81,7 +90,49 @@ export const getAllProducts = async () => {
 }
 
 
-// //по идее сюда тоже логику с пагинацией нужно
+export const deleteProductFromCart = async (productId) => {
+    return await sendRequest(`${ENDPOINT.CUSTOMERS.DELETE_PRODUCT_FROM_CART}/${productId}`, 'DELETE', {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': store.token,
+        },
+    })
+}
+
+export const updateCartOnServer = async (cartData) => {
+    return await sendRequest(ENDPOINT.CUSTOMERS.UPDATE_CART_ON_SERVER, 'PUT', {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': store.token,
+        },
+        body: JSON.stringify(cartData)
+    })
+}
+
+
+export const getCart = async (token) => {
+    return await sendRequest(ENDPOINT.CUSTOMERS.GET_CART, 'GET', {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token,
+        },
+
+        }
+    )}
+
+export const createCart = async (payload) => {
+    return await  sendRequest(ENDPOINT.CUSTOMERS.CREATE_CART, 'POST', {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': store.token,
+            },
+        body: JSON.stringify(payload),
+        }
+    )}
+
+
+
+
 // const searchProducts = async (item, ) => {
 //     return await sendRequest(`${API}${ENDPOINT.PRODUCTS.SEARCH}${item}`)
 // }

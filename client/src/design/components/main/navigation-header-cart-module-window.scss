@@ -21,7 +21,7 @@
   position: fixed;
   top: 0;
   right: 0;
-  width: 400px;
+  width: 500px;
   height: 100%;  ///ВЫСОТА МОДАЛКИ
   background-color: $background-color-white;
   box-shadow: -4px 0 15px rgba(0, 0, 0, 0.1);
@@ -52,7 +52,7 @@
 .cart-side-bar__span {
   position: absolute;
   top: 20px;
-  right: 68%;
+  right: 73%;
   background-color: $background-color-firebrick;
   color: $text-color-white;
   font-size: 10px;
@@ -65,8 +65,8 @@
 }
 
 .cart-product-name {
-  font-size: 14px;
-  font-weight: 400;
+  font-size: 13px;
+  font-weight: 500;
   color: $text-color-dirt;
   line-height: 1.5;
   flex: 1;
@@ -75,13 +75,24 @@
   white-space: nowrap;
 }
 
-.cart-product-price {
+.cart-product-color {
   font-size: 12px;
   font-weight: 300;
   color: $text-color-black;
-  line-height: 1.4;
+  line-height: 1.5;
   text-align: right;
-  width: 80px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+.cart-product-price {
+  font-size: 11px;
+  font-weight: 300;
+  color: $text-color-black;
+  line-height: 1.5;
+  text-align: right;
+  width: 30px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -266,7 +277,7 @@
 .cart-quantity__container {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 5px;
   padding: 5px 10px;
   border-radius: 8px;
   width: fit-content;
@@ -299,10 +310,21 @@
   font-size: 8px;
   font-weight: 600;
   color: $text-color-dirt;
-  width: 25px;
   text-align: center;
-  border: 1px solid $border-color-lightgray;
-  background-color: $background-color-white;
-  border-radius: 4px;
+  width: 25px;
   padding: 4px 0;
+  background-color: $background-color-white;
+  border: 1px solid $border-color-lightgray;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.quantity-display::-webkit-inner-spin-button,
+.quantity-display::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.quantity-display[type=number] {
+  -moz-appearance: textfield;
 }
