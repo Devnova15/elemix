@@ -7,7 +7,7 @@ export const loadCartFromLocalStorage = () => {
 
         const cartCountElement = document.querySelector('.header-icon__cart-count');
         if (cartCountElement) {
-            cartCountElement.textContent = store.cart.quantity;
+            cartCountElement.textContent = store.cart.products.length;
 
         }
     }

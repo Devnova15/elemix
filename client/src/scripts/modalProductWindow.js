@@ -208,6 +208,7 @@ export const modalProductWindow = (product, position = modalWindowPosition.cente
         };
 
         updateCartWithProduct(updatedProduct, quantity);
+
         console.log(store.cart.products);
     });
 

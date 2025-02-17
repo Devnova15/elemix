@@ -4,6 +4,7 @@ import {updateCartFooter} from "../navigation-header.js";
 import {saveCartToLocalStorage} from "./saveCartToLocalStorage.js";
 import {updateCartOnServer} from "../requests.js";
 import {calculateTotalAmount} from "./calculateTotalAmount.js";
+import {updateTotalAmountElement} from "./updateTotalAmountElement.js";
 
 
 export const createCartProductCart = (product) => {
@@ -41,7 +42,7 @@ export const createCartProductCart = (product) => {
     decreaseButton.className = 'quantity-decrease__button';
     decreaseButton.textContent = '-';
     decreaseButton.addEventListener('click', async () => {
-        const productToUpdate = store.cart.products.find((storeProduct)=>{
+        const productToUpdate = store.cart.products.find((storeProduct) => {
             return storeProduct.product._id === product.product._id
         })
         let availableQuantity
@@ -55,40 +56,23 @@ export const createCartProductCart = (product) => {
                 })
             }
         })
-        if (productToUpdate.cartQuantity > 1){
+        if (productToUpdate.cartQuantity > 1) {
             productToUpdate.cartQuantity--;
 
             try {
-               await updateCartOnServer({
-                    products:[...store.cart.products]
+                await updateCartOnServer({
+                    products: [...store.cart.products]
                 })
                 quantityDisplay.value = productToUpdate.cartQuantity;
                 productPrice.textContent = `$${(productToUpdate.product.currentPrice * productToUpdate.cartQuantity).toFixed(2)}`;
-            }catch (Error){
+
+                updateTotalAmountElement(store.cart.products)
+            } catch (Error) {
 
             }
 
         }
 
-        // if (product.cartQuantity > 1) {
-        //     product.cartQuantity--;
-        //     quantityDisplay.value = product.cartQuantity;
-        //     productPrice.textContent = `$${(product.product.currentPrice * product.cartQuantity).toFixed(2)}`;
-        //
-        //     try {
-        //         await updateCartOnServer({
-        //             products: store.cart.products.map(p => ({
-        //                 product: p._id,
-        //                 cartQuantity: p.cartQuantity,
-        //             }))
-        //         });
-        //         saveCartToLocalStorage();
-        //         updateCartFooter();
-        //         console.log("Количество товара уменьшено");
-        //     } catch (error) {
-        //         console.error("Ошибка при обновлении корзины на сервере", error);
-        //     }
-        // }
     });
 
     const quantityDisplay = document.createElement('input');
@@ -122,18 +106,13 @@ export const createCartProductCart = (product) => {
 
             try {
                 await updateCartOnServer({
-                    products : [...store.cart.products]
+                    products: [...store.cart.products]
                 })
                 quantityDisplay.value = productToUpdate.cartQuantity
                 productPrice.textContent = `$${(productToUpdate.product.currentPrice * productToUpdate.cartQuantity).toFixed(2)}`
-               const totalAmountElement = document.getElementById('totalAmountElement');
-                calculateTotalAmount(store.cart.product)
+                updateTotalAmountElement(store.cart.products)
 
-            }catch (error) {}
-            finally {
-                console.log("PRODUCTS",store.cart.products);
-
-            }
+            } catch (error) {}
         }
         saveCartToLocalStorage();
     });

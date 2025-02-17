@@ -6,13 +6,10 @@ import {
 
 } from './src/scripts/navigation-header.js';
 import {modalWindowPosition, store} from "./src/scripts/constants.js";
-import {getAllProducts, getProduct, loginUser, registrateInit} from "./src/scripts/requests.js";
-import {addProduct} from "./src/scripts/requests.js";
+import {getAllProducts, loginUser} from "./src/scripts/requests.js";
 import {addProductsMensCategory, addProductsWomensCategory} from "./src/scripts/addProductsToDB.js";
 import {createCartProduct} from "./src/scripts/top-sellers.js";
 import {loadCartFromLocalStorage} from "./src/scripts/helper/loadCartFromLocalStorage.js";
-import {initCart} from "./src/scripts/helper/initCart.js";
-import {decodeJwt} from "./src/scripts/helper/decodeJwt.js";
 import {checkTokenHealth} from "./src/scripts/helper/checkTokenHealth.js";
 
 

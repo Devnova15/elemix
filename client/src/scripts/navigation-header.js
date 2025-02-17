@@ -161,7 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-// МОДАЛКА КОРЗИНЫ
+// МОДАЛКА КОРЗИНЫ МОДАЛКА КОРЗИНЫ
 
 export const createModalWindowCart = (position = modalWindowPosition.right) => {
     const existingModal = document.querySelector('.modal-cart-content');
@@ -186,7 +186,7 @@ export const createModalWindowCart = (position = modalWindowPosition.right) => {
 
     let cartSideBarSpan = document.createElement('span');
     cartSideBarSpan.className = "cart-side-bar__span";
-    cartSideBarSpan.textContent = store.cart.quantity;
+    cartSideBarSpan.textContent = store.cart.products.length;
 
     let cartSideBarButton = document.createElement('button');
     cartSideBarButton.className = "cart-side-bar__button";
@@ -266,10 +266,11 @@ export const updateCartContent = (cartSideBarContent, cartFooter) => {
 
     const cartSideBarSpan = document.querySelector('.cart-side-bar__span');
     if (cartSideBarSpan) {
-        cartSideBarSpan.textContent = store.cart.quantity;
+        cartSideBarSpan.textContent = store.cart.products.length;
     }
 
-
+const headerIconCartCount= document.querySelector('.header-icon__cart-count')
+    headerIconCartCount.textContent = store.cart.products.length
 };
 
 export const updateCartFooter = () => {

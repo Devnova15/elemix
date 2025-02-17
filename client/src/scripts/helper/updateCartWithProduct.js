@@ -59,6 +59,7 @@ export const updateCartWithProduct = async (product, quantity = 1) => {
     }
 
     if (cartCountElement) {
-        cartCountElement.textContent = store.cart.quantity;
+        cartCountElement.textContent = store.cart.products.length;
+        console.log("store~~",store.cart);
     }
 };
