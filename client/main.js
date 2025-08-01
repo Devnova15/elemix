@@ -15,26 +15,13 @@ import {checkTokenHealth} from "./src/scripts/helper/checkTokenHealth.js";
 
 
 
-//implement logout function
 const logout = () => {
     localStorage.removeItem('token');
     store.token = null
 }
-//1. remove token from localStorage
-//2. remove token from store
-//3. set isLogin to false
 
-const loginInit =  () => {
-    const localStorageToken = localStorage.getItem('token')
-    if (!localStorageToken) return
-    console.log(checkTokenHealth(localStorageToken))
-    if (checkTokenHealth(localStorageToken)) {
-        store.token = localStorageToken;
-        store.user.isLogin = true;
-        return;
-    } else {
-        logout();
-    }
+
+export const loginInit = () => {
 };
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -73,7 +60,6 @@ initializeProductImageSwitcher();
 
 // В файле с обработчиком события
 document.addEventListener('click', async (event) => {
-    // Проверяем, был ли клик по кнопке с классом form-button
     if (event.target.classList.contains('form-button')) {
         console.log('clicked');
         await loginUser();
@@ -103,5 +89,3 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
     loadCartFromLocalStorage();
 });
-
-

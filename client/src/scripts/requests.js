@@ -53,7 +53,7 @@ export const loginUser = async () => {
 
 
     const {token} = await loginAndGetToken(userData)
-    if (token){
+    if (token) {
         store.token = token
         store.user = userData
         saveTokenToLocalStorage(token)
@@ -63,8 +63,8 @@ export const loginUser = async () => {
 
 }
 
-export const getProduct = async () => {
-    return sendRequest(ENDPOINT.PRODUCTS.ROOT, 'GET', {
+export const getProductById = async (productId) => {
+    return sendRequest(`${ENDPOINT.PRODUCTS.PRODUCT_BY_ID}${productId}`, 'GET', {
         headers: {
             'Content-Type': 'application/json',
         },
@@ -112,32 +112,46 @@ export const updateCartOnServer = async (cartData) => {
 
 export const getCart = async (token) => {
     return await sendRequest(ENDPOINT.CUSTOMERS.GET_CART, 'GET', {
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': token,
-        },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token,
+            },
 
         }
-    )}
+    )
+}
 
 export const createCart = async (payload) => {
-    return await  sendRequest(ENDPOINT.CUSTOMERS.CREATE_CART, 'POST', {
+    return await sendRequest(ENDPOINT.CUSTOMERS.CREATE_CART, 'POST', {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': store.token,
             },
-        body: JSON.stringify(payload),
+            body: JSON.stringify(payload),
         }
-    )}
+    )
+}
 
+export const addComment = async () => {
+    return await sendRequest(ENDPOINT.CUSTOMERS.PRODUCT_COMMENT, 'POST', {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+}
 
-
+export const deleteComment = async (id) => {
+    return await sendRequest(`${ENDPOINT.CUSTOMERS.DELETE_PRODUCT_COMMENT}${id}`, 'DELETE', {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+}
 
 // const searchProducts = async (item, ) => {
 //     return await sendRequest(`${API}${ENDPOINT.PRODUCTS.SEARCH}${item}`)
 // }
 //
-// //getAllUsers тоже пагинация
 //
 // const loginUser = async (username, password) => {
 //     const loginDetails = {

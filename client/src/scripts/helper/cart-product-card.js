@@ -59,20 +59,23 @@ export const createCartProductCart = (product) => {
         if (productToUpdate.cartQuantity > 1) {
             productToUpdate.cartQuantity--;
 
-            try {
-                await updateCartOnServer({
-                    products: [...store.cart.products]
-                })
-                quantityDisplay.value = productToUpdate.cartQuantity;
-                productPrice.textContent = `$${(productToUpdate.product.currentPrice * productToUpdate.cartQuantity).toFixed(2)}`;
-
-                updateTotalAmountElement(store.cart.products)
-            } catch (Error) {
-
+            // ДОБАВИТЬ ПРОВЕРКУ НА ТОКЕН:
+            if (store.token) {
+                try {
+                    await updateCartOnServer({
+                        products: [...store.cart.products]
+                    })
+                } catch (error) {
+                    console.error('Error updating cart:', error);
+                }
             }
-
+            
+            // ЭТИ ОПЕРАЦИИ ДОЛЖНЫ ВЫПОЛНЯТЬСЯ ВСЕГДА:
+            quantityDisplay.value = productToUpdate.cartQuantity;
+            productPrice.textContent = `$${(productToUpdate.product.currentPrice * productToUpdate.cartQuantity).toFixed(2)}`;
+            updateTotalAmountElement(store.cart.products);
+            saveCartToLocalStorage();
         }
-
     });
 
     const quantityDisplay = document.createElement('input');
@@ -104,19 +107,25 @@ export const createCartProductCart = (product) => {
         if (productToUpdate.cartQuantity < availableQuantity) {
             productToUpdate.cartQuantity++
 
-            try {
-                await updateCartOnServer({
-                    products: [...store.cart.products]
-                })
-                quantityDisplay.value = productToUpdate.cartQuantity
-                productPrice.textContent = `$${(productToUpdate.product.currentPrice * productToUpdate.cartQuantity).toFixed(2)}`
-                updateTotalAmountElement(store.cart.products)
-
-            } catch (error) {}
+            // ДОБАВИТЬ ПРОВЕРКУ НА ТОКЕН:
+            if (store.token) {
+                try {
+                    await updateCartOnServer({
+                        products: [...store.cart.products]
+                    })
+                } catch (error) {
+                    console.error('Error updating cart:', error);
+                }
+            }
+            
+            // ЭТИ ОПЕРАЦИИ ДОЛЖНЫ ВЫПОЛНЯТЬСЯ ВСЕГДА:
+            quantityDisplay.value = productToUpdate.cartQuantity;
+            productPrice.textContent = `$${(productToUpdate.product.currentPrice * productToUpdate.cartQuantity).toFixed(2)}`;
+            updateTotalAmountElement(store.cart.products);
+            saveCartToLocalStorage();
         }
-        saveCartToLocalStorage();
     });
-    quantityDisplay.addEventListener('input', () => {
+    quantityDisplay.addEventListener('input', async () => {
         const value = parseInt(quantityDisplay.value);
         let availableQuantity = 0;
         if (product.product.variations) {
@@ -139,7 +148,20 @@ export const createCartProductCart = (product) => {
         }
         productPrice.textContent = `$${(product.product.currentPrice * product.cartQuantity).toFixed(2)}`;
 
-
+        // ДОБАВИТЬ ПРОВЕРКУ НА ТОКЕН:
+        if (store.token) {
+            try {
+                await updateCartOnServer({
+                    products: [...store.cart.products]
+                });
+            } catch (error) {
+                console.error('Error updating cart:', error);
+            }
+        }
+        
+        // ЭТИ ОПЕРАЦИИ ДОЛЖНЫ ВЫПОЛНЯТЬСЯ ВСЕГДА:
+        updateTotalAmountElement(store.cart.products);
+        saveCartToLocalStorage();
     })
 
     quantityContainer.appendChild(decreaseButton);
@@ -164,4 +186,3 @@ export const createCartProductCart = (product) => {
 
     return productItem;
 };
-

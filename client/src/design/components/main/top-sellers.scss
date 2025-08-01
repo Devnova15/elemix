@@ -47,8 +47,14 @@
   font-weight: 100;
   text-align: left;
   text-transform: capitalize;
+  text-decoration: none;
+  color: inherit;
 }
 
+.product-name:hover {
+  color: $text-color-firebrick; /* Используем переменную для красного цвета */
+  text-decoration: none; /* Убираем подчеркивание */
+}
 .product-rating {
   text-align: left;
   margin-top: 5px;
@@ -111,10 +117,7 @@
 
   color: $text-color-white;
   background-color: $text-color-firebrick;
-
-
 }
-
 
 .star {
   font-size: 18px;

@@ -10,7 +10,7 @@ export const createCartProduct = (product) => {
     const productImageContainer = document.createElement('div');
     const productImage1 = document.createElement('img');
     const productImage2 = document.createElement('img');
-    const productName = document.createElement('p');
+    const productName = document.createElement('a');
     const productRating = document.createElement('div');
     const productPriceContainer = document.createElement('div');
     const productPrice = document.createElement('p');
@@ -29,12 +29,9 @@ export const createCartProduct = (product) => {
     favoriteBtn.className = 'favorite-btn'
     favoriteBtn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402m5.726-20.583c-2.203 0-4.446 1.042-5.726 3.238-1.285-2.206-3.522-3.248-5.719-3.248-3.183 0-6.281 2.187-6.281 6.191 0 4.661 5.571 9.429 12 15.809 6.43-6.38 12-11.148 12-15.809 0-4.011-3.095-6.181-6.274-6.181"/></svg>`
 
-
-
-    // Add click event to the quick view button
     quickViewBtn.addEventListener('click', (event) => {
-        event.stopPropagation(); // Prevent triggering parent click events
-        modalProductWindow(product); // Open the product modal
+        event.stopPropagation();
+        modalProductWindow(product);
     });
 
     const defineProductStatus = (product) => {
@@ -63,12 +60,6 @@ export const createCartProduct = (product) => {
             productLabelContainer.appendChild(productSoldOut);
         }
 
-
-
-
-
-
-
         return productLabelContainer;
     };
 
@@ -81,6 +72,7 @@ export const createCartProduct = (product) => {
     productImage2.src = product.imageUrls[1] || product.variations[0].imageUrls[1];
 
     productName.className = 'product-name';
+    productName.href = `product.html?id=${product.itemNo}`
     productName.textContent = product.name;
 
     if (product.variations && product.variations.length > 0) {
